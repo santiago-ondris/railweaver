@@ -17,6 +17,9 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 - Dataset inicial de Córdoba con bounding box, vista de cámara y metadatos de fuente
   del IGN; endpoint genérico `GET /api/regions/{id}` que lo lee y valida antes de
   exponerlo al frontend.
+- Visor geográfico CesiumJS enfocado en Córdoba, con imágenes base de OpenStreetMap,
+  terreno elipsoidal, bounding box de referencia y controles accesibles para alternar
+  las capas de mapa y región.
 
 ### Changed
 

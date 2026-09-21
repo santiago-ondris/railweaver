@@ -1,34 +1,333 @@
 :root {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.5;
-  color-scheme: light dark;
-  color: #1d2327;
-  background: #f6f7f7;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #edf2f5;
+  background: #101619;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #e6e8ea;
-    background: #15181b;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #101619;
+}
+
+.app-header {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid #2b363b;
+  background: rgb(16 22 25 / 94%);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-lockup > span:last-child {
+  display: grid;
+  gap: 2px;
+}
+
+.brand-lockup strong {
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.brand-lockup span span {
+  color: #87959c;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid #d79036;
+  border-radius: 7px;
+  color: #f0a23a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.milestone-badge {
+  padding: 7px 10px;
+  border: 1px solid #364248;
+  border-radius: 999px;
+  color: #aeb9be;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.app-main,
+.map-stage,
+.map-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+}
+
+.app-main,
+.map-stage {
+  height: 100%;
+}
+
+.map-stage {
+  overflow: hidden;
+  background: #080d0f;
+}
+
+.map-canvas {
+  height: 100%;
+}
+
+.layer-panel,
+.region-label,
+.status-card,
+.viewer-error {
+  border: 1px solid rgb(101 119 127 / 35%);
+  background: rgb(17 24 27 / 92%);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 28%);
+  backdrop-filter: blur(12px);
+}
+
+.layer-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: min(310px, calc(100% - 40px));
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.panel-heading {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px 12px;
+}
+
+.panel-heading strong {
+  font-size: 15px;
+}
+
+.eyebrow {
+  color: #8d9ba1;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.layer-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 10px;
+  border: 0;
+  border-top: 1px solid #2c373c;
+  color: #e5ecef;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.layer-toggle:hover {
+  background: rgb(255 255 255 / 4%);
+}
+
+.layer-toggle:focus-visible {
+  outline: 2px solid #f0a23a;
+  outline-offset: -2px;
+}
+
+.layer-toggle > span:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.layer-name {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.layer-detail {
+  color: #8d9ba1;
+  font-size: 11px;
+}
+
+.toggle-state {
+  min-width: 54px;
+  padding: 5px 7px;
+  border-radius: 5px;
+  color: #0f171a;
+  background: #f0a23a;
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.layer-toggle[aria-pressed="false"] .toggle-state {
+  color: #94a1a7;
+  background: #293338;
+}
+
+.region-label {
+  position: absolute;
+  right: 20px;
+  bottom: 34px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 9px;
+}
+
+.region-label > span:last-child {
+  display: grid;
+  gap: 3px;
+}
+
+.region-label strong {
+  font-size: 13px;
+}
+
+.region-marker {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #f0a23a;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgb(240 162 58 / 15%);
+}
+
+.status-card,
+.viewer-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: min(360px, calc(100% - 40px));
+  padding: 18px;
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+}
+
+.status-card > span:last-child {
+  display: grid;
+  gap: 5px;
+}
+
+.status-card strong {
+  font-size: 14px;
+}
+
+.status-card span span,
+.viewer-error {
+  color: #97a5ab;
+  font-size: 12px;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #55636a;
+  border-top-color: #f0a23a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.status-card-error,
+.viewer-error {
+  border-color: rgb(211 100 83 / 55%);
+}
+
+.viewer-error[hidden] {
+  display: none;
+}
+
+.cesium-viewer,
+.cesium-viewer-cesiumWidgetContainer,
+.cesium-widget,
+.cesium-widget canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.cesium-viewer-bottom {
+  right: 8px;
+  bottom: 6px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
+@media (max-width: 640px) {
+  .app-shell {
+    grid-template-rows: 56px minmax(0, 1fr);
+  }
+
+  .app-header {
+    padding: 0 14px;
+  }
+
+  .brand-lockup span span,
+  .milestone-badge {
+    display: none;
+  }
+
+  .layer-panel {
+    top: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+  }
+
+  .region-label {
+    right: 12px;
+    bottom: 40px;
+  }
 }
 
-main {
-  padding: 2rem;
-  max-width: 40rem;
-}
-
-h1 {
-  margin: 0 0 0.25rem;
-}
-
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+@media (prefers-reduced-motion: reduce) {
+  .status-indicator {
+    animation: none;
+  }
 }

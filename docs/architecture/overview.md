@@ -1,6 +1,6 @@
 # Arquitectura — overview
 
-Estado: v0.1.0 (workspace). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
+Estado: v0.2.0 en desarrollo (geographic viewer). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
 
 ## Forma general
 
@@ -25,7 +25,7 @@ Modular monolith ([ADR-001](../decisions/ADR-001-modular-monolith.md)).
 | `src/RailWeaver.Core` | Lógica de RailWeaver. Expone identidad/versión y value objects geográficos WGS84. | BCL de .NET |
 | `src/RailWeaver.Api` | Traduce HTTP ↔ core. Expone health y datasets de región validados; no decide lógica ferroviaria. | Core, ASP.NET Core |
 | `tests/RailWeaver.Core.Tests` | Unit tests del core y tests de frontera. | Core, xUnit v3 |
-| `src/web` | UI. No modifica estado interno del dominio; solo vía API. | API por HTTP |
+| `src/web` | UI React y visor CesiumJS. Obtiene regiones vía API y solicita teselas de OpenStreetMap directamente desde el navegador. | API por HTTP, CesiumJS, OpenStreetMap |
 
 ## Reglas de dependencia
 

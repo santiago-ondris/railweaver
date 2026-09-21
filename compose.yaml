@@ -1,0 +1,22 @@
+# Local development services only. Backend and frontend run natively (see README.md).
+services:
+  postgis:
+    image: postgis/postgis:17-3.5
+    # The official image is published for amd64 only; Apple silicon runs it under emulation.
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: railweaver
+      POSTGRES_USER: railweaver
+      POSTGRES_PASSWORD: railweaver # local development only
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgis-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U railweaver -d railweaver"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgis-data:

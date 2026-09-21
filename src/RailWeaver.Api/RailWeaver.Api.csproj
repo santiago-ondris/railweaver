@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- Thin HTTP layer. Must not contain railway logic; delegates to RailWeaver.Core. -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\RailWeaver.Core\RailWeaver.Core.csproj" />
+  </ItemGroup>
+
+</Project>

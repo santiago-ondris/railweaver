@@ -1,0 +1,67 @@
+# RW-001 — Geographic viewer
+
+- Status: Active
+- Milestone: V0.2 — Geographic viewer → release `v0.2.0`
+
+## Goal
+
+Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con CesiumJS, con un modelo de coordenadas geográficas en el core y la región definida como **datos**, no como código.
+
+## Scope
+
+1. **Modelo de coordenadas en el core** (`RailWeaver.Core`, namespace `Geography`):
+   - `GeoCoordinate` (WGS84 / EPSG:4326, latitud y longitud en grados decimales) con validación de rangos.
+   - `GeoBoundingBox` (oeste, sur, este, norte) con validación y `Contains(GeoCoordinate)`. Decidir y documentar el tratamiento del antimeridiano (probablemente: no soportado todavía, rechazado explícitamente).
+2. **Definición de región como dato**: `data/regions/cordoba.json` (id, nombre, bounding box, vista inicial de cámara, fuente y fecha del dato). La API la expone en `GET /api/regions/{id}` leyéndola del archivo; el core valida su contenido con los tipos anteriores.
+3. **Viewer CesiumJS** en `src/web`: globo con imágenes base, cámara inicial desde la región, contorno de la bounding box de la región.
+4. **Control de capas básico**: mostrar/ocultar imágenes base y contorno de región.
+5. Nota de investigación `docs/research/geography/coordinate-reference-systems.md` (WGS84 vs proyecciones locales argentinas, p. ej. POSGAR 2007 / Gauss-Krüger faja 4, y cuándo importará).
+
+## Non-goals
+
+- Vías, estaciones o cualquier dato ferroviario (V0.3).
+- Terreno/DEM y elevación (V0.4): usar elipsoide.
+- Límite provincial real como polígono (puede ser una tarea posterior con fuente IGN).
+- Persistencia en PostGIS: la región vive en un archivo.
+- Router, state manager, librería de UI.
+
+## Inputs
+
+- `data/regions/cordoba.json` (bounding box aproximada de la provincia con su fuente declarada).
+
+## Outputs
+
+- Página principal mostrando Córdoba en Cesium.
+- `GET /api/regions/cordoba` → JSON de la región.
+
+## Acceptance criteria
+
+- [ ] `GeoCoordinate` rechaza latitudes fuera de [-90, 90] y longitudes fuera de [-180, 180]; tests cubren límites.
+- [ ] `GeoBoundingBox` rechaza cajas inválidas y responde `Contains` correctamente; tests incluyen puntos en el borde.
+- [ ] Ningún identificador, nombre ni coordenada de Córdoba aparece en `src/RailWeaver.Core` (solo en `data/`).
+- [ ] La app abre con la cámara sobre Córdoba y el contorno visible; el control de capas funciona.
+- [ ] La app arranca sin secretos commiteados; si se requiere un token (Cesium ion), se lee de variable de entorno y está documentado.
+- [ ] `dotnet test`, `npm run lint`, `npm run build` pasan; CI verde.
+- [ ] ADR si se elige proveedor de imágenes o método de integración de Cesium con consecuencias relevantes.
+- [ ] `project-status.md` y `CHANGELOG.md` actualizados; tag `v0.2.0`.
+
+## Relevant domain docs
+
+- [ADR-005](../../decisions/ADR-005-cesiumjs-primary-renderer.md), [ADR-007](../../decisions/ADR-007-cordoba-first-dataset.md)
+
+## Relevant architecture
+
+- [Overview](../../architecture/overview.md): el core no conoce Cesium; la API es delgada; el frontend no contiene reglas de dominio.
+
+## Tests
+
+- Unit tests de `GeoCoordinate` y `GeoBoundingBox` en `RailWeaver.Core.Tests`.
+- Test que carga `data/regions/cordoba.json` y valida que su contenido es una región válida.
+- Primer test de la API solo si aporta (evaluar `Microsoft.AspNetCore.Mvc.Testing` como dependencia justificada).
+
+## Open questions
+
+1. **Imágenes base**: ¿Cesium ion (token gratuito, imágenes Bing) u OpenStreetMap tiles (sin token, con política de uso que limita tráfico)? Recomendación inicial: OSM para desarrollo, sin token.
+2. **Assets de Cesium con Vite**: copiar `node_modules/cesium/Build/Cesium` con un plugin de copia estática y fijar `CESIUM_BASE_URL`, vs. un plugin específico de Cesium. Preferir la opción con menos dependencias y mejor mantenida.
+3. **Bounding box de Córdoba**: fuente (IGN, OSM) y precisión aceptable para una vista inicial.
+4. ¿El endpoint de regiones es necesario ya, o alcanza con que el frontend lea el JSON estático? Recomendación: endpoint, para establecer que los datasets fluyen a través del backend.

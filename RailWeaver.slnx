@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RailWeaver.Api/RailWeaver.Api.csproj" />
+    <Project Path="src/RailWeaver.Core/RailWeaver.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RailWeaver.Core.Tests/RailWeaver.Core.Tests.csproj" />
+  </Folder>
+</Solution>

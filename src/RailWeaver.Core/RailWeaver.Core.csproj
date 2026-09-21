@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Framework-independent core: domain, simulation and planning logic will live here.
+    Must not reference ASP.NET Core, database drivers, or any UI/rendering library
+    (enforced by tests/RailWeaver.Core.Tests/CoreBoundaryTests.cs). See ADR-001.
+  -->
+
+</Project>

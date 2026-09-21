@@ -6,6 +6,17 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+### Added
+
+- Sistema visual en `DESIGN.md` (formato DESIGN.md de Google Labs): dirección híbrida
+  "sala de control sobre mesa de dibujo", tema claro, tokens en OKLCH, tipografías
+  Schibsted Grotesk, Fragment Mono y Big Shoulders Stencil, y reglas para mapa,
+  gráficos, movimiento y textos.
+- ADR-009 (sistema visual) y nota de investigación sobre semántica de color de la UI
+  frente a la señalización ferroviaria y la tipografía histórica ferroviaria argentina.
+- Marca de RailWeaver en `assets/brand/`: un cruce en un gráfico de marcha, con
+  versiones normal, reducida y favicon; sus reglas de uso están en `DESIGN.md`.
+
 ## [0.2.0] - 2026-09-21
 
 ### Added

@@ -17,7 +17,8 @@ M0 — Real World Skeleton. V0.1 (Workspace) completada; próxima: V0.2 — Geog
 
 - RW-001 — Geographic viewer: investigación de sistemas de referencia completada;
   WGS84/EPSG:4326 confirmado para las fronteras y bounding box inicial de Córdoba
-  derivado de la capa oficial del IGN. Implementación todavía no iniciada.
+  derivado de la capa oficial del IGN. OpenStreetMap elegido como proveedor de
+  imágenes base para V0.2. Implementación todavía no iniciada.
 
 ## Next
 

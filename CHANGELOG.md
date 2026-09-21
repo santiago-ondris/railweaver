@@ -12,6 +12,11 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
   fronteras, relación con POSGAR 2007/Gauss-Krüger y fuente oficial del bounding box
   inicial de Córdoba.
 
+### Changed
+
+- RW-001 adopta temporalmente las teselas raster estándar de OpenStreetMap como
+  imágenes base, con reevaluación obligatoria antes de un despliegue público.
+
 ## [0.1.0] - 2026-09-21
 
 Primer workspace ejecutable (RW-000 — Bootstrap).

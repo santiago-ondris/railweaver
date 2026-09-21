@@ -11,6 +11,7 @@ Una decisión importante que no está acá no existe. No reabrir un ADR aceptado
 | [ADR-005](ADR-005-cesiumjs-primary-renderer.md) | CesiumJS como renderer geoespacial principal | Accepted |
 | [ADR-006](ADR-006-discrete-event-simulation.md) | Discrete-event simulation como paradigma inicial | Accepted |
 | [ADR-007](ADR-007-cordoba-first-dataset.md) | Córdoba como primer dataset, no dependencia del core | Accepted |
+| [ADR-008](ADR-008-language-conventions.md) | Castellano para documentación, inglés para todo lo demás | Accepted |
 
 ## Plantilla
 

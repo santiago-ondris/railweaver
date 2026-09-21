@@ -61,7 +61,13 @@ Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con Ces
 
 ## Open questions
 
-1. **Imágenes base**: ¿Cesium ion (token gratuito, imágenes Bing) u OpenStreetMap tiles (sin token, con política de uso que limita tráfico)? Recomendación inicial: OSM para desarrollo, sin token.
+1. **Imágenes base** — candidato principal: Cesium ion (plan Community). Pricing relevado el 2026-09-21 (fuente: cesium.com/platform/cesium-ion/pricing y cesium.com/learn/ion/optimizing-quotas):
+   - Community es gratis para uso personal, exploratorio y educativo no financiado. Requiere plan pago (desde USD 149/mes) si la organización factura o levantó más de USD 50K anuales, o para uso comercial/gubernamental más allá de la evaluación.
+   - Cuotas Community por mes: 1.000 sesiones de imágenes globales (Bing; **cada carga o refresh de página cuenta**), 15 GB de streaming (incluye Cesium World Terrain y assets propios, no Bing), 10 GB de storage, 50.000 geocodes.
+   - Excedente: la cuenta sigue funcionando; Cesium avisa por email antes de cualquier suspensión.
+   - Implicancia: 1.000 sesiones/mes (~33/día) se consumen rápido en desarrollo activo con Bing. Mitigar usando Sentinel-2 (asset de ion, cuenta como streaming y no como sesión) u OSM en desarrollo, y nunca apuntando tests automatizados a ion.
+   - El token de ion viaja al navegador (no es un secreto real); restringirlo por asset y URL permitida, y no commitearlo (`.env.local`).
+   - Pendiente: decisión del autor.
 2. **Assets de Cesium con Vite**: copiar `node_modules/cesium/Build/Cesium` con un plugin de copia estática y fijar `CESIUM_BASE_URL`, vs. un plugin específico de Cesium. Preferir la opción con menos dependencias y mejor mantenida.
 3. **Bounding box de Córdoba**: fuente (IGN, OSM) y precisión aceptable para una vista inicial.
 4. ¿El endpoint de regiones es necesario ya, o alcanza con que el frontend lea el JSON estático? Recomendación: endpoint, para establecer que los datasets fluyen a través del backend.

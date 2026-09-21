@@ -11,3 +11,4 @@ Esta carpeta es la memoria compartida del proyecto y puede abrirse como vault de
 | `research/` | Investigación de dominio previa a implementar |
 | `specs/` | Specs de trabajo: `active/`, `backlog/`, `completed/` |
 | `status/` | Estado actual del proyecto |
+| `process/` | Cómo trabajamos: sesiones con agentes |

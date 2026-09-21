@@ -45,5 +45,6 @@ Frontend: `npm --prefix src/web run lint` y `npm --prefix src/web run build`.
 - [Kickoff del proyecto](RailWeaver_Project_Kickoff.md) — cómo entendemos RailWeaver hoy.
 - [Visión](docs/vision/product-vision.md) · [Principios](docs/vision/principles.md) · [Non-goals](docs/vision/non-goals.md)
 - [Arquitectura](docs/architecture/overview.md) · [ADRs](docs/decisions/README.md)
+- [Cómo trabajar con agentes](docs/process/agent-workflow.md)
 - [Specs](docs/specs/README.md) · [Investigación](docs/research/README.md)
 - [CHANGELOG](CHANGELOG.md)

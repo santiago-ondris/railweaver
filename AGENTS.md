@@ -9,6 +9,8 @@ Before substantial work read:
 - `docs/status/project-status.md`
 - the active spec in `docs/specs/active/`
 
+Session workflow (how to start and close a session): `docs/process/agent-workflow.md`.
+
 `RailWeaver_Project_Kickoff.md` is the living, project-level description. `docs/decisions/` holds the ADRs.
 
 Rules:
@@ -19,6 +21,7 @@ Rules:
 - Do not reopen decisions recorded in ADRs without a concrete reason; new architectural decisions require an ADR.
 - Avoid speculative infrastructure: add dependencies only when a concrete requirement justifies them.
 - Work from a spec; one milestone at a time.
+- Language (ADR-008): Spanish for `docs/`, README, CHANGELOG and the kickoff; English for everything else (code, comments, file names, commits, branches, agent files).
 - After substantial work: update `docs/status/project-status.md`, `CHANGELOG.md` when relevant, and review the kickoff.
 
 Commands (from repo root):

@@ -16,6 +16,8 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 - RW-001 adopta temporalmente las teselas raster estándar de OpenStreetMap como
   imágenes base, con reevaluación obligatoria antes de un despliegue público.
+- La integración de Cesium con Vite seguirá la configuración oficial basada en
+  `vite-plugin-static-copy` y `CESIUM_BASE_URL`, sin un plugin específico de Cesium.
 
 ## [0.1.0] - 2026-09-21
 

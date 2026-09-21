@@ -76,7 +76,24 @@ Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con Ces
      comerciales mediante Cesium ion, un proveedor OSM con SLA o teselas propias.
    - La elección queda encapsulada en la configuración del viewer y no requiere ADR:
      es reversible y no modifica las fronteras arquitectónicas.
-2. **Assets de Cesium con Vite**: copiar `node_modules/cesium/Build/Cesium` con un plugin de copia estática y fijar `CESIUM_BASE_URL`, vs. un plugin específico de Cesium. Preferir la opción con menos dependencias y mejor mantenida.
+2. **Assets de Cesium con Vite — resuelto**: seguir la configuración oficial mínima
+   de Cesium para Vite con el paquete `cesium` y `vite-plugin-static-copy`.
+   - Copiar `Workers`, `ThirdParty`, `Assets` y `Widgets` desde
+     `node_modules/cesium/Build/Cesium` hacia `dist/cesiumStatic` durante el build;
+     en desarrollo, el plugin los sirve sin duplicarlos físicamente.
+   - Definir `CESIUM_BASE_URL` como `/cesiumStatic/` mediante `define` en
+     `vite.config.ts` e importar `cesium/Build/Cesium/Widgets/widgets.css` desde el
+     frontend.
+   - Usar imports ESM nombrados desde `cesium` y el `Viewer` completo; RW-001 necesita
+     sus widgets, por lo que `@cesium/engine` solo no aporta una ventaja concreta.
+   - Configurar explícitamente OpenStreetMap y el elipsoide para que construir el
+     `Viewer` no solicite por defecto imágenes o terreno de Cesium ion.
+   - No usar `vite-plugin-cesium`: es una abstracción comunitaria específica y menos
+     transparente que la configuración publicada y mantenida por Cesium.
+   - La ruta absoluta supone que la aplicación se sirve desde `/`, igual que el proxy
+     `/api` actual. Si se despliega bajo un subpath, ambas rutas deberán configurarse
+     juntas.
+   - No requiere ADR: implementa ADR-005 sin cambiar fronteras arquitectónicas.
 3. **Bounding box de Córdoba — resuelto**: usar la capa oficial de provincias del IGN,
    registro INDEC `14`, redondeada hacia afuera a cuatro decimales (`west -65.7720`,
    `south -35.0002`, `east -61.7708`, `north -29.5004`). Es una ayuda de navegación,

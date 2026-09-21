@@ -14,6 +14,9 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 - Value objects geográficos `GeoCoordinate` y `GeoBoundingBox`, con validación de
   rangos WGS84, rechazo explícito del antimeridiano y pruebas unitarias de límites y
   contención.
+- Dataset inicial de Córdoba con bounding box, vista de cámara y metadatos de fuente
+  del IGN; endpoint genérico `GET /api/regions/{id}` que lo lee y valida antes de
+  exponerlo al frontend.
 
 ### Changed
 

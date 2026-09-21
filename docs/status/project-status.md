@@ -21,8 +21,9 @@ M0 — Real World Skeleton. V0.1 (Workspace) completada; próxima: V0.2 — Geog
   imágenes base y configuración oficial con `vite-plugin-static-copy` elegida para
   integrar los assets de Cesium con Vite. `GeoCoordinate` y `GeoBoundingBox`
   implementados en el core con validación, antimeridiano rechazado explícitamente y
-  cobertura de límites/`Contains` mediante tests. Siguiente bloque: dataset de
-  Córdoba y endpoint de regiones.
+  cobertura de límites/`Contains` mediante tests. Dataset de Córdoba incorporado con
+  metadatos del IGN; la API lo lee, valida y expone en `GET /api/regions/cordoba`.
+  Siguiente bloque: viewer Cesium con OpenStreetMap.
 
 ## Next
 

@@ -1,0 +1,21 @@
+{
+  "id": "cordoba",
+  "name": "Córdoba",
+  "boundingBox": {
+    "west": -65.772,
+    "south": -35.0002,
+    "east": -61.7708,
+    "north": -29.5004
+  },
+  "initialCamera": {
+    "latitude": -32.2503,
+    "longitude": -63.7714,
+    "heightMeters": 900000
+  },
+  "source": {
+    "name": "Instituto Geográfico Nacional de la República Argentina — capa Provincias",
+    "url": "https://ide.ign.gob.ar/geoservicios/rest/services/servicio_fondos/MapServer/0",
+    "accessedOn": "2026-09-21",
+    "license": "Libre uso con cita adecuada al Instituto Geográfico Nacional"
+  }
+}

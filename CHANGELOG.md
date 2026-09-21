@@ -11,6 +11,9 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 - Investigación de sistemas de referencia geográficos para RW-001: uso de WGS84 en
   fronteras, relación con POSGAR 2007/Gauss-Krüger y fuente oficial del bounding box
   inicial de Córdoba.
+- Value objects geográficos `GeoCoordinate` y `GeoBoundingBox`, con validación de
+  rangos WGS84, rechazo explícito del antimeridiano y pruebas unitarias de límites y
+  contención.
 
 ### Changed
 

@@ -19,8 +19,10 @@ M0 — Real World Skeleton. V0.1 (Workspace) completada; próxima: V0.2 — Geog
   WGS84/EPSG:4326 confirmado para las fronteras y bounding box inicial de Córdoba
   derivado de la capa oficial del IGN. OpenStreetMap elegido como proveedor de
   imágenes base y configuración oficial con `vite-plugin-static-copy` elegida para
-  integrar los assets de Cesium con Vite. Confirmado el flujo de regiones mediante
-  la API; no quedan preguntas abiertas para comenzar la implementación.
+  integrar los assets de Cesium con Vite. `GeoCoordinate` y `GeoBoundingBox`
+  implementados en el core con validación, antimeridiano rechazado explícitamente y
+  cobertura de límites/`Contains` mediante tests. Siguiente bloque: dataset de
+  Córdoba y endpoint de regiones.
 
 ## Next
 

@@ -36,8 +36,8 @@ Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con Ces
 
 ## Acceptance criteria
 
-- [ ] `GeoCoordinate` rechaza latitudes fuera de [-90, 90] y longitudes fuera de [-180, 180]; tests cubren límites.
-- [ ] `GeoBoundingBox` rechaza cajas inválidas y responde `Contains` correctamente; tests incluyen puntos en el borde.
+- [x] `GeoCoordinate` rechaza latitudes fuera de [-90, 90] y longitudes fuera de [-180, 180]; tests cubren límites.
+- [x] `GeoBoundingBox` rechaza cajas inválidas y responde `Contains` correctamente; tests incluyen puntos en el borde.
 - [ ] Ningún identificador, nombre ni coordenada de Córdoba aparece en `src/RailWeaver.Core` (solo en `data/`).
 - [ ] La app abre con la cámara sobre Córdoba y el contorno visible; el control de capas funciona.
 - [ ] La app arranca sin secretos commiteados; si se requiere un token (Cesium ion), se lee de variable de entorno y está documentado.

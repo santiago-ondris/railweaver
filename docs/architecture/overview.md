@@ -1,16 +1,16 @@
 # Arquitectura — overview
 
-Estado: v0.1.0 (workspace). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
+Estado: v0.2.0 (geographic viewer). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
 
 ## Forma general
 
 Modular monolith ([ADR-001](../decisions/ADR-001-modular-monolith.md)).
 
 ```text
- src/web  (React + TS + Vite; CesiumJS a partir de RW-001)
+ src/web  (React + TS + Vite; CesiumJS en RW-001)
     │  HTTP /api
     ▼
- RailWeaver.Api  (ASP.NET Core, capa delgada)
+ RailWeaver.Api  (ASP.NET Core, capa delgada) ◀── data/regions (datasets versionados)
     │  referencia de proyecto
     ▼
  RailWeaver.Core  (dominio, simulación, planificación — sin dependencias de frameworks)
@@ -22,10 +22,10 @@ Modular monolith ([ADR-001](../decisions/ADR-001-modular-monolith.md)).
 
 | Proyecto | Rol | Puede depender de |
 |---|---|---|
-| `src/RailWeaver.Core` | Lógica de RailWeaver. Hoy solo expone identidad/versión del producto. | BCL de .NET |
-| `src/RailWeaver.Api` | Traduce HTTP ↔ core. No decide lógica ferroviaria. | Core, ASP.NET Core |
+| `src/RailWeaver.Core` | Lógica de RailWeaver. Expone identidad/versión y value objects geográficos WGS84. | BCL de .NET |
+| `src/RailWeaver.Api` | Traduce HTTP ↔ core. Expone health y datasets de región validados; no decide lógica ferroviaria. | Core, ASP.NET Core |
 | `tests/RailWeaver.Core.Tests` | Unit tests del core y tests de frontera. | Core, xUnit v3 |
-| `src/web` | UI. No modifica estado interno del dominio; solo vía API. | API por HTTP |
+| `src/web` | UI React y visor CesiumJS. Obtiene regiones vía API y solicita teselas de OpenStreetMap directamente desde el navegador. | API por HTTP, CesiumJS, OpenStreetMap |
 
 ## Reglas de dependencia
 
@@ -34,6 +34,7 @@ Modular monolith ([ADR-001](../decisions/ADR-001-modular-monolith.md)).
 - CesiumJS no conoce el simulation engine.
 - La UI no modifica directamente estado de switches/signals.
 - Los adapters (PostGIS, OSM, DEM) implementan abstracciones definidas por el core; no contaminan el dominio.
+- Los datasets de región se versionan en `data/regions`; la API los lee desde archivos copiados al output y valida sus coordenadas con el core.
 
 ## Cómo crecerá
 

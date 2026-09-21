@@ -6,4 +6,11 @@
     <ProjectReference Include="..\RailWeaver.Core\RailWeaver.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\..\data\regions\*.json"
+             Link="data\regions\%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

@@ -17,4 +17,10 @@
     <ProjectReference Include="..\..\src\RailWeaver.Core\RailWeaver.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\..\data\regions\cordoba.json"
+             Link="data\regions\cordoba.json"
+             CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

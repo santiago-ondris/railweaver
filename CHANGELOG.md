@@ -8,6 +8,14 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ### Added
 
+- `src/web` adopta el sistema visual de `DESIGN.md` (RW-002):
+  - shell claro con barra superior, riel de capas y barra de estado;
+  - tokens generados con `npm run tokens`;
+  - Schibsted Grotesk, Fragment Mono y Big Shoulders Stencil autoalojadas con Fontsource;
+  - marca y favicon;
+  - mapa base OpenStreetMap neutralizado;
+  - errores con el patrón de alertas.
+- El CI valida `DESIGN.md` con el lint oficial y comprueba que los tokens generados estén al día.
 - Sistema visual en `DESIGN.md` (formato DESIGN.md de Google Labs): dirección híbrida
   "sala de control sobre mesa de dibujo", tema claro, tokens en OKLCH, tipografías
   Schibsted Grotesk, Fragment Mono y Big Shoulders Stencil, y reglas para mapa,
@@ -16,6 +24,11 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
   frente a la señalización ferroviaria y la tipografía histórica ferroviaria argentina.
 - Marca de RailWeaver en `assets/brand/`: un cruce en un gráfico de marcha, con
   versiones normal, reducida y favicon; sus reglas de uso están en `DESIGN.md`.
+
+### Changed
+
+- La atribución de OpenStreetMap se muestra siempre en pantalla, no solo detrás de "Data attribution".
+- El contorno de la región de referencia pasa de ámbar (color de advertencia) a la tinta de infraestructura.
 
 ## [0.2.0] - 2026-09-21
 

@@ -1,17 +1,17 @@
 import {
+  ArcType,
   Cartesian3,
-  Color,
   Credit,
   EllipsoidTerrainProvider,
   ImageryLayer,
   Math as CesiumMath,
   OpenStreetMapImageryProvider,
-  Rectangle,
   type Entity,
   Viewer,
 } from 'cesium'
 import { useEffect, useRef, useState } from 'react'
 import type { Region } from './regions'
+import { tokenColor } from './styles/tokens'
 
 type GeographicViewerProps = {
   region: Region
@@ -19,12 +19,22 @@ type GeographicViewerProps = {
 
 const osmTileUrl = import.meta.env.VITE_OSM_TILE_URL ?? 'https://tile.openstreetmap.org/'
 
+// Neutralizes the colorful OSM raster toward DESIGN.md `map-ground` (RW-002, decision 3).
+// Tuned by eye; revisit when the basemap is replaced.
+const neutralBasemap = {
+  saturation: 0.18,
+  brightness: 1.06,
+  contrast: 0.82,
+  gamma: 1.12,
+} as const
+
 export function GeographicViewer({ region }: GeographicViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const viewerRef = useRef<Viewer | null>(null)
   const imageryLayerRef = useRef<ImageryLayer | null>(null)
   const outlineEntityRef = useRef<Entity | null>(null)
   const viewerErrorRef = useRef<HTMLDivElement>(null)
+  const viewerErrorMessageRef = useRef<HTMLSpanElement>(null)
   const [imageryVisible, setImageryVisible] = useState(true)
   const [outlineVisible, setOutlineVisible] = useState(true)
 
@@ -39,8 +49,11 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
         url: osmTileUrl,
         credit: new Credit(
           '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>',
+          // Always on screen, not only behind "Data attribution" (OSM attribution guidelines, RW-001).
+          true,
         ),
       }),
+      neutralBasemap,
     )
 
     let viewer: Viewer | null = null
@@ -64,21 +77,27 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
         timeline: false,
       })
 
+      const { scene } = viewer
+      scene.backgroundColor = tokenColor('ground')
+      scene.globe.baseColor = tokenColor('map-ground')
+      scene.globe.showGroundAtmosphere = false
+      if (scene.skyBox) scene.skyBox.show = false
+      if (scene.skyAtmosphere) scene.skyAtmosphere.show = false
+      if (scene.sun) scene.sun.show = false
+      if (scene.moon) scene.moon.show = false
+
+      const { west, south, east, north } = region.boundingBox
       const outlineEntity = viewer.entities.add({
         name: `Área de referencia: ${region.name}`,
-        rectangle: {
-          coordinates: Rectangle.fromDegrees(
-            region.boundingBox.west,
-            region.boundingBox.south,
-            region.boundingBox.east,
-            region.boundingBox.north,
-          ),
-          fill: true,
-          height: 0,
-          material: Color.fromCssColorString('#f0a23a').withAlpha(0.08),
-          outline: true,
-          outlineColor: Color.fromCssColorString('#f0a23a'),
-          outlineWidth: 3,
+        polyline: {
+          // Ground-clamped rhumb lines follow parallels and meridians without z-fighting the globe.
+          positions: Cartesian3.fromDegreesArray([
+            west, south, east, south, east, north, west, north, west, south,
+          ]),
+          arcType: ArcType.RHUMB,
+          clampToGround: true,
+          material: tokenColor('primary'),
+          width: 1.5,
         },
       })
 
@@ -105,9 +124,9 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
         imageryLayer.destroy()
       }
 
-      if (viewerErrorRef.current) {
-        viewerErrorRef.current.textContent =
-          error instanceof Error ? error.message : 'No se pudo iniciar Cesium.'
+      if (viewerErrorRef.current && viewerErrorMessageRef.current) {
+        viewerErrorMessageRef.current.textContent =
+          error instanceof Error ? error.message : 'Cesium no pudo crear el visor.'
         viewerErrorRef.current.hidden = false
       }
     }
@@ -138,51 +157,57 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
   }, [outlineVisible])
 
   return (
-    <section className="map-stage" aria-label={`Visor geográfico de ${region.name}`}>
-      <div ref={containerRef} className="map-canvas" />
-
-      <aside className="layer-panel" aria-label="Control de capas">
-        <div className="panel-heading">
-          <span className="eyebrow">Capas</span>
-          <strong>Vista geográfica</strong>
-        </div>
-
-        <button
-          type="button"
-          className="layer-toggle"
-          aria-pressed={imageryVisible}
-          onClick={() => setImageryVisible((visible) => !visible)}
-        >
-          <span>
-            <span className="layer-name">Mapa base</span>
-            <span className="layer-detail">OpenStreetMap</span>
-          </span>
-          <span className="toggle-state">{imageryVisible ? 'Visible' : 'Oculto'}</span>
-        </button>
-
-        <button
-          type="button"
-          className="layer-toggle"
-          aria-pressed={outlineVisible}
-          onClick={() => setOutlineVisible((visible) => !visible)}
-        >
-          <span>
-            <span className="layer-name">Región</span>
-            <span className="layer-detail">Bounding box de {region.name}</span>
-          </span>
-          <span className="toggle-state">{outlineVisible ? 'Visible' : 'Oculto'}</span>
-        </button>
+    <>
+      <aside className="side-rail" aria-label="Control de capas">
+        <h2 className="label">Capas</h2>
+        <ul className="layer-list">
+          <li>
+            <button
+              type="button"
+              className="layer-toggle"
+              aria-pressed={imageryVisible}
+              onClick={() => setImageryVisible((visible) => !visible)}
+            >
+              <span className="layer-box" aria-hidden="true" />
+              <span className="layer-text">
+                <span className="layer-name">Mapa base</span>
+                <span className="layer-detail">OpenStreetMap, neutralizado</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              className="layer-toggle"
+              aria-pressed={outlineVisible}
+              onClick={() => setOutlineVisible((visible) => !visible)}
+            >
+              <span className="layer-box" aria-hidden="true" />
+              <span className="layer-text">
+                <span className="layer-name">Región</span>
+                <span className="layer-detail">Área de referencia de {region.name}</span>
+              </span>
+            </button>
+          </li>
+        </ul>
       </aside>
 
-      <div className="region-label">
-        <span className="region-marker" aria-hidden="true" />
-        <span>
-          <span className="eyebrow">Región activa</span>
-          <strong>{region.name}, Argentina</strong>
-        </span>
-      </div>
+      <section className="map-stage" aria-label={`Visor geográfico de ${region.name}`}>
+        <div ref={containerRef} className="map-canvas" />
 
-      <div ref={viewerErrorRef} className="viewer-error" role="alert" hidden />
-    </section>
+        <div ref={viewerErrorRef} className="alert alert-alarm viewer-error" role="alert" hidden>
+          <p className="alert-title">
+            <span className="glyph glyph-alarm" aria-hidden="true" />
+            No se pudo iniciar el visor
+          </p>
+          <p>
+            <b>Qué pasó:</b> <span ref={viewerErrorMessageRef} />
+          </p>
+          <p>
+            <b>Cómo resolverlo:</b> verificá que el navegador tenga WebGL habilitado y recargá la página.
+          </p>
+        </div>
+      </section>
+    </>
   )
 }

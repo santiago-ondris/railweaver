@@ -7,14 +7,20 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tokens": "(echo '/* Generated from DESIGN.md by `npm run tokens`. Do not edit by hand. */' && design.md export ../../DESIGN.md --format css-vars --prefix rw) > src/styles/tokens.generated.css",
+    "design:lint": "design.md lint ../../DESIGN.md"
   },
   "dependencies": {
+    "@fontsource-variable/big-shoulders-stencil": "^5.3.0",
+    "@fontsource-variable/schibsted-grotesk": "^5.3.0",
+    "@fontsource/fragment-mono": "^5.3.0",
     "cesium": "^1.145.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@google/design.md": "0.4.0",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",

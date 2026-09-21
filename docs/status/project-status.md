@@ -9,14 +9,14 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 ## Working
 
 - Solución .NET 10: `RailWeaver.Core`, `RailWeaver.Api` (`GET /api/health` y `GET /api/regions/{id}`), `RailWeaver.Core.Tests` (42 tests, incluye frontera del core y validación geográfica).
-- Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap, cámara inicial y capas controlables a partir del dataset servido por la API.
+- Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap neutralizado, cámara inicial y capas controlables a partir del dataset servido por la API. Sigue `DESIGN.md`: tokens generados, fuentes autoalojadas, marca y favicon (RW-002).
 - PostGIS 3.5 / PostgreSQL 17 vía `compose.yaml` (sin uso desde el código todavía).
 - Documentación canónica, ADR-001…009, plantillas de specs e investigación.
-- Sistema visual definido en `DESIGN.md` (ADR-009): dirección híbrida, tema claro, tokens OKLCH; todavía no aplicado a `src/web`. Marca (logo) en `assets/brand/`.
+- Sistema visual definido en `DESIGN.md` (ADR-009): dirección híbrida, tema claro, tokens OKLCH; aplicado a `src/web` en RW-002. Marca (logo) en `assets/brand/`.
 
 ## In progress
 
-- [RW-002 — Migración de `src/web` al sistema visual](../specs/active/RW-002-web-visual-migration.md): decisiones confirmadas; implementación en curso.
+- [RW-002 — Migración de `src/web` al sistema visual](../specs/active/RW-002-web-visual-migration.md): implementada en `feature/RW-002-web-visual-migration`. Falta el CI del PR y la review con otro modelo.
 
 ## Next
 
@@ -26,7 +26,7 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 ## Known problems
 
 - La imagen oficial `postgis/postgis` es solo amd64: en Apple silicon corre emulada (ADR-003).
-- `src/web` no sigue `DESIGN.md` (fondo oscuro, Inter, teselas OSM a color) hasta completar RW-002.
+- El mapa base es OSM neutralizado, no un mapa base propio (RW-002, decisión 3). El contorno de región puede mostrar cortes mínimos a algunas distancias.
 - El bundle inicial de CesiumJS es grande (aprox. 4,36 MB minificado / 1,18 MB gzip); se optimizará cuando exista una medición de carga representativa.
 
 ## Open research questions

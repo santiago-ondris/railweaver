@@ -1,0 +1,40 @@
+/* Generated from DESIGN.md by `npm run tokens`. Do not edit by hand. */
+:root {
+  --rw-color-ground: #e4e5e2;
+  --rw-color-panel: #edeeeb;
+  --rw-color-raised: #f6f6f4;
+  --rw-color-border-subtle: #caccc7;
+  --rw-color-border-strong: #7e827c;
+  --rw-color-ink: #1f2429;
+  --rw-color-ink-muted: #4a4f55;
+  --rw-color-ink-subtle: #5e6469;
+  --rw-color-primary: #1d2936;
+  --rw-color-on-primary: #f6f6f4;
+  --rw-color-map-ground: #e8e9e5;
+  --rw-color-map-contour: #cdd0ca;
+  --rw-color-map-contour-major: #b0b4ad;
+  --rw-color-map-water: #8fa7ba;
+  --rw-color-map-urban: #d4d6d1;
+  --rw-color-map-road: #c6c9c3;
+  --rw-color-map-rail-existing: #80857f;
+  --rw-color-service-passenger: #2e6468;
+  --rw-color-service-freight: #684e65;
+  --rw-color-warning: #b26a02;
+  --rw-color-warning-text: #8a5200;
+  --rw-color-warning-surface: #f2e1c0;
+  --rw-color-alarm: #b53029;
+  --rw-color-alarm-surface: #f4dad6;
+  --rw-color-action: #295ca6;
+  --rw-color-action-surface: #dce4f0;
+  --rw-spacing-xxs: 2px;
+  --rw-spacing-xs: 4px;
+  --rw-spacing-sm: 8px;
+  --rw-spacing-md: 12px;
+  --rw-spacing-lg: 16px;
+  --rw-spacing-xl: 24px;
+  --rw-spacing-xxl: 32px;
+  --rw-rounded-none: 0px;
+  --rw-rounded-sm: 2px;
+  --rw-rounded-md: 4px;
+}
+

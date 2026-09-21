@@ -64,15 +64,18 @@ Que el frontend existente siga [`DESIGN.md`](../../../DESIGN.md) ([ADR-009](../.
 
 ## Acceptance criteria
 
-- [ ] `index.css` y los componentes no contienen colores literales (hex, rgb, hsl u oklch) ni familias tipográficas literales fuera de `styles/`. Se verifica con `grep`. Excepción documentada: los colores que Cesium necesita como `Color`, que se leen de las variables CSS en tiempo de ejecución o se centralizan en un solo módulo con referencia al token.
-- [ ] `npm run tokens` regenera `tokens.generated.css` sin diferencias respecto del commit.
+Verificados localmente el 2026-09-21. Los que siguen sin tildar dependen del PR (CI) o de la review con otro modelo.
+
+
+- [x] `index.css` y los componentes no contienen colores literales (hex, rgb, hsl u oklch) ni familias tipográficas literales fuera de `styles/`. Se verifica con `grep`. Excepción documentada: los colores que Cesium necesita como `Color`, que se leen de las variables CSS en tiempo de ejecución o se centralizan en un solo módulo con referencia al token.
+- [x] `npm run tokens` regenera `tokens.generated.css` sin diferencias respecto del commit.
 - [ ] CI: `design.md lint` sin errores y chequeo de tokens al día.
-- [ ] La red del navegador no muestra requests a `fonts.googleapis.com` ni a `fonts.gstatic.com`.
-- [ ] La barra superior muestra la marca y el wordmark, y el favicon es `favicon.svg`. `assets/brand/` sigue siendo la única copia versionada de la marca.
-- [ ] El mapa base se ve neutro y la atribución de OpenStreetMap sigue visible y legible.
-- [ ] El contorno de región no usa colores de estado.
+- [x] La red del navegador no muestra requests a `fonts.googleapis.com` ni a `fonts.gstatic.com`. Las fuentes se sirven desde el propio origen.
+- [x] La barra superior muestra la marca y el wordmark, y el favicon es `favicon.svg`. `assets/brand/` sigue siendo la única copia versionada de la marca.
+- [x] El mapa base se ve neutro y la atribución de OpenStreetMap sigue visible y legible. La atribución de OSM se muestra en pantalla (`Credit` con `showOnScreen`), no solo detrás de "Data attribution".
+- [x] El contorno de región no usa colores de estado.
 - [ ] El texto pasa WCAG AA sobre sus superficies y el foco de teclado es visible en todos los controles.
-- [ ] Carga y error: el de error usa el patrón de alerta (glifo cuadrado + qué pasó + cómo resolverlo) y nada anima con `prefers-reduced-motion`.
+- [x] Carga y error: el de error usa el patrón de alerta (glifo cuadrado + qué pasó + cómo resolverlo) y nada anima con `prefers-reduced-motion`.
 - [ ] La auditoría manual contra `DESIGN.md › Do's and Don'ts` no encuentra violaciones. Hacerla con un modelo distinto al que implementó (`agent-workflow.md` §7).
 - [ ] `dotnet test`, `npm run lint` y `npm run build` pasan, y el CI queda en verde.
 - [ ] `project-status.md` y `CHANGELOG.md` actualizados.
@@ -112,5 +115,21 @@ Que el frontend existente siga [`DESIGN.md`](../../../DESIGN.md) ([ADR-009](../.
 
 ## Open questions
 
-- Valores exactos de saturación, brillo, contraste y gamma del mapa base: se ajustan a ojo contra `map-ground` y se registran acá.
-- Si la atribución de OSM y los créditos de Cesium se estilan dentro del widget de Cesium o se mueven a la barra de estado (debe seguir cumpliendo la atribución requerida).
+Resueltas durante la implementación:
+
+- **Mapa base:** `saturation 0.18`, `brightness 1.06`, `contrast 0.82`, `gamma 1.12`, en `GeographicViewer.tsx`. Además:
+  - se apagan la atmósfera, el skybox, el sol y la luna;
+  - el fondo de la escena es `ground` y el color base del globo es `map-ground`.
+- **Atribución:** queda dentro del widget de Cesium, sin fondo y con texto en `ink-muted`/`ink`. El crédito de OSM ahora se ve siempre en pantalla. El logo de Cesium ion que agrega el widget se mantiene.
+- **Marca:** `vite-plugin-static-copy` copia `assets/brand/*.svg` a `/brand/` (desarrollo y build), sin copias versionadas.
+
+## Implementation notes
+
+- **Contorno de región:** se dibuja como polilínea rhumb pegada al terreno (`clampToGround`), porque el rectángulo con `outline` fallaba por z-fighting contra el globo. A algunas distancias todavía se ven cortes mínimos en el trazo. No bloquea.
+- **Colores en Cesium:** WebGL no lee variables CSS, así que `src/styles/tokens.ts` (`tokenColor`) es el único punto que lee `--rw-color-*` en tiempo de ejecución.
+- **`impeccable detect` (v4.1.0), una sola vez:**
+  - Sobre `src`: 0 hallazgos.
+  - Sobre la app corriendo: `cramped-padding` en los créditos (corregido quitando el fondo) y `layout-transition: width`, que viene de `cesium/Widgets/widgets.css` y no de nuestro CSS.
+  - No se agrega al CI (decisión 5).
+- **Hallazgo durante la verificación:** con el panel del navegador oculto, `requestAnimationFrame` se frena y Cesium no dibuja hasta interactuar. No es un bug de la app.
+

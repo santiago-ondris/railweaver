@@ -20,6 +20,12 @@ export default defineConfig({
           dest: cesiumBaseUrl,
           rename: { stripBase: cesiumSourceDepth },
         },
+        {
+          // Brand assets live once in /assets/brand (DESIGN.md › Brand mark); serve them without copies.
+          src: '../../assets/brand/*.svg',
+          dest: 'brand',
+          rename: { stripBase: true },
+        },
       ],
     }),
   ],

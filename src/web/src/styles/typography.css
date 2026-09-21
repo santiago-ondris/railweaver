@@ -1,0 +1,48 @@
+/*
+ * Typography tokens from DESIGN.md › typography.
+ * `design.md export` does not emit typography yet (v0.4.0), so these are kept by hand.
+ * Keep names and values in sync with DESIGN.md.
+ */
+@import '@fontsource-variable/schibsted-grotesk/wght.css';
+@import '@fontsource/fragment-mono/latin-400.css';
+@import '@fontsource-variable/big-shoulders-stencil/wght.css';
+
+:root {
+  --rw-font-ui: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --rw-font-data: 'Fragment Mono', ui-monospace, monospace;
+  --rw-font-identifier: 'Big Shoulders Stencil Variable', 'Fragment Mono', ui-monospace, monospace;
+
+  --rw-text-label-size: 11px;
+  --rw-text-label-weight: 500;
+  --rw-text-label-line: 1.3;
+  --rw-text-label-tracking: 0.07em;
+
+  --rw-text-caption-size: 12px;
+  --rw-text-caption-weight: 400;
+  --rw-text-caption-line: 1.35;
+
+  --rw-text-body-size: 13px;
+  --rw-text-body-weight: 400;
+  --rw-text-body-strong-weight: 600;
+  --rw-text-body-line: 1.4;
+
+  --rw-text-title-size: 17px;
+  --rw-text-title-weight: 650;
+  --rw-text-title-line: 1.25;
+  --rw-text-title-tracking: -0.005em;
+
+  --rw-text-heading-size: 22px;
+  --rw-text-heading-weight: 700;
+  --rw-text-heading-line: 1.2;
+  --rw-text-heading-tracking: -0.01em;
+
+  --rw-text-data-size: 12.5px;
+  --rw-text-data-large-size: 15px;
+  --rw-text-data-weight: 400;
+  --rw-text-data-line: 1.35;
+
+  --rw-text-identifier-size: 17px;
+  --rw-text-identifier-weight: 700;
+  --rw-text-identifier-line: 1;
+  --rw-text-identifier-tracking: 0.04em;
+}

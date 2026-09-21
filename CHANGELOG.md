@@ -18,6 +18,8 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
   imágenes base, con reevaluación obligatoria antes de un despliegue público.
 - La integración de Cesium con Vite seguirá la configuración oficial basada en
   `vite-plugin-static-copy` y `CESIUM_BASE_URL`, sin un plugin específico de Cesium.
+- Los datasets de región serán leídos y validados por el backend y expuestos al
+  frontend mediante la API, en lugar de ser leídos directamente por la UI.
 
 ## [0.1.0] - 2026-09-21
 

@@ -59,7 +59,7 @@ Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con Ces
 - Test que carga `data/regions/cordoba.json` y valida que su contenido es una región válida.
 - Primer test de la API solo si aporta (evaluar `Microsoft.AspNetCore.Mvc.Testing` como dependencia justificada).
 
-## Open questions
+## Decisions resolved before implementation
 
 1. **Imágenes base — resuelto**: usar las teselas raster estándar de OpenStreetMap
    mediante `OpenStreetMapImageryProvider` para V0.2.
@@ -99,4 +99,8 @@ Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con Ces
    `south -35.0002`, `east -61.7708`, `north -29.5004`). Es una ayuda de navegación,
    no un límite legal. Fundamento y fuente en
    [coordinate-reference-systems.md](../../research/geography/coordinate-reference-systems.md).
-4. ¿El endpoint de regiones es necesario ya, o alcanza con que el frontend lea el JSON estático? Recomendación: endpoint, para establecer que los datasets fluyen a través del backend.
+4. **Flujo de datos de región — resuelto**: `data/regions/cordoba.json` se lee en el
+   backend, se valida mediante los tipos geográficos del core y se expone en
+   `GET /api/regions/cordoba`. El frontend no lee el archivo directamente. Esto
+   establece la frontera `dataset → API → frontend` sin agregar persistencia ni
+   lógica específica de Córdoba al core.

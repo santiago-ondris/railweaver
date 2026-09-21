@@ -1,6 +1,6 @@
 # RW-001 — Geographic viewer
 
-- Status: Active
+- Status: Completed (v0.2.0, 2026-09-21)
 - Milestone: V0.2 — Geographic viewer → release `v0.2.0`
 
 ## Goal
@@ -34,16 +34,16 @@ Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con Ces
 - Página principal mostrando Córdoba en Cesium.
 - `GET /api/regions/cordoba` → JSON de la región.
 
-## Acceptance criteria
+## Acceptance criteria (verificados 2026-09-21)
 
 - [x] `GeoCoordinate` rechaza latitudes fuera de [-90, 90] y longitudes fuera de [-180, 180]; tests cubren límites.
 - [x] `GeoBoundingBox` rechaza cajas inválidas y responde `Contains` correctamente; tests incluyen puntos en el borde.
 - [x] Ningún identificador, nombre ni coordenada de Córdoba aparece en `src/RailWeaver.Core` (solo en `data/`).
 - [x] La app abre con la cámara sobre Córdoba y el contorno visible; el control de capas funciona.
 - [x] La app arranca sin secretos commiteados; OpenStreetMap y el terreno elipsoidal no requieren token de Cesium ion.
-- [ ] `dotnet test`, `npm run lint`, `npm run build` pasan; CI verde. La verificación local está completa; falta ejecutar el workflow en un remoto.
+- [x] `dotnet test`, `npm run lint`, `npm run build` pasan; CI verde.
 - [x] ADR si se elige proveedor de imágenes o método de integración de Cesium con consecuencias relevantes. Ambas elecciones son reversibles y quedaron documentadas en esta spec; no requieren ADR nuevo.
-- [ ] `project-status.md` y `CHANGELOG.md` actualizados; tag `v0.2.0`.
+- [x] `project-status.md` y `CHANGELOG.md` actualizados; tag `v0.2.0`.
 
 ## Relevant domain docs
 

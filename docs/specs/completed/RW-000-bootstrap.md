@@ -33,7 +33,7 @@ Lógica ferroviaria, CesiumJS, conexión a la base, datos de Córdoba, schema de
 - [x] `npm run lint` y `npm run build` en `src/web` pasan.
 - [x] `docker compose up -d --wait` levanta PostGIS healthy; `postgis_full_version()` responde (PostGIS 3.5.2, GEOS, PROJ).
 - [x] `GET /api/health` responde `{"status":"ok","name":"RailWeaver","version":"0.1.0"}` directo y vía proxy de Vite; la página lo muestra.
-- [ ] CI ejecutado en GitHub: pendiente, el repositorio todavía no tiene remoto.
+- [x] CI ejecutado en GitHub correctamente al publicar `main`.
 
 ## Decisiones tomadas durante la implementación
 

@@ -1,10 +1,10 @@
 # RailWeaver Status
 
-Last updated: 2026-09-21 (v0.1.0; RW-001 en curso)
+Last updated: 2026-09-21 (v0.2.0)
 
 ## Current milestone
 
-M0 — Real World Skeleton. V0.1 (Workspace) completada; V0.2 — Geographic viewer ([RW-001](../specs/active/RW-001-geographic-viewer.md)) en verificación final.
+M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/completed/RW-001-geographic-viewer.md)) completada; próxima: V0.3 — Existing railway data.
 
 ## Working
 
@@ -15,26 +15,15 @@ M0 — Real World Skeleton. V0.1 (Workspace) completada; V0.2 — Geographic vie
 
 ## In progress
 
-- RW-001 — Geographic viewer: investigación de sistemas de referencia completada;
-  WGS84/EPSG:4326 confirmado para las fronteras y bounding box inicial de Córdoba
-  derivado de la capa oficial del IGN. OpenStreetMap elegido como proveedor de
-  imágenes base y configuración oficial con `vite-plugin-static-copy` elegida para
-  integrar los assets de Cesium con Vite. `GeoCoordinate` y `GeoBoundingBox`
-  implementados en el core con validación, antimeridiano rechazado explícitamente y
-  cobertura de límites/`Contains` mediante tests. Dataset de Córdoba incorporado con
-  metadatos del IGN; la API lo lee, valida y expone en `GET /api/regions/cordoba`.
-  El viewer Cesium ya muestra OpenStreetMap sobre el elipsoide, posiciona la cámara
-  desde esos datos, dibuja la bounding box y permite alternar ambas capas. Lint,
-  build y tests locales pasan; queda cerrar la spec y preparar `v0.2.0`.
+- No hay una spec activa. RW-001 cerró con CI verde y release `v0.2.0`.
 
 ## Next
 
-- Cerrar RW-001: ejecutar CI en un remoto, mover la spec a completadas y preparar el tag `v0.2.0`.
+- Investigar la calidad, licencia y estrategia de extracción de datos ferroviarios de OSM para V0.3; después escribir RW-002.
 
 ## Known problems
 
 - La imagen oficial `postgis/postgis` es solo amd64: en Apple silicon corre emulada (ADR-003).
-- El repositorio no tiene remoto: el workflow de CI (`.github/workflows/ci.yml`) todavía no se ejecutó en GitHub.
 - El bundle inicial de CesiumJS es grande (aprox. 4,36 MB minificado / 1,18 MB gzip); se optimizará cuando exista una medición de carga representativa.
 
 ## Open research questions

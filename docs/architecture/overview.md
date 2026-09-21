@@ -25,7 +25,7 @@ Modular monolith ([ADR-001](../decisions/ADR-001-modular-monolith.md)).
 | `src/RailWeaver.Core` | Lógica de RailWeaver. Expone identidad/versión y value objects geográficos WGS84. | BCL de .NET |
 | `src/RailWeaver.Api` | Traduce HTTP ↔ core. Expone health y datasets de región validados; no decide lógica ferroviaria. | Core, ASP.NET Core |
 | `tests/RailWeaver.Core.Tests` | Unit tests del core y tests de frontera. | Core, xUnit v3 |
-| `src/web` | UI React y visor CesiumJS. Obtiene regiones vía API y solicita teselas de OpenStreetMap directamente desde el navegador. | API por HTTP, CesiumJS, OpenStreetMap |
+| `src/web` | UI React y visor CesiumJS; su lenguaje visual lo define [`DESIGN.md`](../../DESIGN.md) ([ADR-009](../decisions/ADR-009-visual-system.md)). Obtiene regiones vía API y solicita teselas de OpenStreetMap directamente desde el navegador. | API por HTTP, CesiumJS, OpenStreetMap |
 
 ## Reglas de dependencia
 

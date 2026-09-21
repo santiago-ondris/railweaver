@@ -8,6 +8,7 @@ Before substantial work read:
 - `docs/architecture/overview.md`
 - `docs/status/project-status.md`
 - the active spec in `docs/specs/active/`
+- `DESIGN.md` before any frontend or visual work (`src/web`)
 
 Session workflow (how to start and close a session): `docs/process/agent-workflow.md`.
 
@@ -17,6 +18,7 @@ Rules:
 
 - Never invent railway behavior. Research first (`docs/research/`), document assumptions and simplifications.
 - Keep the simulation core (`src/RailWeaver.Core`) independent from API, persistence and visualization.
+- Frontend work follows `DESIGN.md` (ADR-009): use its tokens, never hard-coded colors or fonts; validate changes to it with `npx @google/design.md lint DESIGN.md`.
 - Deterministic safety rules cannot depend on AI.
 - Do not reopen decisions recorded in ADRs without a concrete reason; new architectural decisions require an ADR.
 - Avoid speculative infrastructure: add dependencies only when a concrete requirement justifies them.

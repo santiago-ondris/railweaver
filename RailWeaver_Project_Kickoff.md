@@ -744,6 +744,8 @@ Environmental confidence  LOW
 
 RailWeaver debe ser visualmente satisfactorio.
 
+El lenguaje visual (paleta, tipografía, semántica de color, cartografía y gráficos) está definido en `DESIGN.md` ([ADR-009](docs/decisions/ADR-009-visual-system.md)): una sala de control clara sobre una mesa de dibujo técnico, donde lo normal es gris y el color señala desvíos y servicios.
+
 La interfaz principal futura debe permitir:
 
 - mapa 3D/2.5D;
@@ -1455,6 +1457,7 @@ RailWeaver/
 │
 ├── AGENTS.md
 ├── CLAUDE.md
+├── DESIGN.md            sistema visual para agentes (ADR-009)
 │
 ├── docs/
 │   ├── vision/

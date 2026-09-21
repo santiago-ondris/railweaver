@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="RailWeaver">
+  <!-- RailWeaver mark: a meet on a time-distance diagram. Three stations (horizontal lines);
+       one train waits in the middle passing loop (the flat step) while the other passes through. Grid: 48 units. -->
+  <defs>
+    <mask id="rw-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+      <rect width="48" height="48" fill="#fff"/>
+      <path d="M8 40 L18 24 H30 L40 8" stroke="#000" stroke-width="9" stroke-linejoin="miter" fill="none"/>
+    </mask>
+  </defs>
+  <g fill="none" stroke="#1D2936" stroke-linecap="butt" stroke-linejoin="miter">
+    <path d="M2 8 H46 M2 24 H46 M2 40 H46" stroke-width="2"/>
+    <path d="M8 8 L40 40" stroke-width="5" mask="url(#rw-gap)"/>
+    <path d="M8 40 L18 24 H30 L40 8" stroke-width="5"/>
+  </g>
+</svg>

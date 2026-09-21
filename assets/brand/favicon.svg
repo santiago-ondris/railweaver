@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="RailWeaver">
+  <style>.rw{stroke:#1D2936} @media (prefers-color-scheme: dark){.rw{stroke:#F6F6F4}}</style>
+  <!-- Favicon: reduced mark (no station lines, heavier strokes); switches to on-primary in dark browser chrome. -->
+  <defs>
+    <mask id="rw-gap-sm" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+      <rect width="48" height="48" fill="#fff"/>
+      <path d="M6 42 L16 24 H32 L42 6" stroke="#000" stroke-width="13" stroke-linejoin="miter" fill="none"/>
+    </mask>
+  </defs>
+  <g fill="none" class="rw" stroke-linecap="butt" stroke-linejoin="miter">
+    <path d="M6 6 L42 42" stroke-width="7" mask="url(#rw-gap-sm)"/>
+    <path d="M6 42 L16 24 H32 L42 6" stroke-width="7"/>
+  </g>
+</svg>

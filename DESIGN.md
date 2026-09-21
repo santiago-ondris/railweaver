@@ -312,7 +312,27 @@ The map is the product and gets most of the screen. The shell is a fixed desktop
 
 ## Brand mark
 
-Pending: the logo will be designed from this system in a dedicated iteration and added here. Until then the wordmark is "RailWeaver" set in Schibsted Grotesk 700 in `primary`. Do not invent a logo.
+**The mark is a meet on a time-distance diagram:**
+- Three stations are drawn as horizontal lines and two trains as diagonals.
+- One train waits in the middle passing loop (the flat step) while the other passes through.
+- It is how trains *weave* through time on a train graph, which is what the name says and what the product does.
+
+Files in `assets/brand/`:
+
+| File | Use |
+|---|---|
+| `railweaver-mark.svg` | Default mark, 32px and up |
+| `railweaver-mark-small.svg` | 24px and below (no station lines, heavier strokes) |
+| `favicon.svg` | Browser favicon; switches to `on-primary` when the browser chrome is dark |
+
+Rules:
+
+- **One color only:** `primary` on light surfaces, `on-primary` on `primary` or `ink`. No gradients, outlines, shadows, and no service or state colors.
+- **Geometry:** the crossing is a real gap (an SVG mask), not a stroke in the background color, so the mark works on any surface. Do not redraw or re-proportion it.
+- **Lockup:** mark + "RailWeaver" in Schibsted Grotesk 700, `primary`. The mark height equals about 1.5× the cap height of the wordmark, with a gap of about 0.3× the mark height. The optional descriptor below the wordmark uses the `label` style.
+- **Clear space:** at least a quarter of the mark's height on every side.
+- **Minimum size:** 16px, using the small variant.
+- **Meaning:** the mark is not a UI state glyph and never carries meaning inside the map or charts.
 
 ## Do's and Don'ts
 

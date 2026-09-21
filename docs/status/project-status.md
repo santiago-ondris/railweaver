@@ -12,7 +12,7 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 - Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap, cámara inicial y capas controlables a partir del dataset servido por la API.
 - PostGIS 3.5 / PostgreSQL 17 vía `compose.yaml` (sin uso desde el código todavía).
 - Documentación canónica, ADR-001…009, plantillas de specs e investigación.
-- Sistema visual definido en `DESIGN.md` (ADR-009): dirección híbrida, tema claro, tokens OKLCH; todavía no aplicado a `src/web`.
+- Sistema visual definido en `DESIGN.md` (ADR-009): dirección híbrida, tema claro, tokens OKLCH; todavía no aplicado a `src/web`. Marca (logo) en `assets/brand/`.
 
 ## In progress
 
@@ -21,8 +21,7 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 ## Next
 
 - Investigar la calidad, licencia y estrategia de extracción de datos ferroviarios de OSM para V0.3; después escribir RW-002.
-- Diseñar el logo a partir de `DESIGN.md` y agregarlo como *Brand mark*.
-- Spec de migración de `src/web` al sistema visual (tokens → CSS, fuentes autoalojadas, mapa base neutro, auditorías en CI).
+- Spec de migración de `src/web` al sistema visual (tokens → CSS, fuentes autoalojadas, mapa base neutro, favicon y marca, auditorías en CI).
 
 ## Known problems
 

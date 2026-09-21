@@ -16,17 +16,17 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 
 ## In progress
 
-- No hay una spec activa. RW-001 cerró con CI verde y release `v0.2.0`.
+- [RW-002 — Migración de `src/web` al sistema visual](../specs/active/RW-002-web-visual-migration.md): decisiones confirmadas; implementación en curso.
 
 ## Next
 
-- Investigar la calidad, licencia y estrategia de extracción de datos ferroviarios de OSM para V0.3; después escribir RW-002.
-- Spec de migración de `src/web` al sistema visual (tokens → CSS, fuentes autoalojadas, mapa base neutro, favicon y marca, auditorías en CI).
+- Terminar RW-002.
+- Investigar la calidad, licencia y estrategia de extracción de datos ferroviarios de OSM para V0.3; después escribir RW-003.
 
 ## Known problems
 
 - La imagen oficial `postgis/postgis` es solo amd64: en Apple silicon corre emulada (ADR-003).
-- `src/web` no sigue `DESIGN.md` (fondo oscuro, Inter, teselas OSM a color) hasta la spec de migración.
+- `src/web` no sigue `DESIGN.md` (fondo oscuro, Inter, teselas OSM a color) hasta completar RW-002.
 - El bundle inicial de CesiumJS es grande (aprox. 4,36 MB minificado / 1,18 MB gzip); se optimizará cuando exista una medición de carga representativa.
 
 ## Open research questions

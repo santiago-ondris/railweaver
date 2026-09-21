@@ -15,7 +15,9 @@ M0 — Real World Skeleton. V0.1 (Workspace) completada; próxima: V0.2 — Geog
 
 ## In progress
 
-- Nada.
+- RW-001 — Geographic viewer: investigación de sistemas de referencia completada;
+  WGS84/EPSG:4326 confirmado para las fronteras y bounding box inicial de Córdoba
+  derivado de la capa oficial del IGN. Implementación todavía no iniciada.
 
 ## Next
 
@@ -29,7 +31,6 @@ M0 — Real World Skeleton. V0.1 (Workspace) completada; próxima: V0.2 — Geog
 
 ## Open research questions
 
-- Sistema de referencia de coordenadas: WGS84 en fronteras vs. proyecciones argentinas (POSGAR 2007, Gauss-Krüger) para cálculos de distancia/pendiente.
 - Fuente DEM para V0.4 (Copernicus DEM candidata; resolución, licencia, cobertura).
 - Calidad y licencia de datos ferroviarios de OSM para Córdoba (V0.3).
 

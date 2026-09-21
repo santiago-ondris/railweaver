@@ -69,5 +69,9 @@ Abrir RailWeaver y ver la provincia de Córdoba sobre un globo/mapa real con Ces
    - El token de ion viaja al navegador (no es un secreto real); restringirlo por asset y URL permitida, y no commitearlo (`.env.local`).
    - Pendiente: decisión del autor.
 2. **Assets de Cesium con Vite**: copiar `node_modules/cesium/Build/Cesium` con un plugin de copia estática y fijar `CESIUM_BASE_URL`, vs. un plugin específico de Cesium. Preferir la opción con menos dependencias y mejor mantenida.
-3. **Bounding box de Córdoba**: fuente (IGN, OSM) y precisión aceptable para una vista inicial.
+3. **Bounding box de Córdoba — resuelto**: usar la capa oficial de provincias del IGN,
+   registro INDEC `14`, redondeada hacia afuera a cuatro decimales (`west -65.7720`,
+   `south -35.0002`, `east -61.7708`, `north -29.5004`). Es una ayuda de navegación,
+   no un límite legal. Fundamento y fuente en
+   [coordinate-reference-systems.md](../../research/geography/coordinate-reference-systems.md).
 4. ¿El endpoint de regiones es necesario ya, o alcanza con que el frontend lea el JSON estático? Recomendación: endpoint, para establecer que los datasets fluyen a través del backend.

@@ -6,6 +6,12 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+### Added
+
+- Investigación de sistemas de referencia geográficos para RW-001: uso de WGS84 en
+  fronteras, relación con POSGAR 2007/Gauss-Krüger y fuente oficial del bounding box
+  inicial de Córdoba.
+
 ## [0.1.0] - 2026-09-21
 
 Primer workspace ejecutable (RW-000 — Bootstrap).
@@ -19,4 +25,3 @@ Primer workspace ejecutable (RW-000 — Bootstrap).
 - Documentación: visión, principios, non-goals, arquitectura, ADR-001 a ADR-007, plantillas de specs e investigación, estado del proyecto.
 - `AGENTS.md`, `CLAUDE.md`, `README.md`.
 - CI básico en GitHub Actions (build + tests .NET, lint + build frontend, validación de compose).
-

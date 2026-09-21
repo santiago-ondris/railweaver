@@ -64,12 +64,12 @@ Que el frontend existente siga [`DESIGN.md`](../../../DESIGN.md) ([ADR-009](../.
 
 ## Acceptance criteria
 
-Verificados localmente el 2026-09-21. Los que siguen sin tildar dependen del PR (CI) o de la review con otro modelo.
+Verificados localmente el 2026-09-21. CI verde en el PR #3. Los que siguen sin tildar dependen de la review con otro modelo y de la prueba manual con teclado.
 
 
 - [x] `index.css` y los componentes no contienen colores literales (hex, rgb, hsl u oklch) ni familias tipográficas literales fuera de `styles/`. Se verifica con `grep`. Excepción documentada: los colores que Cesium necesita como `Color`, que se leen de las variables CSS en tiempo de ejecución o se centralizan en un solo módulo con referencia al token.
 - [x] `npm run tokens` regenera `tokens.generated.css` sin diferencias respecto del commit.
-- [ ] CI: `design.md lint` sin errores y chequeo de tokens al día.
+- [x] CI: `design.md lint` sin errores y chequeo de tokens al día.
 - [x] La red del navegador no muestra requests a `fonts.googleapis.com` ni a `fonts.gstatic.com`. Las fuentes se sirven desde el propio origen.
 - [x] La barra superior muestra la marca y el wordmark, y el favicon es `favicon.svg`. `assets/brand/` sigue siendo la única copia versionada de la marca.
 - [x] El mapa base se ve neutro y la atribución de OpenStreetMap sigue visible y legible. La atribución de OSM se muestra en pantalla (`Credit` con `showOnScreen`), no solo detrás de "Data attribution".
@@ -77,7 +77,7 @@ Verificados localmente el 2026-09-21. Los que siguen sin tildar dependen del PR 
 - [ ] El texto pasa WCAG AA sobre sus superficies y el foco de teclado es visible en todos los controles.
 - [x] Carga y error: el de error usa el patrón de alerta (glifo cuadrado + qué pasó + cómo resolverlo) y nada anima con `prefers-reduced-motion`.
 - [ ] La auditoría manual contra `DESIGN.md › Do's and Don'ts` no encuentra violaciones. Hacerla con un modelo distinto al que implementó (`agent-workflow.md` §7).
-- [ ] `dotnet test`, `npm run lint` y `npm run build` pasan, y el CI queda en verde.
+- [x] `dotnet test`, `npm run lint` y `npm run build` pasan, y el CI queda en verde.
 - [ ] `project-status.md` y `CHANGELOG.md` actualizados.
 
 ## Relevant domain docs

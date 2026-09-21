@@ -16,7 +16,7 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 
 ## In progress
 
-- [RW-002 — Migración de `src/web` al sistema visual](../specs/active/RW-002-web-visual-migration.md): implementada en `feature/RW-002-web-visual-migration`. Falta el CI del PR y la review con otro modelo.
+- [RW-002 — Migración de `src/web` al sistema visual](../specs/active/RW-002-web-visual-migration.md): implementada, PR [#3](https://github.com/santiago-ondris/railweaver/pull/3) abierto con CI verde. Antes de mergear faltan la review con otro modelo (`agent-workflow.md` §7) y la prueba manual de foco con teclado. Después: merge con squash, mover la spec a `completed/` y decidir el release.
 
 ## Next
 

@@ -8,11 +8,11 @@ using RailWeaver.Core;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton(
-    new RegionFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
+    _ => new RegionFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
 builder.Services.AddSingleton(
-    new RailwayFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
+    _ => new RailwayFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
 builder.Services.AddSingleton(
-    new ElevationFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
+    _ => new ElevationFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
 
 var app = builder.Build();
 

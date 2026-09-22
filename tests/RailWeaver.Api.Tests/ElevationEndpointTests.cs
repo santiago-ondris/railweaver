@@ -8,8 +8,8 @@ namespace RailWeaver.Api.Tests;
 
 public sealed class ElevationEndpointTests : IDisposable
 {
-    private const string RegionId = "elevation-test";
-    private const string MissingRegionId = "missing-elevation-test";
+    private readonly string RegionId = $"elevation-test-{Guid.NewGuid():N}";
+    private readonly string MissingRegionId = $"missing-elevation-test-{Guid.NewGuid():N}";
     private readonly string regionsDirectory = Path.Combine(AppContext.BaseDirectory, "data", "regions");
     private readonly WebApplicationFactory<Program> factory;
     private readonly HttpClient client;

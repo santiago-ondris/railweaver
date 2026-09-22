@@ -21,6 +21,9 @@
     <Content Include="..\..\data\regions\cordoba.json"
              Link="data\regions\cordoba.json"
              CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\data\regions\cordoba\*.*"
+             Link="data\regions\cordoba\%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

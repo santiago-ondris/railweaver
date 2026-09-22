@@ -1,0 +1,3047 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "node/220642796",
+      "properties": {
+        "id": "node/220642796",
+        "name": "Leguizamón",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.9772527,
+          -34.2066277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/220649261",
+      "properties": {
+        "id": "node/220649261",
+        "name": "La Cautiva",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.0851241,
+          -33.9758447
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/220654733",
+      "properties": {
+        "id": "node/220654733",
+        "name": "Las Isletas",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.5448149,
+          -33.8043187
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/220660668",
+      "properties": {
+        "id": "node/220660668",
+        "name": "Nueva Escocia",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.7166344,
+          -33.7828073
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/385037730",
+      "properties": {
+        "id": "node/385037730",
+        "name": "Alejandro",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.7192412,
+          -33.3572513
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/493827412",
+      "properties": {
+        "id": "node/493827412",
+        "name": "Juan Bautista Alberdi",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8118179,
+          -34.4368432
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/493830508",
+      "properties": {
+        "id": "node/493830508",
+        "name": "Diego de Alvear",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.1290427,
+          -34.3755045
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/497377641",
+      "properties": {
+        "id": "node/497377641",
+        "name": "San Roque",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4607809,
+          -31.3459447
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/497384133",
+      "properties": {
+        "id": "node/497384133",
+        "name": "La Calera",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.3384829,
+          -31.3433026
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/498326511",
+      "properties": {
+        "id": "node/498326511",
+        "name": "Rodríguez del Busto",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.2202485,
+          -31.3640698
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/499609392",
+      "properties": {
+        "id": "node/499609392",
+        "name": "Tristán Narvaja",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.2894602,
+          -31.3361437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/499609413",
+      "properties": {
+        "id": "node/499609413",
+        "name": "Argüello",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.2570403,
+          -31.3395526
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/616047492",
+      "properties": {
+        "id": "node/616047492",
+        "name": "General Pinto",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8916758,
+          -34.7705212
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/616049268",
+      "properties": {
+        "id": "node/616049268",
+        "name": "Ameghino",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.4679876,
+          -34.8498655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/675040526",
+      "properties": {
+        "id": "node/675040526",
+        "name": "Chaján",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.0046378,
+          -33.5536898
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/675050426",
+      "properties": {
+        "id": "node/675050426",
+        "name": "Río Cuarto",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.3391258,
+          -33.1308683
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/675625081",
+      "properties": {
+        "id": "node/675625081",
+        "name": "Isla Verde",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.4022301,
+          -33.2423536
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/675627145",
+      "properties": {
+        "id": "node/675627145",
+        "name": "Guatimozín",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.4380591,
+          -33.460912
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676470745",
+      "properties": {
+        "id": "node/676470745",
+        "name": "Tortugas",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8213308,
+          -32.7486496
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676470749",
+      "properties": {
+        "id": "node/676470749",
+        "name": "General Roca",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.9161294,
+          -32.7321725
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676470751",
+      "properties": {
+        "id": "node/676470751",
+        "name": "Marcos Juárez",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.1066678,
+          -32.6988228
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676471192",
+      "properties": {
+        "id": "node/676471192",
+        "name": "San Marcos Sud",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.4803387,
+          -32.6323724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676471193",
+      "properties": {
+        "id": "node/676471193",
+        "name": "Monte Leña",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.5899171,
+          -32.6127269
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676471203",
+      "properties": {
+        "id": "node/676471203",
+        "name": "Morrison",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.8348538,
+          -32.595025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676471799",
+      "properties": {
+        "id": "node/676471799",
+        "name": "Ballesteros",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.984624,
+          -32.5485761
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/676471806",
+      "properties": {
+        "id": "node/676471806",
+        "name": "Ramón J. Carcano",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.101449,
+          -32.4920238
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/677332333",
+      "properties": {
+        "id": "node/677332333",
+        "name": "Tancacha",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.9823288,
+          -32.2408877
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/677347397",
+      "properties": {
+        "id": "node/677347397",
+        "name": "Las Arrias",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5968734,
+          -30.3815631
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/678541032",
+      "properties": {
+        "id": "node/678541032",
+        "name": "Hipólito Bouchard",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.509556,
+          -34.7215956
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/679045502",
+      "properties": {
+        "id": "node/679045502",
+        "name": "Sancti Spíritu",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.2391644,
+          -34.010429
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/679047672",
+      "properties": {
+        "id": "node/679047672",
+        "name": "Venado Tuerto",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.9577025,
+          -33.7546543
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/679089569",
+      "properties": {
+        "id": "node/679089569",
+        "name": "Cañada Verde",
+        "type": "Halt",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.5870186,
+          -34.8363729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/792693751",
+      "properties": {
+        "id": "node/792693751",
+        "name": "Ana Zumarán",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.0628882,
+          -32.3936379
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/883461805",
+      "properties": {
+        "id": "node/883461805",
+        "name": "San Gregorio",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.0492422,
+          -34.3248583
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/883461834",
+      "properties": {
+        "id": "node/883461834",
+        "name": "Christophersen",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.0215439,
+          -34.1831687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/883463143",
+      "properties": {
+        "id": "node/883463143",
+        "name": "María Teresa",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.9101744,
+          -34.0106795
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/883463154",
+      "properties": {
+        "id": "node/883463154",
+        "name": "Runciman",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8276837,
+          -33.8983309
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/891516363",
+      "properties": {
+        "id": "node/891516363",
+        "name": "Alta Córdoba",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.18025,
+          -31.3982093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1041622476",
+      "properties": {
+        "id": "node/1041622476",
+        "name": "Río Segundo",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.9105526,
+          -31.6536577
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1041622751",
+      "properties": {
+        "id": "node/1041622751",
+        "name": "Pilar",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.8853103,
+          -31.6824899
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1085341755",
+      "properties": {
+        "id": "node/1085341755",
+        "name": "Dalmacio Velez Sarsfield",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5814117,
+          -32.6100153
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1085424131",
+      "properties": {
+        "id": "node/1085424131",
+        "name": "Las Perdices",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.7118506,
+          -32.6990376
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1085424150",
+      "properties": {
+        "id": "node/1085424150",
+        "name": "General Deheza",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.7913403,
+          -32.7531602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1085426531",
+      "properties": {
+        "id": "node/1085426531",
+        "name": "General Cabrera",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.8771419,
+          -32.8113695
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1085426562",
+      "properties": {
+        "id": "node/1085426562",
+        "name": "Carnerillo",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.0243572,
+          -32.9108936
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1085442869",
+      "properties": {
+        "id": "node/1085442869",
+        "name": "Las Higueras",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.2924432,
+          -33.0911949
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1090721220",
+      "properties": {
+        "id": "node/1090721220",
+        "name": "San Guillermo",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.9233389,
+          -30.3572365
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1090721236",
+      "properties": {
+        "id": "node/1090721236",
+        "name": "La Rubia",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.7907561,
+          -30.1091822
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1090721248",
+      "properties": {
+        "id": "node/1090721248",
+        "name": "Suardi",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.9649296,
+          -30.5338041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1090721276",
+      "properties": {
+        "id": "node/1090721276",
+        "name": "Villa Trinidad",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8771377,
+          -30.2094456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1121558429",
+      "properties": {
+        "id": "node/1121558429",
+        "name": "Río Primero",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.6224076,
+          -31.3323616
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1131593750",
+      "properties": {
+        "id": "node/1131593750",
+        "name": "Piquillín",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.757651,
+          -31.30057
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1136468422",
+      "properties": {
+        "id": "node/1136468422",
+        "name": "Cañada de Machado",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5890322,
+          -31.4294318
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1136476391",
+      "properties": {
+        "id": "node/1136476391",
+        "name": "James Craik",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.463883,
+          -32.1641321
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1270105595",
+      "properties": {
+        "id": "node/1270105595",
+        "name": "Las Junturas",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.4485793,
+          -31.8307273
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1270105612",
+      "properties": {
+        "id": "node/1270105612",
+        "name": "Colazo",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.3858993,
+          -31.9644992
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1270105964",
+      "properties": {
+        "id": "node/1270105964",
+        "name": "Matorrales",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5137457,
+          -31.7159139
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1270107324",
+      "properties": {
+        "id": "node/1270107324",
+        "name": "Villa del Rosario",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5399481,
+          -31.5644775
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1270111036",
+      "properties": {
+        "id": "node/1270111036",
+        "name": "Manfredi",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.7454022,
+          -31.8430342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1270111046",
+      "properties": {
+        "id": "node/1270111046",
+        "name": "Oncativo",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.6832085,
+          -31.9141936
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1333851317",
+      "properties": {
+        "id": "node/1333851317",
+        "name": "Palo Negro",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.1378413,
+          -29.6760073
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1333851319",
+      "properties": {
+        "id": "node/1333851319",
+        "name": "Selva",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.0508858,
+          -29.7698076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1333851337",
+      "properties": {
+        "id": "node/1333851337",
+        "name": "Argentina",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.2670376,
+          -29.5358785
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1349656857",
+      "properties": {
+        "id": "node/1349656857",
+        "name": "Villa Valeria",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.9168062,
+          -34.3404285
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1351863886",
+      "properties": {
+        "id": "node/1351863886",
+        "name": "Lecueder",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.8096741,
+          -34.4955295
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1351873535",
+      "properties": {
+        "id": "node/1351873535",
+        "name": "Laboulaye",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.3879884,
+          -34.1224336
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1357094372",
+      "properties": {
+        "id": "node/1357094372",
+        "name": "Fray Cayetano Rodríguez",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.4319732,
+          -34.0137807
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1357097335",
+      "properties": {
+        "id": "node/1357097335",
+        "name": "El Rastreador",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5388328,
+          -33.6639027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1357097343",
+      "properties": {
+        "id": "node/1357097343",
+        "name": "Pacheco de Melo",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.4897564,
+          -33.7577791
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1357097384",
+      "properties": {
+        "id": "node/1357097384",
+        "name": "Ruiz Díaz de Guzmán",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.463926,
+          -33.8683033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1360317903",
+      "properties": {
+        "id": "node/1360317903",
+        "name": "Vicuña Mackenna",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.388203,
+          -33.9104973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373717199",
+      "properties": {
+        "id": "node/1373717199",
+        "name": "Quilino",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.5033976,
+          -30.2143488
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373717200",
+      "properties": {
+        "id": "node/1373717200",
+        "name": "San José de las Salinas",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.6256963,
+          -30.0074944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373718933",
+      "properties": {
+        "id": "node/1373718933",
+        "name": "Deán Funes",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.3540844,
+          -30.4282211
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373730416",
+      "properties": {
+        "id": "node/1373730416",
+        "name": "Jesús María",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.0949161,
+          -30.9795326
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373731281",
+      "properties": {
+        "id": "node/1373731281",
+        "name": "Sarmiento",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.1076644,
+          -30.7739719
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373732587",
+      "properties": {
+        "id": "node/1373732587",
+        "name": "Avellaneda",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.2076848,
+          -30.5946516
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373732656",
+      "properties": {
+        "id": "node/1373732656",
+        "name": "Villa Gutiérrez",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.1600799,
+          -30.6791799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373737776",
+      "properties": {
+        "id": "node/1373737776",
+        "name": "Lucio V. Mansilla",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.7106531,
+          -29.806002
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1373792800",
+      "properties": {
+        "id": "node/1373792800",
+        "name": "Serrezuela",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.38559,
+          -30.6370399
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1383520447",
+      "properties": {
+        "id": "node/1383520447",
+        "name": "Devoto",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.3063291,
+          -31.4070929
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1383526635",
+      "properties": {
+        "id": "node/1383526635",
+        "name": "Tránsito",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.196397,
+          -31.4259451
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1385259057",
+      "properties": {
+        "id": "node/1385259057",
+        "name": "Buey Muerto",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.333483,
+          -31.2332024
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1385262398",
+      "properties": {
+        "id": "node/1385262398",
+        "name": "Estación Tala Norte",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.6013614,
+          -31.1148044
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1385327376",
+      "properties": {
+        "id": "node/1385327376",
+        "name": "El Tío",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.8277187,
+          -31.3833943
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1411733278",
+      "properties": {
+        "id": "node/1411733278",
+        "name": "Casa Bamba",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4035259,
+          -31.3470005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1411733573",
+      "properties": {
+        "id": "node/1411733573",
+        "name": "Cassaffousth",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4418418,
+          -31.3733037
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1411733740",
+      "properties": {
+        "id": "node/1411733740",
+        "name": "Bialet Massé",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4630174,
+          -31.3079069
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1412616330",
+      "properties": {
+        "id": "node/1412616330",
+        "name": "La Cumbre",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4940148,
+          -30.9823462
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1412617300",
+      "properties": {
+        "id": "node/1412617300",
+        "name": "San Esteban",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.5351622,
+          -30.9237003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1412965980",
+      "properties": {
+        "id": "node/1412965980",
+        "name": "Soto",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.0097734,
+          -30.8489361
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1412966891",
+      "properties": {
+        "id": "node/1412966891",
+        "name": "Tabaquillo",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.9364928,
+          -30.7687683
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1412967879",
+      "properties": {
+        "id": "node/1412967879",
+        "name": "Jaime Peter",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.5407955,
+          -30.4112689
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1412997519",
+      "properties": {
+        "id": "node/1412997519",
+        "name": "Tuclame",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.2348382,
+          -30.74626
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1421415665",
+      "properties": {
+        "id": "node/1421415665",
+        "name": "Eusebia",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8567875,
+          -30.9443711
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1427272340",
+      "properties": {
+        "id": "node/1427272340",
+        "name": "Sebastián Elcano",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5957683,
+          -30.1590335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1511406925",
+      "properties": {
+        "id": "node/1511406925",
+        "name": "Coronel Granada",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.204565,
+          -34.7877191
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1513148334",
+      "properties": {
+        "id": "node/1513148334",
+        "name": "Drabble",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.7644423,
+          -34.9189494
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1513148348",
+      "properties": {
+        "id": "node/1513148348",
+        "name": "Eduardo Costa",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.33606,
+          -34.8188194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1513148379",
+      "properties": {
+        "id": "node/1513148379",
+        "name": "Volta",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.6362588,
+          -34.8891995
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1514515248",
+      "properties": {
+        "id": "node/1514515248",
+        "name": "Oliva",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5713215,
+          -32.0418247
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1517823956",
+      "properties": {
+        "id": "node/1517823956",
+        "name": "Arteaga",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.7902536,
+          -33.0870694
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1654624506",
+      "properties": {
+        "id": "node/1654624506",
+        "name": "General Levalle",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.9242949,
+          -34.0102556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1703838245",
+      "properties": {
+        "id": "node/1703838245",
+        "name": "Chañar Ladeado",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.0347045,
+          -33.3079475
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1792389587",
+      "properties": {
+        "id": "node/1792389587",
+        "name": "Cruz Alta",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8067602,
+          -33.0071248
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1794820235",
+      "properties": {
+        "id": "node/1794820235",
+        "name": "Justo Daract",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.1739079,
+          -33.8604133
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1832614249",
+      "properties": {
+        "id": "node/1832614249",
+        "name": "Casa Grande",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4726108,
+          -31.1534176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1832614336",
+      "properties": {
+        "id": "node/1832614336",
+        "name": "Valle Hermoso",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.485552,
+          -31.1168001
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2101135171",
+      "properties": {
+        "id": "node/2101135171",
+        "name": "Cruz del Eje",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.8052915,
+          -30.7200346
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2101141938",
+      "properties": {
+        "id": "node/2101141938",
+        "name": "Chuña",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.6681952,
+          -30.4683911
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2108069364",
+      "properties": {
+        "id": "node/2108069364",
+        "name": "Córdoba",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.1750879,
+          -31.4203267
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2164552599",
+      "properties": {
+        "id": "node/2164552599",
+        "name": "Sastre (Belgrano)",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8288843,
+          -31.7501832
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2244947706",
+      "properties": {
+        "id": "node/2244947706",
+        "name": "La Carlota (Mitre)",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.2984826,
+          -33.4337686
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2282027481",
+      "properties": {
+        "id": "node/2282027481",
+        "name": "Capilla del Monte",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.522684,
+          -30.8607686
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2294055016",
+      "properties": {
+        "id": "node/2294055016",
+        "name": "Iriarte",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.9287622,
+          -34.4144123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2294055943",
+      "properties": {
+        "id": "node/2294055943",
+        "name": "Castellanos",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.3728838,
+          -34.3277174
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2432739247",
+      "properties": {
+        "id": "node/2432739247",
+        "name": "Berabevú",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.8615226,
+          -33.338699
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2439529301",
+      "properties": {
+        "id": "node/2439529301",
+        "name": "La Tablada",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.2377472,
+          -31.3519729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2468028354",
+      "properties": {
+        "id": "node/2468028354",
+        "name": "Salas",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.076913,
+          -34.1863785
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2507677584",
+      "properties": {
+        "id": "node/2507677584",
+        "name": "Río Tercero",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.1105186,
+          -32.1716085
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2546250324",
+      "properties": {
+        "id": "node/2546250324",
+        "name": "Corral de Bustos",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.1858408,
+          -33.2810089
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2549873175",
+      "properties": {
+        "id": "node/2549873175",
+        "name": "Washington",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.6890376,
+          -33.8706483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2549893092",
+      "properties": {
+        "id": "node/2549893092",
+        "name": "Pretot Freyre",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.5298732,
+          -33.8860458
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2559038689",
+      "properties": {
+        "id": "node/2559038689",
+        "name": "Los Callejones",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.1840397,
+          -34.7560094
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2570531989",
+      "properties": {
+        "id": "node/2570531989",
+        "name": "Paunero",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.0241188,
+          -33.8736233
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2574700880",
+      "properties": {
+        "id": "node/2574700880",
+        "name": "Rosales",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.1537941,
+          -34.1706919
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2615336500",
+      "properties": {
+        "id": "node/2615336500",
+        "name": "Paso Viejo",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.1908086,
+          -30.7653846
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2626785897",
+      "properties": {
+        "id": "node/2626785897",
+        "name": "La Posta",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5160849,
+          -30.5696038
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2654909447",
+      "properties": {
+        "id": "node/2654909447",
+        "name": "Hospital Neonatal",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.211188,
+          -31.3693097
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2654923873",
+      "properties": {
+        "id": "node/2654923873",
+        "name": "Dumesnil",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.3319973,
+          -31.3270997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2654954077",
+      "properties": {
+        "id": "node/2654954077",
+        "name": "Santa María",
+        "type": "Halt",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4626716,
+          -31.2780888
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2847270878",
+      "properties": {
+        "id": "node/2847270878",
+        "name": "Laguna Oscura",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.8559417,
+          -33.8640977
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2897872987",
+      "properties": {
+        "id": "node/2897872987",
+        "name": "Laguna Larga",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.8027962,
+          -31.7772946
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2914991592",
+      "properties": {
+        "id": "node/2914991592",
+        "name": "Dussaud",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.7786438,
+          -34.7934602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2956085762",
+      "properties": {
+        "id": "node/2956085762",
+        "name": "Pazos Kanki",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.0612087,
+          -34.7749724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2981940184",
+      "properties": {
+        "id": "node/2981940184",
+        "name": "Watt",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.3103338,
+          -34.9386353
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2986981943",
+      "properties": {
+        "id": "node/2986981943",
+        "name": "Cañada Seca",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.9629761,
+          -34.4141854
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/2989906238",
+      "properties": {
+        "id": "node/2989906238",
+        "name": "Tarragona",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.539674,
+          -34.188886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3108899829",
+      "properties": {
+        "id": "node/3108899829",
+        "name": "Huinca Renancó",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.3684277,
+          -34.8382724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3325439684",
+      "properties": {
+        "id": "node/3325439684",
+        "name": "Hernando",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.736235,
+          -32.4296118
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3344995620",
+      "properties": {
+        "id": "node/3344995620",
+        "name": "Maquinista Gallini",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.5290133,
+          -30.904965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3513565954",
+      "properties": {
+        "id": "node/3513565954",
+        "name": "Las Vizcacheras",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.1978791,
+          -33.6027942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3515811813",
+      "properties": {
+        "id": "node/3515811813",
+        "name": "Tío Pujio",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.3550577,
+          -32.287831
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3515953149",
+      "properties": {
+        "id": "node/3515953149",
+        "name": "Ferreyra",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.1058999,
+          -31.4624553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3515986168",
+      "properties": {
+        "id": "node/3515986168",
+        "name": "Toledo",
+        "type": "Halt",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.0095442,
+          -31.556236
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3516000673",
+      "properties": {
+        "id": "node/3516000673",
+        "name": "Parada Km 692",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.1302968,
+          -31.4387548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3516025584",
+      "properties": {
+        "id": "node/3516025584",
+        "name": "Estación B° Flores",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.2519712,
+          -31.4520509
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3516035509",
+      "properties": {
+        "id": "node/3516035509",
+        "name": "Malagueño",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.3594988,
+          -31.4682255
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3516217360",
+      "properties": {
+        "id": "node/3516217360",
+        "name": "El Crispin",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.6085492,
+          -31.0190062
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3516236125",
+      "properties": {
+        "id": "node/3516236125",
+        "name": "Obispo Trejo (Mitre)",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.4284673,
+          -30.7650093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3646229622",
+      "properties": {
+        "id": "node/3646229622",
+        "name": "Caroya",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.1148582,
+          -31.0199607
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3646708478",
+      "properties": {
+        "id": "node/3646708478",
+        "name": "Totoralejos",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.8527962,
+          -29.6388615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3818162297",
+      "properties": {
+        "id": "node/3818162297",
+        "name": "Cosquín",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4677271,
+          -31.2436882
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3857517814",
+      "properties": {
+        "id": "node/3857517814",
+        "name": "El Chacho",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.6569442,
+          -30.8008535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/4370116043",
+      "properties": {
+        "id": "node/4370116043",
+        "name": "Ceres",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.9464975,
+          -29.8820632
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/4844593794",
+      "properties": {
+        "id": "node/4844593794",
+        "name": "San Eduardo",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.093592,
+          -33.8691695
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/5158248161",
+      "properties": {
+        "id": "node/5158248161",
+        "name": "Villa María",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.244784,
+          -32.4126317
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/6245778750",
+      "properties": {
+        "id": "node/6245778750",
+        "name": "Arroyo Cabral",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.4036202,
+          -32.4884181
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/6467327007",
+      "properties": {
+        "id": "node/6467327007",
+        "name": "Huerta Grande",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4942757,
+          -31.0743718
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/7300113428",
+      "properties": {
+        "id": "node/7300113428",
+        "name": "La Falda",
+        "type": "Station",
+        "gaugeMillimetres": 1000,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4876991,
+          -31.0937229
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/8195688714",
+      "properties": {
+        "id": "node/8195688714",
+        "name": "Leones",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.2986643,
+          -32.6648532
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/8410163276",
+      "properties": {
+        "id": "node/8410163276",
+        "name": "Estación del Monoriel",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4929062,
+          -30.9334852
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/8584423902",
+      "properties": {
+        "id": "node/8584423902",
+        "name": "Apeadero km 474",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.2633662,
+          -34.1483077
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/9333415575",
+      "properties": {
+        "id": "node/9333415575",
+        "name": "Bell Ville",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.6940796,
+          -32.6120863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10221229673",
+      "properties": {
+        "id": "node/10221229673",
+        "name": "Villa Mercedes",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.4581552,
+          -33.6613093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/11056613243",
+      "properties": {
+        "id": "node/11056613243",
+        "name": "Paradero Kilómetro 656",
+        "type": "Halt",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.1904425,
+          -33.8518709
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/11897745412",
+      "properties": {
+        "id": "node/11897745412",
+        "name": "Rufino",
+        "type": "Station",
+        "gaugeMillimetres": 1676,
+        "gaugeInferred": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.7108153,
+          -34.2607679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/13712161736",
+      "properties": {
+        "id": "node/13712161736",
+        "name": "Molinari",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.4645279,
+          -31.1990646
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/13734604429",
+      "properties": {
+        "id": "node/13734604429",
+        "name": "Lavaisse",
+        "type": "Station",
+        "gaugeMillimetres": 0,
+        "gaugeInferred": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.4253926,
+          -33.8245014
+        ]
+      }
+    }
+  ]
+}

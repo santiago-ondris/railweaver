@@ -1,0 +1,93 @@
+{
+  "extractedOn": "2026-09-22",
+  "source": "OpenStreetMap",
+  "sourceUrl": "https://www.openstreetmap.org/",
+  "attribution": "© OpenStreetMap contributors",
+  "license": "ODbL-1.0",
+  "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "overpassUrl": "https://overpass-api.de/api/interpreter",
+  "osmDataTimestamp": "2026-09-22T08:45:51Z",
+  "query": "[out:json][timeout:180];\n(\n  way[\"railway\"~\"^(rail|disused|abandoned|narrow_gauge)$\"](-35.0002,-65.7720,-29.5004,-61.7708);\n  node[\"railway\"~\"^(station|halt)$\"](-35.0002,-65.7720,-29.5004,-61.7708);\n);\nout body;\n>;\nout skel qt;\n",
+  "rawResponse": "railway.overpass.json",
+  "discardRules": [
+    "Ways tagged area=yes are not linear railway infrastructure.",
+    "Explicit model railways (model_railway=yes or attraction=model_railway) are excluded.",
+    "Ways explicitly tagged as funicular infrastructure are excluded.",
+    "Tourist miniature railways with a declared gauge below 600 mm are excluded.",
+    "Stations without a name are excluded because RailwayStation requires an auditable identity."
+  ],
+  "discarded": {
+    "tracks": {
+      "noise": 1,
+      "missingNodes": 0,
+      "outsideBounds": 0
+    },
+    "stations": {
+      "unnamed": 0,
+      "outsideBounds": 0
+    }
+  },
+  "counts": {
+    "tracks": 2374,
+    "stations": 169
+  },
+  "dualGaugeFinding": {
+    "summary": "OSM represents dual gauge as single ways tagged gauge=1000;1676, not as overlapping ways. The derived dataset emits two TrackSegments with shared geometry.",
+    "dualGaugeWayCount": 40,
+    "osmWayIds": [
+      47958014,
+      47958015,
+      47958063,
+      47958064,
+      48411879,
+      97761490,
+      129370234,
+      131767954,
+      131838001,
+      146816084,
+      192783563,
+      234262027,
+      258527030,
+      293131717,
+      293131718,
+      360075304,
+      360075305,
+      680963667,
+      680963668,
+      694140259,
+      700221146,
+      795861056,
+      825547919,
+      882657731,
+      882657732,
+      883096540,
+      883096541,
+      883102915,
+      887704298,
+      887704299,
+      989792952,
+      989792953,
+      989792954,
+      989792972,
+      989792973,
+      989792975,
+      989792976,
+      1014219671,
+      1169217033,
+      1169217034
+    ],
+    "cordobaMitreEvidence": "The listed ways are the multi-gauge sections around Córdoba Mitre in the current extract. OSM does not tag a continuous dual-gauge way through to Alta Córdoba.",
+    "cordobaMitreWayIds": [
+      258527030,
+      694140259,
+      989792952,
+      989792953,
+      989792954,
+      989792972,
+      989792973,
+      989792975,
+      989792976,
+      1014219671
+    ]
+  }
+}

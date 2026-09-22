@@ -22,8 +22,10 @@ M0 — Real World Skeleton. V0.4 — Terrain ([RW-004](../specs/completed/RW-004
 
 ## Next
 
-- Redactar la spec de V0.5 — Candidate corridor prototype a partir de investigación
-  de routing, restricciones de pendiente y generación de corredores.
+- Implementar V0.5 — Candidate corridor prototype según la spec activa
+  [RW-005](../specs/active/RW-005-candidate-corridor.md), basada en
+  [railway-gradients-and-corridor-routing.md](../research/terrain-routing/railway-gradients-and-corridor-routing.md).
+  Cierra el vertical slice de M0.
 
 ## Known problems
 

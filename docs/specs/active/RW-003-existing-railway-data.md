@@ -60,16 +60,16 @@ Que RailWeaver muestre, sobre el mapa de Córdoba, la infraestructura ferroviari
 
 ## Acceptance criteria
 
-- [ ] `TrackSegment` rechaza geometrías con menos de 2 puntos o puntos consecutivos idénticos; tests cubren ambos casos.
-- [ ] La incompatibilidad de trocha entre tramos queda representada en el modelo (al menos como invariante documentado y verificado por test: dos trochas nominales distintas no se tratan como conectables sin una entidad explícita de transbordo/bitrocha).
-- [ ] El archivo de datos de Córdoba carga y valida sin errores contra los tipos del core; un test lo confirma (igual que el test existente para `cordoba.json`).
-- [ ] Todo tramo o estación con trocha inferida (no leída del tag `gauge`) queda marcado como tal en el dato y es visible en la respuesta de la API; una trocha desconocida no se presenta como leída ni inferida.
-- [ ] La respuesta cruda de Overpass usada para generar el dataset está versionada en el repo (o su ubicación/proceso de obtención documentado si su tamaño no lo permite), junto con la fecha y la query exacta.
-- [ ] `GET /api/regions/cordoba/railway` responde 200 con tramos y estaciones; 404 si la región no existe, igual que `GET /api/regions/{id}`.
-- [ ] El dataset y la respuesta de la API exponen atribución y licencia `ODbL-1.0` de forma explícita.
+- [x] `TrackSegment` rechaza geometrías con menos de 2 puntos o puntos consecutivos idénticos; tests cubren ambos casos.
+- [x] La incompatibilidad de trocha entre tramos queda representada en el modelo (al menos como invariante documentado y verificado por test: dos trochas nominales distintas no se tratan como conectables sin una entidad explícita de transbordo/bitrocha).
+- [x] El archivo de datos de Córdoba carga y valida sin errores contra los tipos del core; un test lo confirma (igual que el test existente para `cordoba.json`).
+- [x] Todo tramo o estación con trocha inferida (no leída del tag `gauge`) queda marcado como tal en el dato y es visible en la respuesta de la API; una trocha desconocida no se presenta como leída ni inferida.
+- [x] La respuesta cruda de Overpass usada para generar el dataset está versionada en el repo (o su ubicación/proceso de obtención documentado si su tamaño no lo permite), junto con la fecha y la query exacta.
+- [x] `GET /api/regions/cordoba/railway` responde 200 con tramos y estaciones; 404 si la región no existe, igual que `GET /api/regions/{id}`.
+- [x] El dataset y la respuesta de la API exponen atribución y licencia `ODbL-1.0` de forma explícita.
 - [ ] El viewer muestra vías y estaciones de Córdoba, con distinción visual entre `Active`, `Disused` y `Abandoned` para las vías sin usar colores de estado (`warning`/`alarm`); la atribución `© OpenStreetMap contributors` es visible en pantalla.
 - [ ] Click/tap sobre un tramo muestra nombre, uso, trocha, estado y si la trocha fue inferida; sobre una estación muestra nombre, tipo, trocha y si la trocha fue inferida, sin atribuirle un estado operacional no respaldado por el dato.
-- [ ] Está documentado, con evidencia del dato real extraído, cómo OSM modela el tramo de doble trocha Córdoba Mitre / Alta Córdoba, y el dataset lo representa correctamente.
+- [x] Está documentado, con evidencia del dato real extraído, cómo OSM modela el tramo de doble trocha Córdoba Mitre / Alta Córdoba, y el dataset lo representa correctamente.
 - [ ] `dotnet test`, `npm run lint`, `npm run build` pasan; CI verde.
 - [ ] `project-status.md` y `CHANGELOG.md` actualizados; tag `v0.3.0`.
 

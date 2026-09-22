@@ -6,6 +6,18 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+### Added
+
+- Modelo de infraestructura ferroviaria en `RailWeaver.Core.Infrastructure`: trochas,
+  estados operacionales, usos, tramos y estaciones con trazabilidad de inferencias.
+- Pipeline offline reproducible para extraer la red ferroviaria de Córdoba desde
+  OpenStreetMap, archivar la respuesta cruda de Overpass y generar GeoJSON validado.
+- Dataset versionado bajo ODbL 1.0 con 2.374 tramos, 169 estaciones, metadatos de fuente
+  y evidencia de cómo OSM representa la doble trocha de Córdoba capital.
+- Endpoint `GET /api/regions/{id}/railway`, validado mediante pruebas HTTP.
+- Capa Cesium de infraestructura ferroviaria existente, control de visibilidad,
+  marcadores de estaciones y panel de metadatos con procedencia de la trocha.
+
 ## [0.2.1] - 2026-09-22
 
 ### Added

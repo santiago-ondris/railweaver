@@ -116,8 +116,9 @@ estrictas que deben entenderse antes de incorporar datos a RailWeaver:
   - Una visualización, mapa renderizado o imagen en pantalla generada a partir de datos de
     OSM.
   - La visualización en CesiumJS de las vías sobre el globo es una Obra Producida.
-  - **Obligación**: Debe mostrar atribución visible: *"© OpenStreetMap contributors"* (o
-    *"Datos de infraestructura ferroviaria de OpenStreetMap / OpenRailwayMap"*).
+  - **Obligación**: Debe mostrar atribución visible: *"© OpenStreetMap contributors"*.
+    OpenRailwayMap se usa como referencia para interpretar convenciones de etiquetado, no
+    como fuente del extracto de datos de V0.3.
   - **Efecto de Share-Alike**: **No** contagia la licencia del resto de la aplicación web
     ni del motor de simulación.
 
@@ -162,7 +163,9 @@ una consulta dinámica en vivo en cada inicio de la aplicación:
    - Normalizar la trocha (`gauge`): si el valor es numérico, convertir a milímetros
      enteros (`1000`, `1676`). Si falta el tag `gauge`, inferirlo según la red/operador
      del ramal cuando sea unívoco (ej. Ramal Belgrano = 1000 mm; Ramal Mitre = 1676 mm), o
-     marcarlo explícitamente como `Unknown`.
+     marcarlo explícitamente como `Unknown`. Tanto los tramos como las estaciones exponen
+     si una trocha conocida fue leída del dato o inferida; `Unknown` no se presenta como
+     ninguna de las dos.
    - Normalizar el estado operacional: `Active`, `Disused`, `Abandoned`.
 3. **Persistencia versionada**:
    - Guardar el resultado en formato GeoJSON estructurado en `data/regions/cordoba/railway.geojson`
@@ -178,8 +181,10 @@ una consulta dinámica en vivo en cada inicio de la aplicación:
      - Vías en desuso / abandonadas: trazo atenuado o punteado, diferenciando claramente
        la infraestructura transitable de la histórica.
      - Estaciones: marcadores sobrios técnicos con tooltip/popup que muestre nombre, tipo,
-       trocha y estado.
-     - Atribución en pantalla a OpenStreetMap y OpenRailwayMap.
+       trocha y si fue leída del dato o inferida. V0.3 no deduce su estado operacional a
+       partir del estado de las vías cercanas.
+     - Atribución en pantalla a `© OpenStreetMap contributors`. OpenRailwayMap permanece
+       citado como referencia de convenciones de etiquetado.
 
 ### Modelo conceptual en `RailWeaver.Core`
 
@@ -234,6 +239,7 @@ public sealed record TrackSegment(
     string Id,
     IReadOnlyList<GeoCoordinate> Geometry,
     TrackGauge Gauge,
+    bool GaugeInferred,
     TrackOperationalStatus Status,
     TrackUsage Usage,
     string? Name,
@@ -251,7 +257,8 @@ public sealed record RailwayStation(
     string Name,
     GeoCoordinate Location,
     StationType Type,
-    TrackGauge Gauge);
+    TrackGauge Gauge,
+    bool GaugeInferred);
 ```
 
 ## Safety invariants

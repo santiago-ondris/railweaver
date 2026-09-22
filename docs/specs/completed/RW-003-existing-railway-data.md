@@ -1,6 +1,6 @@
 # RW-003 — Existing railway data
 
-- Status: Active
+- Status: Completed
 - Milestone / release objetivo: V0.3 — Existing railway data → release `v0.3.0`
 
 ## Goal
@@ -21,7 +21,7 @@ Que RailWeaver muestre, sobre el mapa de Córdoba, la infraestructura ferroviari
    - Consulta Overpass QL acotada al bounding box de Córdoba de RW-001 (`west -65.7720, south -35.0002, east -61.7708, north -29.5004`), para `way["railway"]` (`rail`, `disused`, `abandoned`, `narrow_gauge`) y `node["railway"~"station|halt"]`.
    - **Se guarda la respuesta cruda de Overpass tal cual llega**, sin editar, junto con fecha de descarga y la query exacta usada — para poder auditar o volver a derivar el dataset sin tener que bajar todo de nuevo ni depender de que OSM no haya cambiado.
    - Normalización de trocha: si el tag `gauge` está presente, se usa. Si falta, **se infiere por ramal/operador cuando la asignación es unívoca** (ex Belgrano → 1000 mm, ex Mitre/San Martín → 1676 mm) y el tramo o estación queda marcado como `GaugeInferred = true`. Si no se puede inferir con confianza, `Unknown` y `GaugeInferred = false`. La tabla ramal → trocha vive embebida en el propio script de extracción (constante documentada, con comentario que cita [cordoba-railway-data.md](../../research/infrastructure/cordoba-railway-data.md) como fuente), revisable a mano si aparecen casos ambiguos.
-   - **Tramo de doble trocha en Córdoba capital** (conexión Córdoba Mitre ↔ Alta Córdoba / Empalme Garita, por donde el Tren de las Sierras ingresa a la estación Mitre): la extracción debe inspeccionar cómo lo modela OSM (habitualmente dos `way` superpuestos con distinta trocha) y documentar el resultado junto al dataset. No es una decisión de diseño: es un hecho a confirmar contra el dato real al correr el pipeline, y el modelo de dominio ya lo soporta sin cambios (dos `TrackSegment` con geometría compartida y trocha distinta).
+   - **Tramo de doble trocha en Córdoba capital** (conexión Córdoba Mitre ↔ Alta Córdoba / Empalme Garita, por donde el Tren de las Sierras ingresa a la estación Mitre): el extracto confirmó que OSM usa `way` únicos con `gauge=1000;1676`, no dos `way` superpuestos. El pipeline los deriva como dos `TrackSegment` con geometría compartida y distinta trocha. Hay diez `way` bitrocha alrededor de Córdoba Mitre, pero el etiquetado actual no forma una continuidad bitrocha completa hasta Alta Córdoba; la evidencia e IDs están en `railway.source.json`.
    - Normalización de estado operacional a `Active` / `Disused` / `Abandoned` según tags `railway=rail|disused|abandoned`.
    - Descarte de ruido de mapeo ajeno a la red real (maquetas, funiculares no ferroviarios, etc.), documentando cada regla de descarte.
 4. **Persistencia versionada como dataset**, igual que `data/regions/cordoba.json`:
@@ -60,6 +60,8 @@ Que RailWeaver muestre, sobre el mapa de Córdoba, la infraestructura ferroviari
 
 ## Acceptance criteria
 
+Verificados localmente y validados visualmente por el autor el 2026-09-22.
+
 - [x] `TrackSegment` rechaza geometrías con menos de 2 puntos o puntos consecutivos idénticos; tests cubren ambos casos.
 - [x] La incompatibilidad de trocha entre tramos queda representada en el modelo (al menos como invariante documentado y verificado por test: dos trochas nominales distintas no se tratan como conectables sin una entidad explícita de transbordo/bitrocha).
 - [x] El archivo de datos de Córdoba carga y valida sin errores contra los tipos del core; un test lo confirma (igual que el test existente para `cordoba.json`).
@@ -67,11 +69,11 @@ Que RailWeaver muestre, sobre el mapa de Córdoba, la infraestructura ferroviari
 - [x] La respuesta cruda de Overpass usada para generar el dataset está versionada en el repo (o su ubicación/proceso de obtención documentado si su tamaño no lo permite), junto con la fecha y la query exacta.
 - [x] `GET /api/regions/cordoba/railway` responde 200 con tramos y estaciones; 404 si la región no existe, igual que `GET /api/regions/{id}`.
 - [x] El dataset y la respuesta de la API exponen atribución y licencia `ODbL-1.0` de forma explícita.
-- [ ] El viewer muestra vías y estaciones de Córdoba, con distinción visual entre `Active`, `Disused` y `Abandoned` para las vías sin usar colores de estado (`warning`/`alarm`); la atribución `© OpenStreetMap contributors` es visible en pantalla.
-- [ ] Click/tap sobre un tramo muestra nombre, uso, trocha, estado y si la trocha fue inferida; sobre una estación muestra nombre, tipo, trocha y si la trocha fue inferida, sin atribuirle un estado operacional no respaldado por el dato.
+- [x] El viewer muestra vías y estaciones de Córdoba, con distinción visual entre `Active`, `Disused` y `Abandoned` para las vías sin usar colores de estado (`warning`/`alarm`); la atribución `© OpenStreetMap contributors` es visible en pantalla.
+- [x] Click/tap sobre un tramo muestra nombre, uso, trocha, estado y si la trocha fue inferida; sobre una estación muestra nombre, tipo, trocha y si la trocha fue inferida, sin atribuirle un estado operacional no respaldado por el dato.
 - [x] Está documentado, con evidencia del dato real extraído, cómo OSM modela el tramo de doble trocha Córdoba Mitre / Alta Córdoba, y el dataset lo representa correctamente.
-- [ ] `dotnet test`, `npm run lint`, `npm run build` pasan; CI verde.
-- [ ] `project-status.md` y `CHANGELOG.md` actualizados; tag `v0.3.0`.
+- [x] `dotnet test`, `npm run lint`, `npm run build` pasan; CI verde.
+- [x] `project-status.md` y `CHANGELOG.md` actualizados; tag `v0.3.0`.
 
 ## Relevant domain docs
 

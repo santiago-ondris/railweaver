@@ -1,10 +1,10 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (v0.2.1)
+Last updated: 2026-09-22 (v0.3.0)
 
 ## Current milestone
 
-M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/completed/RW-001-geographic-viewer.md)) y sistema visual ([RW-002](../specs/completed/RW-002-web-visual-migration.md)) completados; en curso: V0.3 — Existing railway data ([RW-003](../specs/active/RW-003-existing-railway-data.md)).
+M0 — Real World Skeleton. V0.3 — Existing railway data ([RW-003](../specs/completed/RW-003-existing-railway-data.md)) completada.
 
 ## Working
 
@@ -17,11 +17,11 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 
 ## In progress
 
-- [RW-003](../specs/active/RW-003-existing-railway-data.md) — Existing railway data: implementación completa; pendiente validación visual manual y cierre del release.
+- Sin spec activa.
 
 ## Next
 
-- Validar visualmente RW-003, completar sus criterios restantes y preparar el release `v0.3.0`.
+- Investigar la fuente DEM y redactar la spec de V0.4 — Terrain antes de implementar elevación.
 
 ## Known problems
 

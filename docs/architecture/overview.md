@@ -1,6 +1,6 @@
 # Arquitectura — overview
 
-Estado: v0.2.1 + RW-003 en curso. Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
+Estado: v0.3.0 (infraestructura ferroviaria existente). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
 
 ## Forma general
 

@@ -20,7 +20,7 @@ Ninguna spec activa. Listo para iniciar V0.3 (RW-003 — Existing railway data).
 
 ## Next
 
-- Investigar la calidad, licencia y estrategia de extracción de datos ferroviarios de OSM para Córdoba (V0.3); después escribir RW-003.
+- Redactar la spec RW-003 (Existing railway data) a partir de la investigación previa ([nota](../research/infrastructure/cordoba-railway-data.md)).
 
 ## Known problems
 
@@ -31,7 +31,6 @@ Ninguna spec activa. Listo para iniciar V0.3 (RW-003 — Existing railway data).
 ## Open research questions
 
 - Fuente DEM para V0.4 (Copernicus DEM candidata; resolución, licencia, cobertura).
-- Calidad y licencia de datos ferroviarios de OSM para Córdoba (V0.3).
 - Aspectos de señal del RITO vigente y licencia de FC Nefa ([nota](../research/visual-identity/color-semantics-and-heritage-lettering.md)).
 
 ## Open decisions (sin ADR todavía)

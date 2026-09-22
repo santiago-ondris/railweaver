@@ -7,8 +7,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\data\regions\*.json"
-             Link="data\regions\%(Filename)%(Extension)"
+    <Content Include="..\..\data\regions\**\*.*"
+             Link="data\regions\%(RecursiveDir)%(Filename)%(Extension)"
              CopyToOutputDirectory="PreserveNewest"
              CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>

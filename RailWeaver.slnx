@@ -4,6 +4,7 @@
     <Project Path="src/RailWeaver.Core/RailWeaver.Core.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/RailWeaver.Api.Tests/RailWeaver.Api.Tests.csproj" />
     <Project Path="tests/RailWeaver.Core.Tests/RailWeaver.Core.Tests.csproj" />
   </Folder>
 </Solution>

@@ -13,14 +13,21 @@ Que RailWeaver conozca la altura del terreno de Córdoba: mostrar el relieve rea
 2. **Dataset de elevación**:
    - Fuente: **Copernicus DEM GLO-30** (≈30 m, cotas ortométricas sobre EGM2008). Se obtiene del bucket público `copernicus-dem-30m` de AWS Open Data, sin cuenta.
    - Recorte: la bounding box de Córdoba de RW-001 más un margen de 0,1° por lado, para que el borde del relieve no quede a la vista al navegar la provincia.
-   - **El raster no se commitea**, porque pesa ~1,2 GB. Vive en `data/regions/cordoba/elevation/` (en `.gitignore`), y en git queda solo la receta:
-     - `elevation.source.json`: fuente, URL, fecha de acceso, lista de tiles de origen, versión de GDAL usada, bounding box, tamaño de la grilla, paso de celda, valor NoData, SHA-256 del resultado, licencia y texto de atribución.
+   - **El raster no se commitea.** Vive en `data/regions/cordoba/elevation/` (en `.gitignore`) y ocupa **menos de 400 MB** en disco; ver el formato más abajo. En git queda solo la receta:
+     - `elevation.source.json`: fuente, URL, fecha de acceso, lista de tiles de origen, versión de GDAL usada, bounding box, tamaño de la grilla, paso de celda, tamaño de bloque, valor NoData, tamaño en disco y SHA-256 del resultado, licencia y texto de atribución.
      - `LICENSE-elevation.md`: licencia de Copernicus DEM con el texto de atribución exacto copiado del documento de licencia oficial.
-   - Formato local: grilla `float32` little-endian en filas norte→sur, más su manifiesto. Se lee con la BCL de .NET (archivo mapeado en memoria), sin dependencias nativas.
+   - Formato local, comprimido en bloques y sin pérdida relevante:
+     - la grilla se divide en bloques de 256 × 256 celdas;
+     - cada celda se guarda como `int32` en **centímetros** (el NoData es `int32.MinValue`), con codificación delta por fila;
+     - cada bloque se comprime con zlib, y un único archivo reúne un índice de desplazamientos por bloque y los bloques;
+     - la API lo lee con la BCL de .NET (`ZLibStream`), sin dependencias nativas. Descomprime solo los bloques que necesita una consulta y los guarda en una caché acotada (64 bloques, ≈ 16 MB);
+     - la precisión de centímetro sobra para calcular pendientes sobre celdas de 30 m.
 3. **Herramienta de obtención** `tools/fetch-elevation.py`:
    - Usa solo la biblioteca estándar de Python, como `extract-osm-railway.py`.
    - Delega el raster en la imagen oficial de GDAL con versión fija (`docker run`). Docker ya es requisito del proyecto por PostGIS.
-   - Descarga los tiles necesarios, arma el mosaico, recorta y escribe la grilla y el manifiesto.
+   - Descarga los tiles necesarios, arma el mosaico y lo recorta con GDAL a una grilla intermedia. Después la convierte al formato por bloques con la biblioteca estándar de Python (`zlib`, `array`) y escribe el manifiesto.
+   - **Limpia todo lo intermedio al terminar**, también cuando falla: tiles descargados y grilla intermedia van a un directorio temporal que se borra. En disco solo queda el archivo final.
+   - El README indica cómo borrar la imagen de Docker de GDAL si no se va a volver a usar.
    - Si al volver a correrla el SHA-256 no coincide con el del manifiesto commiteado, falla con un mensaje claro.
    - Si falta algún tile de cobertura, falla en vez de rellenar.
 4. **Core** (`RailWeaver.Core.Geography`, sin E/S):
@@ -87,6 +94,8 @@ Que RailWeaver conozca la altura del terreno de Córdoba: mostrar el relieve rea
 
 - [ ] `tools/fetch-elevation.py` genera la grilla desde cero en una máquina con Docker, y el SHA-256 coincide con el del manifiesto commiteado.
 - [ ] Ningún archivo raster queda en git; `git check-ignore` lo confirma.
+- [ ] El dataset final de Córdoba ocupa menos de 400 MB en disco (el tamaño medido queda en el manifiesto) y, al terminar la herramienta, no queda ningún archivo intermedio, ni siquiera después de una ejecución fallida.
+- [ ] El formato por bloques reproduce exactamente las cotas de la grilla intermedia redondeadas al centímetro. Hay un test de ida y vuelta con una grilla sintética que incluye NoData.
 - [ ] `ElevationProfileBuilder` interpola bilinealmente, muestrea cada 30 m incluyendo vértices y punto final, y calcula la pendiente en ‰. Hay tests con una grilla sintética de valores conocidos (plano inclinado → pendiente constante exacta).
 - [ ] NoData y puntos fuera de cobertura devuelven "sin dato", nunca 0. Un intervalo sin dato en un extremo no tiene pendiente. Hay tests que lo cubren.
 - [ ] La misma entrada produce siempre el mismo perfil (test de determinismo).
@@ -118,7 +127,7 @@ Que RailWeaver conozca la altura del terreno de Córdoba: mostrar el relieve rea
 ## Tests
 
 - Core: interpolación bilineal, muestreo, distancia, pendiente, NoData y determinismo, sobre grillas sintéticas en memoria.
-- API: los tres endpoints con una grilla de prueba de pocas celdas copiada al output de tests; casos 200, 400, 404 y 503.
+- API: lector del formato por bloques (ida y vuelta, NoData, bordes de bloque, caché acotada) y los tres endpoints, con una grilla de prueba de pocas celdas copiada al output de tests; casos 200, 400, 404 y 503.
 - Frontera del core: `CoreBoundaryTests` sin cambios.
 - Dataset real: la verificación de cotas conocidas es manual y queda registrada en la spec, porque CI no descarga el raster.
 
@@ -128,5 +137,5 @@ Que RailWeaver conozca la altura del terreno de Córdoba: mostrar el relieve rea
 2. **Resolución 30 m, dataset fuera de git con descarga por comando** (decidido con el usuario). A 90 m cabría mejor, pero se pierden pendientes reales en las Sierras. Git LFS no se usa porque agrega un servicio y cuotas sin necesidad.
 3. **Relieve 3D servido por la propia API** (decidido con el usuario). `CustomHeightmapTerrainProvider` (CesiumJS ≥ 1.97; el proyecto usa 1.145) pide heightmaps al backend, así que lo que se ve y lo que se calcula sale del mismo dato. Se descartan tanto `ctb-tile` (herramienta sin mantenimiento que además genera miles de archivos) como Cesium World Terrain (requiere token de ion y usaría un dato distinto del de los cálculos).
 4. **Interacciones** (decidido con el usuario, por recomendación): la cota por clic y el perfil de línea libre entran en esta spec; el perfil de una vía existente queda fuera (ver Non-goals).
-5. **Formato local sin dependencias nativas**: GDAL corre solo dentro de la herramienta offline, en contenedor. La API lee una grilla `float32` cruda con la BCL. No se agrega una librería TIFF ni GDAL a .NET.
+5. **Formato local comprimido y sin dependencias nativas** (decidido con el usuario, para no ocupar ~1,2 GB en cada máquina): GDAL corre solo dentro de la herramienta offline, en contenedor. El resultado es una grilla por bloques, en centímetros y comprimida con zlib, que la API lee con la BCL. Así se pasa de ~1,2 GB en crudo a un objetivo de menos de 400 MB, sin perder precisión útil. No se agrega una librería TIFF ni GDAL a .NET.
 6. **Sin juicio de pendientes en V0.4**: se informan valores en ‰ sin umbrales. Los rangos típicos de la nota de investigación todavía no tienen una fuente primaria verificada (ver la corrección sobre UIC 700).

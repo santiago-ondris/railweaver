@@ -45,7 +45,7 @@ En el ferrocarril, la pendiente no se mide en grados sexagesimales sino en **tan
 ### 1. Dataset de elevación de Córdoba
 - **Fuente recomendada para el dataset inicial:** Mosaico de Córdoba del IGN / IDECOR en formato GeoTIFF (o Copernicus DEM GLO-30 recortado al bounding box provincial).
 - **Almacenamiento:** Un archivo raster GeoTIFF optimizado (Cloud Optimized GeoTIFF o comprimido con LZW/DEFLATE) en el repositorio bajo `data/regions/cordoba/elevation/` (o descargable de forma reproducible mediante script en `tools/`).
-- **Resolución:** ~30 metros (~1 segundo de arco), suficiente para toda la provincia. **Corrección de tamaño (2026-09-22):** la caja de Córdoba con margen son ~15.000 × 20.500 celdas; en `float32` son ~1,2 GB sin comprimir y cientos de MB comprimidos, por lo que no entra en el repositorio git. RW-004 lo resuelve con descarga reproducible.
+- **Resolución:** ~30 metros (~1 segundo de arco), suficiente para toda la provincia. **Corrección de tamaño (2026-09-22):** la caja de Córdoba con margen son ~15.000 × 20.500 celdas; en `float32` son ~1,2 GB sin comprimir y cientos de MB comprimidos, por lo que no entra en el repositorio git. RW-004 lo resuelve con descarga reproducible y un formato por bloques comprimido (objetivo < 400 MB).
 
 ### 2. Capa de servicio en backend (`RailWeaver.Core` y `RailWeaver.Api`)
 - `IElevationService` en Core:

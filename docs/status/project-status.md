@@ -4,7 +4,7 @@ Last updated: 2026-09-22 (v0.2.1)
 
 ## Current milestone
 
-M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/completed/RW-001-geographic-viewer.md)) y sistema visual ([RW-002](../specs/completed/RW-002-web-visual-migration.md)) completados; próxima: V0.3 — Existing railway data.
+M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/completed/RW-001-geographic-viewer.md)) y sistema visual ([RW-002](../specs/completed/RW-002-web-visual-migration.md)) completados; en curso: V0.3 — Existing railway data ([RW-003](../specs/active/RW-003-existing-railway-data.md)).
 
 ## Working
 
@@ -16,11 +16,11 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 
 ## In progress
 
-Ninguna spec activa. Listo para iniciar V0.3 (RW-003 — Existing railway data).
+- [RW-003](../specs/active/RW-003-existing-railway-data.md) — Existing railway data: spec redactada a partir de la investigación previa, lista para implementación.
 
 ## Next
 
-- Redactar la spec RW-003 (Existing railway data) a partir de la investigación previa ([nota](../research/infrastructure/cordoba-railway-data.md)).
+- Implementar RW-003: pipeline de extracción OSM, modelo de dominio en `RailWeaver.Core.Infrastructure`, endpoint `GET /api/regions/{id}/railway`, capa `ExistingRailwayLayer` en el viewer.
 
 ## Known problems
 

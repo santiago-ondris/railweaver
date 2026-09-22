@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { GeographicViewer } from './GeographicViewer'
 import { fetchRailway } from './railways'
 import type { Railway } from './railways'
@@ -12,6 +12,8 @@ type AppState =
 
 function App() {
   const [appState, setAppState] = useState<AppState>({ kind: 'loading' })
+  const [terrainStatus, setTerrainStatus] = useState<'loading' | 'available' | 'missing'>('loading')
+  const handleTerrainStatus = useCallback((status: 'loading' | 'available' | 'missing') => setTerrainStatus(status), [])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -69,7 +71,7 @@ function App() {
         )}
 
         {appState.kind === 'ready' && (
-          <GeographicViewer region={appState.region} railway={appState.railway} />
+          <GeographicViewer region={appState.region} railway={appState.railway} onTerrainStatus={handleTerrainStatus} />
         )}
       </main>
 
@@ -85,6 +87,8 @@ function App() {
             Vías: {appState.railway.source.attribution} · {appState.railway.source.license}
           </span>
         )}
+        {appState.kind === 'ready' && terrainStatus === 'available' && <span>Relieve: Copernicus DEM GLO-30 · DLR/Airbus · UE/ESA</span>}
+        {appState.kind === 'ready' && terrainStatus === 'missing' && <span>○ Relieve no disponible · visor plano</span>}
       </footer>
     </div>
   )

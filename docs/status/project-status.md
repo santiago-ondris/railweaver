@@ -1,27 +1,29 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (v0.3.0)
+Last updated: 2026-09-22 (v0.4.0)
 
 ## Current milestone
 
-M0 — Real World Skeleton. V0.3 — Existing railway data ([RW-003](../specs/completed/RW-003-existing-railway-data.md)) completada.
+M0 — Real World Skeleton. V0.4 — Terrain ([RW-004](../specs/completed/RW-004-terrain-and-elevation.md)) completada.
 
 ## Working
 
-- Solución .NET 10: `RailWeaver.Core`, `RailWeaver.Api` (`GET /api/health`, `GET /api/regions/{id}` y `GET /api/regions/{id}/railway`), `RailWeaver.Core.Tests` y `RailWeaver.Api.Tests` (59 tests, incluye frontera del core, datasets y endpoints).
+- Solución .NET 10: `RailWeaver.Core`, `RailWeaver.Api` (health, regiones,
+  infraestructura ferroviaria, elevación, perfiles y terreno), `RailWeaver.Core.Tests`
+  y `RailWeaver.Api.Tests` (69 tests, incluye frontera del core, formatos, datasets y endpoints).
 - Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap neutralizado, cámara inicial, red ferroviaria de Córdoba y capas controlables a partir de datasets servidos por la API. Sigue `DESIGN.md`: tokens generados, fuentes autoalojadas, marca y favicon.
 - Dataset ferroviario OSM de Córdoba versionado: 2.374 tramos, 169 estaciones, respuesta cruda de Overpass, metadatos y licencia ODbL 1.0; extractor offline reproducible en `tools/`.
 - PostGIS 3.5 / PostgreSQL 17 vía `compose.yaml` (sin uso desde el código todavía).
 - Documentación canónica, ADR-001…009, plantillas de specs e investigación.
 - Sistema visual definido en `DESIGN.md` (ADR-009): dirección híbrida, tema claro, tokens OKLCH; aplicado a `src/web` en RW-002. Marca (logo) en `assets/brand/`.
-
-## In progress
-
-- [RW-004](../specs/active/RW-004-terrain-and-elevation.md) — Terrain and elevation: spec redactada sin preguntas abiertas a partir de la [investigación DEM](../research/geography/digital-elevation-models.md); lista para implementar.
+- Elevación determinista en el core; formato DEM por bloques zlib y caché acotada en
+  la API; endpoints de cota, perfil y terreno; relieve Cesium, cota por clic y perfil
+  longitudinal en el frontend. Los 69 tests, lint y build pasan sin descargar el DEM.
 
 ## Next
 
-- Implementar RW-004: descarga reproducible de Copernicus DEM GLO-30 (30 m, fuera de git), perfil y cotas en el core, endpoints de elevación y terreno, relieve 3D, cota por clic y herramienta de perfil.
+- Redactar la spec de V0.5 — Candidate corridor prototype a partir de investigación
+  de routing, restricciones de pendiente y generación de corredores.
 
 ## Known problems
 

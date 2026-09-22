@@ -1,6 +1,6 @@
 # RW-004 — Terrain and elevation
 
-- Status: Active
+- Status: Completed
 - Milestone / release objetivo: V0.4 — Terrain → release `v0.4.0`
 
 ## Goal
@@ -92,23 +92,39 @@ Que RailWeaver conozca la altura del terreno de Córdoba: mostrar el relieve rea
 
 ## Acceptance criteria
 
-- [ ] `tools/fetch-elevation.py` genera la grilla desde cero en una máquina con Docker, y el SHA-256 coincide con el del manifiesto commiteado.
-- [ ] Ningún archivo raster queda en git; `git check-ignore` lo confirma.
-- [ ] El dataset final de Córdoba ocupa menos de 400 MB en disco (el tamaño medido queda en el manifiesto) y, al terminar la herramienta, no queda ningún archivo intermedio, ni siquiera después de una ejecución fallida.
-- [ ] El formato por bloques reproduce exactamente las cotas de la grilla intermedia redondeadas al centímetro. Hay un test de ida y vuelta con una grilla sintética que incluye NoData.
-- [ ] `ElevationProfileBuilder` interpola bilinealmente, muestrea cada 30 m incluyendo vértices y punto final, y calcula la pendiente en ‰. Hay tests con una grilla sintética de valores conocidos (plano inclinado → pendiente constante exacta).
-- [ ] NoData y puntos fuera de cobertura devuelven "sin dato", nunca 0. Un intervalo sin dato en un extremo no tiene pendiente. Hay tests que lo cubren.
-- [ ] La misma entrada produce siempre el mismo perfil (test de determinismo).
-- [ ] Los endpoints respetan los límites (2–100 vértices, ≤ 20.000 muestras → 400), responden 404 para una región inexistente y 503 con el comando de descarga si falta el dataset. Hay tests de API con una grilla de prueba chica en el proyecto de tests.
-- [ ] El endpoint de terreno devuelve 65 × 65 `float32`, con 0 fuera de cobertura y cabeceras de caché.
-- [ ] En el visor, las Sierras se ven en relieve, las vías de RW-003 siguen el terreno y la capa de relieve se puede apagar. Sin dataset, el visor funciona plano y avisa en la barra de estado.
-- [ ] Un clic en el mapa muestra la cota del punto en el panel de detalle.
-- [ ] La herramienta Perfil dibuja una línea y muestra en el dock de análisis el perfil, la distancia, las cotas mínima y máxima, los desniveles y la pendiente máxima en ‰, con los huecos sin dato rotulados. Sigue DESIGN.md: tokens, cara de datos y sin bandas de `warning`.
-- [ ] Verificación manual contra el mundo real: la cota del Cerro Champaquí da ≈ 2.790 m y la de la ciudad de Córdoba ≈ 400 m. Si hay diferencias de decenas de metros, se explican (DSM, resolución) en el registro de la spec.
-- [ ] La atribución de Copernicus DEM se ve en pantalla y figura en el manifiesto.
-- [ ] `CoreBoundaryTests` sigue en verde: el core no hace E/S ni referencia frameworks.
-- [ ] `dotnet test`, `npm run lint`, `npm run build` pasan; CI en verde sin descargar el dataset.
-- [ ] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README actualizados; kickoff revisado; tag `v0.4.0`.
+- [x] `tools/fetch-elevation.py` genera la grilla desde cero en una máquina con Docker, y el SHA-256 coincide con el del manifiesto commiteado.
+- [x] Ningún archivo raster queda en git; `git check-ignore` lo confirma.
+- [x] El dataset final de Córdoba ocupa menos de 400 MB en disco (el tamaño medido queda en el manifiesto) y, al terminar la herramienta, no queda ningún archivo intermedio, ni siquiera después de una ejecución fallida.
+- [x] El formato por bloques reproduce exactamente las cotas de la grilla intermedia redondeadas al centímetro. Hay un test de ida y vuelta con una grilla sintética que incluye NoData.
+- [x] `ElevationProfileBuilder` interpola bilinealmente, muestrea cada 30 m incluyendo vértices y punto final, y calcula la pendiente en ‰. Hay tests con una grilla sintética de valores conocidos (plano inclinado → pendiente constante exacta).
+- [x] NoData y puntos fuera de cobertura devuelven "sin dato", nunca 0. Un intervalo sin dato en un extremo no tiene pendiente. Hay tests que lo cubren.
+- [x] La misma entrada produce siempre el mismo perfil (test de determinismo).
+- [x] Los endpoints respetan los límites (2–100 vértices, ≤ 20.000 muestras → 400), responden 404 para una región inexistente y 503 con el comando de descarga si falta el dataset. Hay tests de API con una grilla de prueba chica en el proyecto de tests.
+- [x] El endpoint de terreno devuelve 65 × 65 `float32`, con 0 fuera de cobertura y cabeceras de caché.
+- [x] En el visor, las Sierras se ven en relieve, las vías de RW-003 siguen el terreno y la capa de relieve se puede apagar. Sin dataset, el visor funciona plano y avisa en la barra de estado.
+- [x] Un clic en el mapa muestra la cota del punto en el panel de detalle.
+- [x] La herramienta Perfil dibuja una línea y muestra en el dock de análisis el perfil, la distancia, las cotas mínima y máxima, los desniveles y la pendiente máxima en ‰, con los huecos sin dato rotulados. Sigue DESIGN.md: tokens, cara de datos y sin bandas de `warning`.
+- [x] Verificación manual contra el mundo real: la cota del Cerro Champaquí da ≈ 2.790 m y la de la ciudad de Córdoba ≈ 400 m. Si hay diferencias de decenas de metros, se explican (DSM, resolución) en el registro de la spec.
+- [x] La atribución de Copernicus DEM se ve en pantalla y figura en el manifiesto.
+- [x] `CoreBoundaryTests` sigue en verde: el core no hace E/S ni referencia frameworks.
+- [x] `dotnet test`, `npm run lint`, `npm run build` pasan; CI en verde sin descargar el dataset.
+- [x] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README actualizados; kickoff revisado; tag `v0.4.0`.
+
+## Registro de implementación — 2026-09-22
+
+- Generación real completada con 35 tiles y GDAL `3.11.4`: 15.125 × 20.520
+  celdas, 390.896.370 bytes y SHA-256
+  `0516ef9a69613d63da2919220af59ffcc04ab44d434f9d325abdd5cd01d2e672`.
+- `git check-ignore` confirmó que `elevation.rwe` queda fuera de git; el directorio
+  temporal fue eliminado al terminar.
+- Verificación por API: Cerro Champaquí (`-31.9875, -64.9366944`) = `2.781,14 m`
+  frente a `2.790 m` IGN; Plaza San Martín, Córdoba (`-31.4166667, -64.1833333`)
+  = `395,22 m`, consistente con ≈ `400 m`. La diferencia de 8,86 m en la cumbre es
+  esperable para un DSM de 30 m y el muestreo/interpolación de la celda.
+- El kickoff fue revisado: su definición de V0.4 y su política de releases ya
+  describen este alcance, por lo que no requirió cambios.
+- Validación visual aprobada por el autor: relieve a escala vertical real visible al
+  inclinar la cámara, cotas, selección, trazado de perfil, métricas y atribución correctos.
 
 ## Relevant domain docs
 

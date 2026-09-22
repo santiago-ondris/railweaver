@@ -6,6 +6,19 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-22
+
+### Added
+
+- Fuente de elevación y perfiles deterministas en el core, con muestreo cada 30 m,
+  distancia de gran círculo, pendientes en ‰ y propagación estricta de NoData.
+- Receta reproducible para descargar Copernicus DEM GLO-30 y codificarlo en una
+  grilla local por bloques zlib, sin raster en git ni dependencias nativas en runtime.
+- Endpoints de cota, perfil longitudinal y heightmaps Cesium, con caché acotada,
+  límites de solicitud y degradación explícita cuando falta el dataset.
+- Relieve 3D conmutable, infraestructura apoyada al terreno, cota por clic y
+  herramienta de perfil con métricas y gráfico SVG en el dock de análisis.
+
 ## [0.3.0] - 2026-09-22
 
 ### Added

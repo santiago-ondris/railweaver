@@ -100,7 +100,14 @@ p {
 .workspace {
   display: grid;
   grid-template-columns: 168px minmax(0, 1fr) 320px;
+  grid-template-rows: minmax(0, 1fr) auto;
   min-height: 0;
+}
+
+.side-rail,
+.map-stage,
+.detail-panel {
+  grid-row: 1;
 }
 
 .workspace-state {
@@ -380,4 +387,67 @@ p {
 .detail-close {
   align-self: flex-start;
   margin-top: auto;
+}
+
+.tool-heading {
+  margin-top: var(--rw-spacing-lg);
+}
+
+.tool-hint {
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-caption-size);
+  line-height: var(--rw-text-caption-line);
+}
+
+.analysis-dock {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: var(--rw-spacing-lg);
+  min-height: 170px;
+  max-height: 220px;
+  padding: var(--rw-spacing-md) var(--rw-spacing-lg);
+  border-top: 1px solid var(--rw-color-border-subtle);
+  background: var(--rw-color-panel);
+}
+
+.profile-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--rw-spacing-xs) var(--rw-spacing-md);
+  margin-top: var(--rw-spacing-sm);
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-caption-size);
+}
+
+.profile-metrics b {
+  display: block;
+  color: var(--rw-color-ink);
+  font-family: var(--rw-font-data);
+  font-weight: var(--rw-text-data-weight);
+}
+
+.profile-chart {
+  width: 100%;
+  height: 145px;
+  background: var(--rw-color-raised);
+}
+
+.profile-chart line {
+  stroke: var(--rw-color-border-subtle);
+  stroke-dasharray: 2 3;
+}
+
+.profile-chart path {
+  fill: none;
+  stroke: var(--rw-color-primary);
+  stroke-width: 2;
+}
+
+.profile-chart text {
+  fill: var(--rw-color-ink-subtle);
+  font-family: var(--rw-font-data);
+  font-size: var(--rw-text-data-size);
+  text-anchor: middle;
 }

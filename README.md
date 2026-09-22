@@ -12,7 +12,7 @@ Estado actual y próximos pasos: [docs/status/project-status.md](docs/status/pro
 
 - .NET SDK 10 (ver `global.json`)
 - Node.js 20.19+ o 22.12+ (CI usa 24)
-- Docker con Docker Compose (solo para PostGIS)
+- Docker con Docker Compose (PostGIS y obtención offline del DEM)
 
 ## Estructura
 
@@ -35,6 +35,18 @@ dotnet run --project src/RailWeaver.Api
 npm --prefix src/web install
 npm --prefix src/web run dev
 ```
+
+Para habilitar el relieve, las cotas y los perfiles de Córdoba, descargá y generá
+el dataset local (queda fuera de git):
+
+```bash
+python3 tools/fetch-elevation.py
+```
+
+La primera ejecución también descarga la imagen fijada de GDAL. Los tiles y la
+grilla intermedia se eliminan al terminar. Si no vas a regenerar el dataset podés
+borrar esa imagen con `docker image rm ghcr.io/osgeo/gdal:ubuntu-small-3.11.4`.
+Sin el dataset, el resto de la aplicación funciona normalmente con terreno plano.
 
 La API escucha en `http://localhost:5080`; el frontend en `http://localhost:5173` y redirige `/api` a la API.
 

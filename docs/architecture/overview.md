@@ -1,6 +1,6 @@
 # Arquitectura — overview
 
-Estado: v0.3.0 (infraestructura ferroviaria existente). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
+Estado: v0.4.0 (terreno y elevación). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
 
 ## Forma general
 
@@ -22,11 +22,16 @@ Modular monolith ([ADR-001](../decisions/ADR-001-modular-monolith.md)).
 
 | Proyecto | Rol | Puede depender de |
 |---|---|---|
-| `src/RailWeaver.Core` | Lógica de RailWeaver. Expone identidad/versión, value objects geográficos WGS84 y el modelo mínimo de infraestructura ferroviaria. | BCL de .NET |
-| `src/RailWeaver.Api` | Traduce HTTP ↔ core. Expone health, regiones y datasets ferroviarios validados; no decide lógica ferroviaria. | Core, ASP.NET Core |
+| `src/RailWeaver.Core` | Lógica de RailWeaver. Expone identidad/versión, value objects geográficos WGS84, elevación/perfiles y el modelo mínimo de infraestructura ferroviaria. | BCL de .NET |
+| `src/RailWeaver.Api` | Traduce HTTP ↔ core. Expone health, regiones, ferrocarriles, cotas, perfiles y heightmaps; lee la grilla DEM por bloques y no decide lógica ferroviaria. | Core, ASP.NET Core |
 | `tests/RailWeaver.Core.Tests` | Unit tests del core, datasets y tests de frontera. | Core, xUnit v3 |
 | `tests/RailWeaver.Api.Tests` | Tests HTTP de los endpoints y sus contratos. | API, ASP.NET Core testing, xUnit v3 |
-| `src/web` | UI React y visor CesiumJS; su lenguaje visual lo define [`DESIGN.md`](../../DESIGN.md) ([ADR-009](../decisions/ADR-009-visual-system.md)). Obtiene regiones e infraestructura ferroviaria vía API y solicita teselas de OpenStreetMap directamente desde el navegador. | API por HTTP, CesiumJS, OpenStreetMap |
+| `src/web` | UI React y visor CesiumJS; su lenguaje visual lo define [`DESIGN.md`](../../DESIGN.md) ([ADR-009](../decisions/ADR-009-visual-system.md)). Obtiene regiones, infraestructura y terreno vía API y solicita teselas de OpenStreetMap directamente desde el navegador. | API por HTTP, CesiumJS, OpenStreetMap |
+
+El DEM de cada región es un artefacto local fuera de git. La receta offline usa GDAL
+en Docker; en runtime la API solo usa `ZLibStream` de la BCL, descomprime los bloques
+necesarios y conserva como máximo 64 (~16 MB) en memoria. Cotas y pendientes se
+calculan únicamente en backend; el heightmap es una proyección visual del mismo dato.
 
 ## Reglas de dependencia
 

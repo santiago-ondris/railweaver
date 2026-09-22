@@ -293,6 +293,9 @@ FakesAssemblies/
 .ntvs_analysis.dat
 node_modules/
 
+# Downloaded/generated elevation rasters (the recipe and metadata remain tracked)
+data/regions/*/elevation/
+
 # Visual Studio 6 build log
 *.plg
 

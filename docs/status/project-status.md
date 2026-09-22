@@ -17,11 +17,11 @@ M0 — Real World Skeleton. V0.3 — Existing railway data ([RW-003](../specs/co
 
 ## In progress
 
-- Sin spec activa.
+- [RW-004](../specs/active/RW-004-terrain-and-elevation.md) — Terrain and elevation: spec redactada sin preguntas abiertas a partir de la [investigación DEM](../research/geography/digital-elevation-models.md); lista para implementar.
 
 ## Next
 
-- Investigar la fuente DEM y redactar la spec de V0.4 — Terrain antes de implementar elevación.
+- Implementar RW-004: descarga reproducible de Copernicus DEM GLO-30 (30 m, fuera de git), perfil y cotas en el core, endpoints de elevación y terreno, relieve 3D, cota por clic y herramienta de perfil.
 
 ## Known problems
 
@@ -32,7 +32,6 @@ M0 — Real World Skeleton. V0.3 — Existing railway data ([RW-003](../specs/co
 
 ## Open research questions
 
-- Fuente DEM para V0.4 (Copernicus DEM candidata; resolución, licencia, cobertura).
 - Aspectos de señal del RITO vigente y licencia de FC Nefa ([nota](../research/visual-identity/color-semantics-and-heritage-lettering.md)).
 
 ## Open decisions (sin ADR todavía)

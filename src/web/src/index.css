@@ -99,7 +99,7 @@ p {
 
 .workspace {
   display: grid;
-  grid-template-columns: 168px minmax(0, 1fr);
+  grid-template-columns: 168px minmax(0, 1fr) 320px;
   min-height: 0;
 }
 
@@ -288,4 +288,96 @@ p {
 
 .viewer-error[hidden] {
   display: none;
+}
+
+/* Detail panel: DESIGN.md › Layout and Components */
+
+.detail-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--rw-spacing-sm);
+  padding: var(--rw-spacing-lg);
+  overflow-y: auto;
+  border-left: 1px solid var(--rw-color-border-subtle);
+  background: var(--rw-color-raised);
+}
+
+.detail-panel h2 {
+  margin: 0;
+  color: var(--rw-color-ink);
+  font-size: var(--rw-text-title-size);
+  font-weight: var(--rw-text-title-weight);
+  line-height: var(--rw-text-title-line);
+  letter-spacing: var(--rw-text-title-tracking);
+}
+
+.detail-identifier {
+  overflow-wrap: anywhere;
+  color: var(--rw-color-primary);
+  font-family: var(--rw-font-identifier);
+  font-size: var(--rw-text-identifier-size);
+  font-weight: var(--rw-text-identifier-weight);
+  line-height: var(--rw-text-identifier-line);
+  letter-spacing: var(--rw-text-identifier-tracking);
+}
+
+.detail-provenance,
+.detail-hint {
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-caption-size);
+  line-height: var(--rw-text-caption-line);
+}
+
+.detail-list {
+  margin: var(--rw-spacing-sm) 0 0;
+  border-top: 1px solid var(--rw-color-border-subtle);
+}
+
+.detail-list > div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  border-bottom: 1px solid var(--rw-color-border-subtle);
+}
+
+.detail-list dt,
+.detail-list dd {
+  margin: 0;
+  padding: 7px 0;
+}
+
+.detail-list dt {
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-label-size);
+  font-weight: var(--rw-text-label-weight);
+  letter-spacing: var(--rw-text-label-tracking);
+  text-transform: uppercase;
+}
+
+.detail-list dd {
+  padding-left: var(--rw-spacing-sm);
+  border-left: 1px solid var(--rw-color-border-subtle);
+  color: var(--rw-color-ink);
+  font-family: var(--rw-font-data);
+  font-size: var(--rw-text-data-size);
+  line-height: var(--rw-text-data-line);
+}
+
+.button-secondary {
+  padding: 7px 11px;
+  border: 1px solid var(--rw-color-border-strong);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-raised);
+  color: var(--rw-color-ink);
+  font-weight: var(--rw-text-body-strong-weight);
+  cursor: pointer;
+}
+
+.button-secondary:hover {
+  background: var(--rw-color-panel);
+}
+
+.detail-close {
+  align-self: flex-start;
+  margin-top: auto;
 }

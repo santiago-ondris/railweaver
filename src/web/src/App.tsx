@@ -1,31 +1,33 @@
 import { useEffect, useState } from 'react'
 import { GeographicViewer } from './GeographicViewer'
+import { fetchRailway } from './railways'
+import type { Railway } from './railways'
 import { fetchRegion } from './regions'
 import type { Region } from './regions'
 
-type RegionState =
+type AppState =
   | { kind: 'loading' }
-  | { kind: 'ready'; region: Region }
+  | { kind: 'ready'; region: Region; railway: Railway }
   | { kind: 'error' }
 
 function App() {
-  const [regionState, setRegionState] = useState<RegionState>({ kind: 'loading' })
+  const [appState, setAppState] = useState<AppState>({ kind: 'loading' })
 
   useEffect(() => {
     const controller = new AbortController()
 
-    fetchRegion('cordoba', controller.signal)
-      .then((region) => setRegionState({ kind: 'ready', region }))
+    Promise.all([fetchRegion('cordoba', controller.signal), fetchRailway('cordoba', controller.signal)])
+      .then(([region, railway]) => setAppState({ kind: 'ready', region, railway }))
       .catch((error: unknown) => {
         if (!(error instanceof DOMException && error.name === 'AbortError')) {
-          setRegionState({ kind: 'error' })
+          setAppState({ kind: 'error' })
         }
       })
 
     return () => controller.abort()
   }, [])
 
-  const region = regionState.kind === 'ready' ? regionState.region : null
+  const region = appState.kind === 'ready' ? appState.region : null
 
   return (
     <div className="app-shell">
@@ -41,22 +43,22 @@ function App() {
       </header>
 
       <main className="workspace">
-        {regionState.kind === 'loading' && (
+        {appState.kind === 'loading' && (
           <div className="workspace-state" role="status">
             <span className="label">Región</span>
             <span>Cargando la definición geográfica…</span>
           </div>
         )}
 
-        {regionState.kind === 'error' && (
+        {appState.kind === 'error' && (
           <div className="workspace-state">
             <div className="alert alert-alarm" role="alert">
               <p className="alert-title">
                 <span className="glyph glyph-alarm" aria-hidden="true" />
-                No se pudo cargar la región
+                No se pudieron cargar los datos geográficos
               </p>
               <p>
-                <b>Qué pasó:</b> la API no devolvió la región <code className="data">cordoba</code>.
+                <b>Qué pasó:</b> la API no devolvió la región o su infraestructura ferroviaria.
               </p>
               <p>
                 <b>Cómo resolverlo:</b> iniciá <code className="data">RailWeaver.Api</code> con{' '}
@@ -66,7 +68,9 @@ function App() {
           </div>
         )}
 
-        {region && <GeographicViewer region={region} />}
+        {appState.kind === 'ready' && (
+          <GeographicViewer region={appState.region} railway={appState.railway} />
+        )}
       </main>
 
       <footer className="status-bar">
@@ -74,6 +78,11 @@ function App() {
         {region && (
           <span>
             Región: {region.source.name} · consultado {region.source.accessedOn}
+          </span>
+        )}
+        {appState.kind === 'ready' && (
+          <span>
+            Vías: {appState.railway.source.attribution} · {appState.railway.source.license}
           </span>
         )}
       </footer>

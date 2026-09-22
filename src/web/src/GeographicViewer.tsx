@@ -10,11 +10,15 @@ import {
   Viewer,
 } from 'cesium'
 import { useEffect, useRef, useState } from 'react'
+import { ExistingRailwayLayer } from './ExistingRailwayLayer'
+import type { RailwaySelection } from './ExistingRailwayLayer'
+import type { Railway, TrackGauge } from './railways'
 import type { Region } from './regions'
 import { tokenColor } from './styles/tokens'
 
 type GeographicViewerProps = {
   region: Region
+  railway: Railway
 }
 
 const osmTileUrl = import.meta.env.VITE_OSM_TILE_URL ?? 'https://tile.openstreetmap.org/'
@@ -28,15 +32,18 @@ const neutralBasemap = {
   gamma: 1.12,
 } as const
 
-export function GeographicViewer({ region }: GeographicViewerProps) {
+export function GeographicViewer({ region, railway }: GeographicViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const viewerRef = useRef<Viewer | null>(null)
   const imageryLayerRef = useRef<ImageryLayer | null>(null)
   const outlineEntityRef = useRef<Entity | null>(null)
+  const railwayLayerRef = useRef<ExistingRailwayLayer | null>(null)
   const viewerErrorRef = useRef<HTMLDivElement>(null)
   const viewerErrorMessageRef = useRef<HTMLSpanElement>(null)
   const [imageryVisible, setImageryVisible] = useState(true)
   const [outlineVisible, setOutlineVisible] = useState(true)
+  const [railwayVisible, setRailwayVisible] = useState(true)
+  const [selection, setSelection] = useState<RailwaySelection | null>(null)
 
   useEffect(() => {
     const container = containerRef.current
@@ -117,6 +124,7 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
       viewerRef.current = viewer
       imageryLayerRef.current = imageryLayer
       outlineEntityRef.current = outlineEntity
+      railwayLayerRef.current = new ExistingRailwayLayer(viewer, railway, setSelection)
     } catch (error) {
       if (viewer && !viewer.isDestroyed()) {
         viewer.destroy()
@@ -134,13 +142,15 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
     return () => {
       imageryLayerRef.current = null
       outlineEntityRef.current = null
+      railwayLayerRef.current?.destroy()
+      railwayLayerRef.current = null
       viewerRef.current = null
 
       if (viewer && !viewer.isDestroyed()) {
         viewer.destroy()
       }
     }
-  }, [region])
+  }, [region, railway])
 
   useEffect(() => {
     if (imageryLayerRef.current) {
@@ -155,6 +165,12 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
       viewerRef.current?.scene.requestRender()
     }
   }, [outlineVisible])
+
+  useEffect(() => {
+    if (railwayLayerRef.current) {
+      railwayLayerRef.current.show = railwayVisible
+    }
+  }, [railwayVisible])
 
   return (
     <>
@@ -172,6 +188,26 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
               <span className="layer-text">
                 <span className="layer-name">Mapa base</span>
                 <span className="layer-detail">OpenStreetMap, neutralizado</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              className="layer-toggle"
+              aria-pressed={railwayVisible}
+              onClick={() => {
+                setRailwayVisible((visible) => !visible)
+                if (railwayVisible) setSelection(null)
+              }}
+            >
+              <span className="layer-box" aria-hidden="true" />
+              <span className="layer-text">
+                <span className="layer-name">Vías existentes</span>
+                <span className="layer-detail">
+                  {railway.tracks.length.toLocaleString('es-AR')} tramos ·{' '}
+                  {railway.stations.length.toLocaleString('es-AR')} estaciones
+                </span>
               </span>
             </button>
           </li>
@@ -208,6 +244,110 @@ export function GeographicViewer({ region }: GeographicViewerProps) {
           </p>
         </div>
       </section>
+
+      <RailwayDetailPanel railway={railway} selection={selection} onClear={() => setSelection(null)} />
     </>
   )
+}
+
+type RailwayDetailPanelProps = {
+  railway: Railway
+  selection: RailwaySelection | null
+  onClear: () => void
+}
+
+function RailwayDetailPanel({ railway, selection, onClear }: RailwayDetailPanelProps) {
+  if (!selection) {
+    return (
+      <aside className="detail-panel" aria-label="Detalle ferroviario">
+        <p className="label">Infraestructura existente</p>
+        <h2>Red ferroviaria de Córdoba</h2>
+        <p className="detail-provenance">
+          Datos extraídos el <span className="data">{railway.source.extractedOn}</span>
+        </p>
+        <dl className="detail-list">
+          <DetailRow label="Tramos" value={railway.tracks.length.toLocaleString('es-AR')} />
+          <DetailRow label="Estaciones" value={railway.stations.length.toLocaleString('es-AR')} />
+          <DetailRow label="Licencia" value={railway.source.license} />
+        </dl>
+        <p className="detail-hint">Seleccioná una vía o una estación en el mapa para inspeccionarla.</p>
+      </aside>
+    )
+  }
+
+  const isTrack = selection.kind === 'track'
+  const title = isTrack
+    ? selection.item.name ?? selection.item.lineReference ?? 'Tramo sin nombre'
+    : selection.item.name
+
+  return (
+    <aside className="detail-panel" aria-label="Detalle ferroviario">
+      <p className="detail-identifier">{selection.item.id}</p>
+      <p className="label">{isTrack ? 'Tramo de vía' : stationTypeLabel(selection.item.type)}</p>
+      <h2>{title}</h2>
+      <p className="detail-provenance">{railway.source.attribution}</p>
+
+      <dl className="detail-list">
+        {isTrack ? (
+          <>
+            <DetailRow label="Estado" value={trackStatusLabel(selection.item.status)} />
+            <DetailRow label="Uso" value={trackUsageLabel(selection.item.usage)} />
+            {selection.item.lineReference && (
+              <DetailRow label="Ramal" value={selection.item.lineReference} />
+            )}
+          </>
+        ) : (
+          <DetailRow label="Tipo" value={stationTypeLabel(selection.item.type)} />
+        )}
+        <DetailRow label="Trocha" value={gaugeLabel(selection.item.gauge)} />
+        <DetailRow
+          label="Confianza"
+          value={gaugeConfidenceLabel(selection.item.gauge, selection.item.gaugeInferred)}
+        />
+      </dl>
+
+      <button type="button" className="button-secondary detail-close" onClick={onClear}>
+        Cerrar detalle
+      </button>
+    </aside>
+  )
+}
+
+function DetailRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt>{label}</dt>
+      <dd>{value}</dd>
+    </div>
+  )
+}
+
+function gaugeLabel(gauge: TrackGauge): string {
+  return gauge.widthMillimetres === 0
+    ? 'Sin dato'
+    : `${gauge.widthMillimetres.toLocaleString('es-AR')} mm`
+}
+
+function gaugeConfidenceLabel(gauge: TrackGauge, inferred: boolean): string {
+  if (gauge.widthMillimetres === 0) return 'No disponible'
+  return inferred ? 'Inferida por ramal u operador' : 'Leída de OpenStreetMap'
+}
+
+function trackStatusLabel(status: Railway['tracks'][number]['status']): string {
+  return { Active: 'Activa', Disused: 'En desuso', Abandoned: 'Abandonada' }[status]
+}
+
+function trackUsageLabel(usage: Railway['tracks'][number]['usage']): string {
+  return {
+    Unknown: 'Sin clasificar',
+    MainLine: 'Línea principal',
+    BranchLine: 'Ramal',
+    Siding: 'Apartadero',
+    Yard: 'Playa de maniobras',
+    IndustrialSpur: 'Desvío industrial',
+  }[usage]
+}
+
+function stationTypeLabel(type: Railway['stations'][number]['type']): string {
+  return { Station: 'Estación', Halt: 'Apeadero', Junction: 'Empalme' }[type]
 }

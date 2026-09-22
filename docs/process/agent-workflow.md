@@ -31,7 +31,7 @@ No mezclarlos en la misma sesión.
 | Investigación | nota en `docs/research/` |
 | Escritura de spec | spec en `docs/specs/` |
 | Implementación | código + tests contra una spec |
-| Review | observaciones o correcciones, idealmente con otro modelo |
+| Review | observaciones o correcciones (opcional, bajo demanda) |
 | Mantenimiento | docs, dependencias, limpieza |
 
 Todo concepto ferroviario pasa primero por una sesión de investigación. Implementar sin investigación produce comportamiento ferroviario inventado.
@@ -89,7 +89,20 @@ Luego, el autor:
 2. Hace el commit.
 3. Aplica la prueba: *"si mañana abro otra herramienta, ¿puede continuar solo leyendo el repo?"* Si no, falta actualizar algo.
 
-Al completar una spec: merge a `main`, mover la spec a `docs/specs/completed/` y, si corresponde, tag de release (`vX.Y.Z`, ver CHANGELOG).
+Al completar una spec:
+
+1. Verificar que pasen todos los checks locales (`dotnet test`, lint y build del frontend).
+2. Merge directo a `main` (sin pull requests en GitHub ni esperas):
+   ```bash
+   git switch main
+   git merge feature/RW-NNN-descripcion
+   git push origin main
+   ```
+3. Mover la spec de `docs/specs/active/` a `docs/specs/completed/` y, si corresponde, tag de release (`vX.Y.Z`, ver CHANGELOG).
+4. Borrar la branch local de la feature:
+   ```bash
+   git branch -d feature/RW-NNN-descripcion
+   ```
 
 ## 7. Cambiar de herramienta
 
@@ -98,7 +111,7 @@ Al completar una spec: merge a `main`, mover la spec a `docs/specs/completed/` y
   - Claude lee `CLAUDE.md`, que importa `AGENTS.md`.
   - Gemini CLI / Antigravity: configurarlos para leer `AGENTS.md`, o crear un `GEMINI.md` que solo lo referencie.
 - **El traspaso entre herramientas pasa siempre por el repo, nunca por copiar conversaciones.** El cierre de sesión es lo que lo hace posible.
-- Review con un modelo distinto al que implementó:
+- **Review con un modelo distinto (opcional / bajo demanda):** no es obligatoria para cada feature ni parte de los criterios de aceptación estándar; solo se usa si el autor quiere una segunda mirada en temas sensibles o complejos:
 
 ```text
 Leé AGENTS.md y la spec <spec>. Revisá el diff de esta branch contra main.

@@ -1,10 +1,10 @@
 # RailWeaver Status
 
-Last updated: 2026-09-21 (v0.2.0)
+Last updated: 2026-09-22 (v0.2.1)
 
 ## Current milestone
 
-M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/completed/RW-001-geographic-viewer.md)) completada; próxima: V0.3 — Existing railway data.
+M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/completed/RW-001-geographic-viewer.md)) y sistema visual ([RW-002](../specs/completed/RW-002-web-visual-migration.md)) completados; próxima: V0.3 — Existing railway data.
 
 ## Working
 
@@ -16,12 +16,11 @@ M0 — Real World Skeleton. V0.2 — Geographic viewer ([RW-001](../specs/comple
 
 ## In progress
 
-- [RW-002 — Migración de `src/web` al sistema visual](../specs/active/RW-002-web-visual-migration.md): implementada, PR [#3](https://github.com/santiago-ondris/railweaver/pull/3) abierto con CI verde. Antes de mergear faltan la review con otro modelo (`agent-workflow.md` §7) y la prueba manual de foco con teclado. Después: merge con squash, mover la spec a `completed/` y decidir el release.
+Ninguna spec activa. Listo para iniciar V0.3 (RW-003 — Existing railway data).
 
 ## Next
 
-- Terminar RW-002.
-- Investigar la calidad, licencia y estrategia de extracción de datos ferroviarios de OSM para V0.3; después escribir RW-003.
+- Investigar la calidad, licencia y estrategia de extracción de datos ferroviarios de OSM para Córdoba (V0.3); después escribir RW-003.
 
 ## Known problems
 

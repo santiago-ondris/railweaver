@@ -1,6 +1,6 @@
 # Arquitectura — overview
 
-Estado: v0.2.0 (geographic viewer). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
+Estado: v0.2.1 (visual system migration). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
 
 ## Forma general
 

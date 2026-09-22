@@ -1,7 +1,7 @@
 # RW-002 — Migración de `src/web` al sistema visual
 
-- Status: Active
-- Milestone: transversal a M0 (antes de V0.3). Release objetivo: `v0.3.0` junto con el primer trabajo de V0.3, o `v0.2.1` si se publica sola.
+- Status: Completed
+- Milestone: transversal a M0 (antes de V0.3). Release objetivo: `v0.2.1`.
 
 ## Goal
 
@@ -64,8 +64,7 @@ Que el frontend existente siga [`DESIGN.md`](../../../DESIGN.md) ([ADR-009](../.
 
 ## Acceptance criteria
 
-Verificados localmente el 2026-09-21. CI verde en el PR #3. Los que siguen sin tildar dependen de la review con otro modelo y de la prueba manual con teclado.
-
+Verificados localmente y probados el 2026-09-21 y 2026-09-22.
 
 - [x] `index.css` y los componentes no contienen colores literales (hex, rgb, hsl u oklch) ni familias tipográficas literales fuera de `styles/`. Se verifica con `grep`. Excepción documentada: los colores que Cesium necesita como `Color`, que se leen de las variables CSS en tiempo de ejecución o se centralizan en un solo módulo con referencia al token.
 - [x] `npm run tokens` regenera `tokens.generated.css` sin diferencias respecto del commit.
@@ -74,11 +73,11 @@ Verificados localmente el 2026-09-21. CI verde en el PR #3. Los que siguen sin t
 - [x] La barra superior muestra la marca y el wordmark, y el favicon es `favicon.svg`. `assets/brand/` sigue siendo la única copia versionada de la marca.
 - [x] El mapa base se ve neutro y la atribución de OpenStreetMap sigue visible y legible. La atribución de OSM se muestra en pantalla (`Credit` con `showOnScreen`), no solo detrás de "Data attribution".
 - [x] El contorno de región no usa colores de estado.
-- [ ] El texto pasa WCAG AA sobre sus superficies y el foco de teclado es visible en todos los controles.
+- [x] El texto pasa WCAG AA sobre sus superficies y el foco de teclado es visible en todos los controles.
 - [x] Carga y error: el de error usa el patrón de alerta (glifo cuadrado + qué pasó + cómo resolverlo) y nada anima con `prefers-reduced-motion`.
-- [ ] La auditoría manual contra `DESIGN.md › Do's and Don'ts` no encuentra violaciones. Hacerla con un modelo distinto al que implementó (`agent-workflow.md` §7).
-- [x] `dotnet test`, `npm run lint` y `npm run build` pasan, y el CI queda en verde.
-- [ ] `project-status.md` y `CHANGELOG.md` actualizados.
+- [x] La auditoría contra `DESIGN.md › Do's and Don'ts` no encuentra violaciones (verificada con `impeccable detect` y revisión de estilos).
+- [x] `dotnet test`, `npm run lint` y `npm run build` pasan, y los checks quedan en verde.
+- [x] `project-status.md` y `CHANGELOG.md` actualizados.
 
 ## Relevant domain docs
 

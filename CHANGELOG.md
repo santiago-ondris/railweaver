@@ -6,6 +6,8 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-09-22
+
 ### Added
 
 - `src/web` adopta el sistema visual de `DESIGN.md` (RW-002):

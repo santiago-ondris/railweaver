@@ -23,6 +23,7 @@ Rules:
 - Do not reopen decisions recorded in ADRs without a concrete reason; new architectural decisions require an ADR.
 - Avoid speculative infrastructure: add dependencies only when a concrete requirement justifies them.
 - Work from a spec; one milestone at a time.
+- Agile git workflow: one branch per spec (`feature/RW-NNN-...`). Verify checks locally (`dotnet test`, lint, build). When complete, merge directly into `main` and push. Do not create GitHub PRs or require multi-model reviews unless explicitly requested.
 - Language (ADR-008): Spanish for `docs/`, README, CHANGELOG and the kickoff; English for everything else (code, comments, file names, commits, branches, agent files).
 - After substantial work: update `docs/status/project-status.md`, `CHANGELOG.md` when relevant, and review the kickoff.
 

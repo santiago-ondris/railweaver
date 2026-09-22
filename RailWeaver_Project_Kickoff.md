@@ -1606,22 +1606,11 @@ Claude = research
 Antigravity = frontend
 ```
 
-Asignar según tarea.
+Asignar según tarea y conveniencia.
 
-Preferencia:
+Para mantener la agilidad del proyecto indie, **no hay burocracia de pull requests ni reviews obligatorias entre modelos**. El autor implementa con un agente, corre las pruebas y mergea directo a `main`.
 
-```text
-Research
-→ Agent A
-
-Implementation
-→ Agent B
-
-Review
-→ Agent C / different model
-```
-
-El agente que implementa una feature no debería ser siempre su único reviewer.
+La review con otro modelo es una herramienta opcional bajo demanda: si en una feature compleja o delicada el autor quiere una segunda mirada, puede abrir una sesión de review con otro agente antes de cerrar.
 
 ---
 

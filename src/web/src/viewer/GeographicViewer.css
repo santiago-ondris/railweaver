@@ -1,0 +1,121 @@
+/* Geographic viewer: side rail, tools and map stage. Only DESIGN.md tokens (--rw-*) are allowed here: no literal colors or font families. */
+
+/* Side rail and layer list */
+
+.side-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rw-spacing-xs);
+  padding: var(--rw-spacing-md);
+  border-right: 1px solid var(--rw-color-border-subtle);
+  background: var(--rw-color-panel);
+  overflow-y: auto;
+}
+
+.layer-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rw-spacing-xxs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.layer-toggle {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: var(--rw-spacing-sm);
+  padding: 5px 6px;
+  border: 0;
+  border-radius: var(--rw-rounded-sm);
+  background: transparent;
+  color: var(--rw-color-ink-muted);
+  text-align: left;
+  cursor: pointer;
+}
+
+.layer-toggle:hover {
+  background: var(--rw-color-raised);
+  color: var(--rw-color-ink);
+}
+
+.layer-box {
+  flex: none;
+  width: 11px;
+  height: 11px;
+  margin-top: 3px;
+  border: 1px solid var(--rw-color-border-strong);
+  background: var(--rw-color-raised);
+}
+
+.layer-toggle[aria-pressed='true'] .layer-box {
+  border-color: var(--rw-color-ink);
+  background: var(--rw-color-ink);
+}
+
+.layer-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.layer-name {
+  color: var(--rw-color-ink);
+}
+
+.layer-detail {
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-caption-size);
+  line-height: var(--rw-text-caption-line);
+}
+
+/* Map */
+
+.map-stage,
+.map-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.map-stage {
+  overflow: hidden;
+  background: var(--rw-color-map-ground);
+}
+
+.cesium-viewer,
+.cesium-viewer-cesiumWidgetContainer,
+.cesium-widget,
+.cesium-widget canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.cesium-viewer-bottom {
+  right: var(--rw-spacing-sm);
+  bottom: var(--rw-spacing-xs);
+}
+
+.cesium-viewer .cesium-widget-credits {
+  color: var(--rw-color-ink-muted);
+  font-family: var(--rw-font-ui);
+  font-size: 11px;
+}
+
+.cesium-viewer .cesium-widget-credits a {
+  color: var(--rw-color-ink);
+}
+
+/* Tools */
+
+.tool-heading {
+  margin-top: var(--rw-spacing-lg);
+}
+
+.tool-hint {
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-caption-size);
+  line-height: var(--rw-text-caption-line);
+}

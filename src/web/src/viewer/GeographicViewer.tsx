@@ -18,20 +18,22 @@ import {
   type Viewer as CesiumViewer,
   Viewer,
 } from 'cesium'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { ExistingRailwayLayer, type RailwaySelection } from './ExistingRailwayLayer'
-import { CandidateCorridorLayer } from './CandidateCorridorLayer'
-import { CorridorDetail, CorridorProfile, CorridorTool } from './CorridorTool'
-import { fetchCorridor, type CorridorResponse } from './corridors'
-import {
-  fetchElevation,
-  fetchElevationProfile,
-  type Coordinate,
-  type ElevationProfile,
-} from './elevation'
-import type { Railway, TrackGauge } from './railways'
-import type { Region } from './regions'
-import { tokenColor } from './styles/tokens'
+import { useEffect, useRef, useState } from 'react'
+import { fetchElevation, fetchElevationProfile, type ElevationProfile } from '../elevation/api'
+import { ProfileDock } from '../elevation/ProfileDock'
+import { fetchCorridor, type CorridorResponse } from '../planning/api'
+import { CandidateCorridorLayer } from '../planning/CandidateCorridorLayer'
+import { CorridorDetail } from '../planning/CorridorDetail'
+import { CorridorProfile } from '../planning/CorridorProfile'
+import { CorridorTool } from '../planning/CorridorTool'
+import type { Railway } from '../railways/api'
+import { ExistingRailwayLayer, type RailwaySelection } from '../railways/ExistingRailwayLayer'
+import { RailwayDetailPanel } from '../railways/RailwayDetailPanel'
+import type { Region } from '../regions/api'
+import type { Coordinate } from '../shared/geo'
+import { tokenColor } from '../styles/tokens'
+import { LayerToggle } from './LayerToggle'
+import './GeographicViewer.css'
 
 type GeographicViewerProps = {
   region: Region
@@ -557,255 +559,8 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
       {corridorShown && corridorResult?.corridor ? (
         <CorridorProfile corridor={corridorResult.corridor} />
       ) : (
-        (profile || profileError) && <AnalysisDock profile={profile} error={profileError} />
+        (profile || profileError) && <ProfileDock profile={profile} error={profileError} />
       )}
     </>
   )
-}
-
-function LayerToggle({
-  name,
-  detail,
-  pressed,
-  toggle,
-}: {
-  name: string
-  detail: string
-  pressed: boolean
-  toggle: () => void
-}) {
-  return (
-    <li>
-      <button type="button" className="layer-toggle" aria-pressed={pressed} onClick={toggle}>
-        <span className="layer-box" aria-hidden="true" />
-        <span className="layer-text">
-          <span className="layer-name">{name}</span>
-          <span className="layer-detail">{detail}</span>
-        </span>
-      </button>
-    </li>
-  )
-}
-
-function RailwayDetailPanel({
-  railway,
-  selection,
-  coordinate,
-  elevation,
-  onClear,
-}: {
-  railway: Railway
-  selection: RailwaySelection | null
-  coordinate: Coordinate | null
-  elevation: number | null | undefined
-  onClear: () => void
-}) {
-  const title = selection
-    ? selection.kind === 'track'
-      ? (selection.item.name ?? selection.item.lineReference ?? 'Tramo sin nombre')
-      : selection.item.name
-    : 'Punto del terreno'
-  return (
-    <aside className="detail-panel" aria-label="Detalle ferroviario">
-      <p className="label">
-        {selection
-          ? selection.kind === 'track'
-            ? 'Tramo de vía'
-            : stationTypeLabel(selection.item.type)
-          : 'Inspección'}
-      </p>
-      <h2>{coordinate ? title : 'Red ferroviaria de Córdoba'}</h2>
-      <p className="detail-provenance">{railway.source.attribution}</p>
-      <dl className="detail-list">
-        {coordinate && (
-          <>
-            <DetailRow
-              label="Latitud"
-              value={coordinate.latitude.toLocaleString('es-AR', { maximumFractionDigits: 5 })}
-            />
-            <DetailRow
-              label="Longitud"
-              value={coordinate.longitude.toLocaleString('es-AR', { maximumFractionDigits: 5 })}
-            />
-            <DetailRow
-              label="Cota"
-              value={
-                elevation === undefined
-                  ? 'Consultando…'
-                  : elevation === null
-                    ? 'Sin dato'
-                    : `${elevation.toLocaleString('es-AR', { minimumFractionDigits: 2 })} m`
-              }
-            />
-          </>
-        )}
-        {selection?.kind === 'track' && (
-          <>
-            <DetailRow label="Estado" value={trackStatusLabel(selection.item.status)} />
-            <DetailRow label="Uso" value={trackUsageLabel(selection.item.usage)} />
-            <DetailRow label="Trocha" value={gaugeLabel(selection.item.gauge)} />
-          </>
-        )}
-        {selection?.kind === 'station' && (
-          <DetailRow label="Trocha" value={gaugeLabel(selection.item.gauge)} />
-        )}
-        {!coordinate && (
-          <>
-            <DetailRow label="Tramos" value={railway.tracks.length.toLocaleString('es-AR')} />
-            <DetailRow label="Estaciones" value={railway.stations.length.toLocaleString('es-AR')} />
-          </>
-        )}
-      </dl>
-      {selection && (
-        <button type="button" className="button-secondary detail-close" onClick={onClear}>
-          Cerrar detalle
-        </button>
-      )}
-    </aside>
-  )
-}
-
-function AnalysisDock({
-  profile,
-  error,
-}: {
-  profile: ElevationProfile | null
-  error: string | null
-}) {
-  const metrics = useMemo(() => profileMetrics(profile), [profile])
-  if (!profile || !metrics)
-    return (
-      <section className="analysis-dock">
-        <p>{error ?? 'El perfil no contiene cotas disponibles.'}</p>
-      </section>
-    )
-  const width = 720,
-    height = 130,
-    padding = 22
-  const points = profile.samples.map((sample) =>
-    sample.elevationMeters === null
-      ? null
-      : {
-          x:
-            padding + (sample.distanceMeters / profile.totalDistanceMeters) * (width - padding * 2),
-          y:
-            height -
-            padding -
-            ((sample.elevationMeters - metrics.min) / Math.max(1, metrics.max - metrics.min)) *
-              (height - padding * 2),
-        },
-  )
-  const paths: string[] = []
-  let current = ''
-  for (const point of points) {
-    if (!point) {
-      if (current) paths.push(current)
-      current = ''
-      continue
-    }
-    current += `${current ? ' L' : 'M'} ${point.x} ${point.y}`
-  }
-  if (current) paths.push(current)
-  return (
-    <section className="analysis-dock" aria-label="Perfil longitudinal">
-      <div>
-        <p className="label">Perfil longitudinal</p>
-        <div className="profile-metrics">
-          <span>
-            Distancia <b>{formatDistance(profile.totalDistanceMeters)}</b>
-          </span>
-          <span>
-            Cota mín. <b>{metrics.min.toLocaleString('es-AR')} m</b>
-          </span>
-          <span>
-            Cota máx. <b>{metrics.max.toLocaleString('es-AR')} m</b>
-          </span>
-          <span>
-            Subida <b>{metrics.up.toLocaleString('es-AR')} m</b>
-          </span>
-          <span>
-            Bajada <b>{metrics.down.toLocaleString('es-AR')} m</b>
-          </span>
-          <span>
-            Pendiente máx. <b>{metrics.gradient.toLocaleString('es-AR')} ‰</b>
-          </span>
-        </div>
-      </div>
-      <svg
-        className="profile-chart"
-        viewBox={`0 0 ${width} ${height}`}
-        role="img"
-        aria-label="Gráfico del perfil de elevación"
-      >
-        <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} />
-        {paths.map((path, index) => (
-          <path key={index} d={path} />
-        ))}
-        {points.some((point) => point === null) && (
-          <text x={width / 2} y={height / 2}>
-            Tramo sin dato
-          </text>
-        )}
-      </svg>
-    </section>
-  )
-}
-
-function profileMetrics(profile: ElevationProfile | null) {
-  if (!profile) return null
-  const elevations = profile.samples.flatMap((sample) =>
-    sample.elevationMeters === null ? [] : [sample.elevationMeters],
-  )
-  if (elevations.length === 0) return null
-  let up = 0,
-    down = 0
-  for (let index = 1; index < profile.samples.length; index++) {
-    const a = profile.samples[index - 1].elevationMeters,
-      b = profile.samples[index].elevationMeters
-    if (a === null || b === null) continue
-    if (b > a) up += b - a
-    else down += a - b
-  }
-  return {
-    min: Math.min(...elevations),
-    max: Math.max(...elevations),
-    up: Math.round(up * 10) / 10,
-    down: Math.round(down * 10) / 10,
-    gradient: Math.max(...profile.samples.map((sample) => Math.abs(sample.gradientPermille ?? 0))),
-  }
-}
-
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
-    </div>
-  )
-}
-function formatDistance(meters: number) {
-  return meters >= 1000
-    ? `${(meters / 1000).toLocaleString('es-AR', { maximumFractionDigits: 1 })} km`
-    : `${Math.round(meters)} m`
-}
-function gaugeLabel(gauge: TrackGauge) {
-  return gauge.widthMillimetres === 0
-    ? 'Sin dato'
-    : `${gauge.widthMillimetres.toLocaleString('es-AR')} mm`
-}
-function trackStatusLabel(status: Railway['tracks'][number]['status']) {
-  return { Active: 'Activa', Disused: 'En desuso', Abandoned: 'Abandonada' }[status]
-}
-function trackUsageLabel(usage: Railway['tracks'][number]['usage']) {
-  return {
-    Unknown: 'Sin clasificar',
-    MainLine: 'Línea principal',
-    BranchLine: 'Ramal',
-    Siding: 'Apartadero',
-    Yard: 'Playa de maniobras',
-    IndustrialSpur: 'Desvío industrial',
-  }[usage]
-}
-function stationTypeLabel(type: Railway['stations'][number]['type']) {
-  return { Station: 'Estación', Halt: 'Apeadero', Junction: 'Empalme' }[type]
 }

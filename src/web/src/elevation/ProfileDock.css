@@ -1,0 +1,17 @@
+/* Elevation profile dock. Only DESIGN.md tokens (--rw-*) are allowed here: no literal colors or font families. */
+
+.profile-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--rw-spacing-xs) var(--rw-spacing-md);
+  margin-top: var(--rw-spacing-sm);
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-caption-size);
+}
+
+.profile-metrics b {
+  display: block;
+  color: var(--rw-color-ink);
+  font-family: var(--rw-font-data);
+  font-weight: var(--rw-text-data-weight);
+}

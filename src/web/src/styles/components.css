@@ -1,0 +1,193 @@
+/* Shared components from DESIGN.md › Components, used by several modules. Only DESIGN.md tokens (--rw-*) are allowed here: no literal colors or font families. */
+
+/* Alerts: DESIGN.md › Components (state border, tinted surface, glyph + title, what / how) */
+
+.alert {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 460px;
+  padding: 10px 11px;
+  border: 1px solid;
+  border-radius: var(--rw-rounded-sm);
+  color: var(--rw-color-ink-muted);
+}
+
+.alert code {
+  white-space: nowrap;
+}
+
+.alert b {
+  color: var(--rw-color-ink);
+  font-weight: var(--rw-text-body-strong-weight);
+}
+
+.alert-alarm {
+  border-color: var(--rw-color-alarm);
+  background: var(--rw-color-alarm-surface);
+}
+
+.alert-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--rw-color-ink);
+  font-weight: var(--rw-text-body-strong-weight);
+}
+
+.glyph {
+  flex: none;
+  width: 10px;
+  height: 10px;
+}
+
+.glyph-alarm {
+  background: var(--rw-color-alarm);
+}
+
+/* Detail panel: DESIGN.md › Layout and Components */
+
+.detail-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--rw-spacing-sm);
+  padding: var(--rw-spacing-lg);
+  overflow-y: auto;
+  border-left: 1px solid var(--rw-color-border-subtle);
+  background: var(--rw-color-raised);
+}
+
+.detail-panel h2 {
+  margin: 0;
+  color: var(--rw-color-ink);
+  font-size: var(--rw-text-title-size);
+  font-weight: var(--rw-text-title-weight);
+  line-height: var(--rw-text-title-line);
+  letter-spacing: var(--rw-text-title-tracking);
+}
+
+.detail-identifier {
+  overflow-wrap: anywhere;
+  color: var(--rw-color-primary);
+  font-family: var(--rw-font-identifier);
+  font-size: var(--rw-text-identifier-size);
+  font-weight: var(--rw-text-identifier-weight);
+  line-height: var(--rw-text-identifier-line);
+  letter-spacing: var(--rw-text-identifier-tracking);
+}
+
+.detail-provenance,
+.detail-hint {
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-caption-size);
+  line-height: var(--rw-text-caption-line);
+}
+
+.detail-list {
+  margin: var(--rw-spacing-sm) 0 0;
+  border-top: 1px solid var(--rw-color-border-subtle);
+}
+
+.detail-list > div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  border-bottom: 1px solid var(--rw-color-border-subtle);
+}
+
+.detail-list dt,
+.detail-list dd {
+  margin: 0;
+  padding: 7px 0;
+}
+
+.detail-list dt {
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-label-size);
+  font-weight: var(--rw-text-label-weight);
+  letter-spacing: var(--rw-text-label-tracking);
+  text-transform: uppercase;
+}
+
+.detail-list dd {
+  padding-left: var(--rw-spacing-sm);
+  border-left: 1px solid var(--rw-color-border-subtle);
+  color: var(--rw-color-ink);
+  font-family: var(--rw-font-data);
+  font-size: var(--rw-text-data-size);
+  line-height: var(--rw-text-data-line);
+}
+
+.button-secondary {
+  padding: 7px 11px;
+  border: 1px solid var(--rw-color-border-strong);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-raised);
+  color: var(--rw-color-ink);
+  font-weight: var(--rw-text-body-strong-weight);
+  cursor: pointer;
+}
+
+.button-secondary:hover {
+  background: var(--rw-color-panel);
+}
+
+.button-secondary:disabled,
+.button-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-primary {
+  padding: 7px 11px;
+  border: 1px solid var(--rw-color-primary);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-primary);
+  color: var(--rw-color-on-primary);
+  font-weight: var(--rw-text-body-strong-weight);
+  cursor: pointer;
+}
+
+.detail-close {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* Analysis dock: bottom band for longitudinal profiles */
+
+.analysis-dock {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: var(--rw-spacing-lg);
+  min-height: 170px;
+  max-height: 220px;
+  padding: var(--rw-spacing-md) var(--rw-spacing-lg);
+  border-top: 1px solid var(--rw-color-border-subtle);
+  background: var(--rw-color-panel);
+}
+
+.profile-chart {
+  width: 100%;
+  height: 145px;
+  background: var(--rw-color-raised);
+}
+
+.profile-chart line {
+  stroke: var(--rw-color-border-subtle);
+  stroke-dasharray: 2 3;
+}
+
+.profile-chart path {
+  fill: none;
+  stroke: var(--rw-color-primary);
+  stroke-width: 2;
+}
+
+.profile-chart text {
+  fill: var(--rw-color-ink-subtle);
+  font-family: var(--rw-font-data);
+  font-size: var(--rw-text-data-size);
+  text-anchor: middle;
+}

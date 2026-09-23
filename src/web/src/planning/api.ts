@@ -1,4 +1,4 @@
-import type { Coordinate, ElevationProfile } from './elevation'
+import type { Coordinate } from '../shared/geo'
 
 export type CorridorSearch = {
   gridStepMeters: number
@@ -71,16 +71,4 @@ export async function fetchCorridor(
     )
   }
   return response.json() as Promise<CorridorResponse>
-}
-
-export function terrainAsElevationProfile(corridor: CandidateCorridor): ElevationProfile {
-  return {
-    totalDistanceMeters: corridor.terrainProfile.totalDistanceMeters,
-    samples: corridor.terrainProfile.samples.map((sample) => ({
-      ...sample.coordinate,
-      distanceMeters: sample.distanceMeters,
-      elevationMeters: sample.elevationMeters,
-      gradientPermille: sample.gradientPermille,
-    })),
-  }
 }

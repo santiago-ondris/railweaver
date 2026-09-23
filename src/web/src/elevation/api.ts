@@ -1,4 +1,5 @@
-export type Coordinate = { latitude: number; longitude: number }
+import type { Coordinate } from '../shared/geo'
+
 export type ElevationResult = { elevation: number | null; reason: string | null }
 export type ProfileSample = Coordinate & {
   distanceMeters: number

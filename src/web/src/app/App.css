@@ -1,0 +1,81 @@
+/* App shell. Only DESIGN.md tokens (--rw-*) are allowed here: no literal colors or font families. */
+
+/* Shell: DESIGN.md › Layout (top bar 44 · side rail 168 · map · status bar 26) */
+
+.app-shell {
+  display: grid;
+  grid-template-rows: 44px minmax(0, 1fr) 26px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--rw-spacing-xl);
+  padding: 0 var(--rw-spacing-md);
+  border-bottom: 1px solid var(--rw-color-border-subtle);
+  background: var(--rw-color-panel);
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: var(--rw-spacing-sm);
+}
+
+.brand-mark {
+  display: block;
+}
+
+.wordmark {
+  color: var(--rw-color-primary);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.top-bar-context {
+  display: flex;
+  align-items: baseline;
+  gap: var(--rw-spacing-xs);
+  margin-left: auto;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr) 320px;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+}
+
+.side-rail,
+.map-stage,
+.detail-panel {
+  grid-row: 1;
+}
+
+.workspace-state {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rw-spacing-xs);
+  padding: var(--rw-spacing-lg);
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--rw-spacing-lg);
+  padding: 0 var(--rw-spacing-md);
+  overflow: hidden;
+  border-top: 1px solid var(--rw-color-border-subtle);
+  background: var(--rw-color-panel);
+  color: var(--rw-color-ink-subtle);
+  font-family: var(--rw-font-data);
+  font-size: 11px;
+  white-space: nowrap;
+}

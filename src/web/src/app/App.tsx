@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
-import { GeographicViewer } from './GeographicViewer'
-import { fetchRailway } from './railways'
-import type { Railway } from './railways'
-import { fetchRegion } from './regions'
-import type { Region } from './regions'
+import { GeographicViewer } from '../viewer/GeographicViewer'
+import { fetchRailway } from '../railways/api'
+import type { Railway } from '../railways/api'
+import { fetchRegion } from '../regions/api'
+import type { Region } from '../regions/api'
+import './App.css'
 
 type AppState =
   { kind: 'loading' } | { kind: 'ready'; region: Region; railway: Railway } | { kind: 'error' }

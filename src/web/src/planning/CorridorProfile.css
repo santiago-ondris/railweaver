@@ -1,0 +1,16 @@
+/* Candidate corridor profile chart. Only DESIGN.md tokens (--rw-*) are allowed here: no literal colors or font families. */
+
+.corridor-chart .corridor-terrain {
+  stroke: var(--rw-color-border-strong);
+  stroke-width: 1;
+}
+
+.corridor-chart .corridor-terrain-area {
+  fill: var(--rw-color-border-subtle);
+  stroke: none;
+}
+
+.corridor-chart .corridor-track {
+  stroke: var(--rw-color-primary);
+  stroke-width: 2;
+}

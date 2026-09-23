@@ -7,8 +7,8 @@ import {
   PolylineMaterialAppearance,
   type Viewer,
 } from 'cesium'
-import type { Coordinate } from './elevation'
-import { tokenColor } from './styles/tokens'
+import type { Coordinate } from '../shared/geo'
+import { tokenColor } from '../styles/tokens'
 
 export class CandidateCorridorLayer {
   private readonly viewer: Viewer

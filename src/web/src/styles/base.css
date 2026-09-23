@@ -1,0 +1,55 @@
+/* Global base: root typography, reset and text primitives. Only DESIGN.md tokens (--rw-*) are allowed here: no literal colors or font families. */
+
+:root {
+  color: var(--rw-color-ink);
+  background: var(--rw-color-ground);
+  font-family: var(--rw-font-ui);
+  font-size: var(--rw-text-body-size);
+  font-weight: var(--rw-text-body-weight);
+  line-height: var(--rw-text-body-line);
+  font-variant-numeric: tabular-nums;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rw-color-action);
+  outline-offset: 2px;
+}
+
+.label {
+  margin: 0;
+  color: var(--rw-color-ink-subtle);
+  font-size: var(--rw-text-label-size);
+  font-weight: var(--rw-text-label-weight);
+  line-height: var(--rw-text-label-line);
+  letter-spacing: var(--rw-text-label-tracking);
+  text-transform: uppercase;
+}
+
+.data {
+  font-family: var(--rw-font-data);
+  font-size: var(--rw-text-data-size);
+  font-weight: var(--rw-text-data-weight);
+}

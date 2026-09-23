@@ -12,8 +12,8 @@ import {
   ScreenSpaceEventType,
   type Viewer,
 } from 'cesium'
-import type { Railway, RailwayStation, TrackSegment } from './railways'
-import { tokenColor } from './styles/tokens'
+import type { Railway, RailwayStation, TrackSegment } from './api'
+import { tokenColor } from '../styles/tokens'
 
 export type RailwaySelection =
   { kind: 'track'; item: TrackSegment } | { kind: 'station'; item: RailwayStation }

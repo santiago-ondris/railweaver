@@ -1,0 +1,62 @@
+/* Candidate corridor tool. Only DESIGN.md tokens (--rw-*) are allowed here: no literal colors or font families. */
+
+.corridor-tool {
+  position: absolute;
+  z-index: 2;
+  top: var(--rw-spacing-md);
+  left: var(--rw-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rw-spacing-sm);
+  width: min(33vw, 350px);
+  max-height: calc(100% - var(--rw-spacing-lg));
+  padding: var(--rw-spacing-lg);
+  overflow-y: auto;
+  border: 1px solid var(--rw-color-border-strong);
+  background: var(--rw-color-panel);
+}
+
+.corridor-tool h2 {
+  margin: 0;
+  font-size: var(--rw-text-title-size);
+  line-height: var(--rw-text-title-line);
+}
+
+.corridor-label {
+  margin-top: var(--rw-spacing-xs);
+  font-weight: var(--rw-text-body-strong-weight);
+}
+
+.corridor-presets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--rw-spacing-xs);
+}
+
+.corridor-presets .button-secondary {
+  padding: 6px;
+  text-align: left;
+}
+
+.corridor-presets [aria-pressed='true'] {
+  border-color: var(--rw-color-primary);
+  color: var(--rw-color-primary);
+}
+
+.corridor-input {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid var(--rw-color-border-strong);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-raised);
+  color: var(--rw-color-ink);
+}
+
+.corridor-validation {
+  color: var(--rw-color-alarm);
+}
+
+.corridor-actions {
+  display: flex;
+  gap: var(--rw-spacing-xs);
+}

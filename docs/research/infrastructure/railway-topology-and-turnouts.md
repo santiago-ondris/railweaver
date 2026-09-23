@@ -1,5 +1,7 @@
 # Topología ferroviaria, aparatos de vía y grafo de red
 
+La implementación y las decisiones finales están en [RW-006](../../specs/completed/RW-006-railway-graph.md). La spec prevalece donde esta nota plantea opciones distintas.
+
 ## Question
 
 ¿Cómo se transforma una colección de polilíneas lineales sueltas extraídas de OpenStreetMap (2.374 tramos en la provincia de Córdoba) en un grafo topológico de red ferroviaria navegable, determinista y físicamente veraz para trenes en RailWeaver (M1 / V0.6 — La red como grafo)?

@@ -1,20 +1,22 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (spec RW-006 activa)
+Last updated: 2026-09-22 (RW-006 completada; release v0.6.0)
 
 ## Current milestone
 
 M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 ([RW-005](../specs/completed/RW-005-candidate-corridor.md)). Release `v0.5.0`.
 
-M1 — Primer tren, en curso. Spec activa:
-[RW-006 — La red como grafo](../specs/active/RW-006-railway-graph.md) (V0.6).
+M1 — Primer tren, en curso. V0.6 completada con
+[RW-006 — La red como grafo](../specs/completed/RW-006-railway-graph.md).
+Siguiente intención: [RW-007 — Curvas](../specs/backlog/RW-007-curvature.md).
 
 ## Working
 
 - Solución .NET 10: `RailWeaver.Core`, `RailWeaver.Api` (health, regiones,
-  infraestructura ferroviaria, elevación, perfiles y terreno), `RailWeaver.Core.Tests`
-  y `RailWeaver.Api.Tests` (95 tests, incluye frontera del core, formatos, datasets y endpoints).
+  infraestructura ferroviaria, red, rutas, elevación, perfiles y terreno),
+  `RailWeaver.Core.Tests` y `RailWeaver.Api.Tests` (128 tests, incluye frontera del
+  core, formatos, datasets y endpoints).
 - Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap neutralizado, cámara inicial, red ferroviaria de Córdoba y capas controlables a partir de datasets servidos por la API. Sigue `DESIGN.md`: tokens generados, fuentes autoalojadas, marca y favicon. El código se organiza por módulos alineados con el backend y lo formatea Prettier (ADR-010).
 - Dataset ferroviario OSM de Córdoba versionado: 2.374 tramos, 169 estaciones, respuesta cruda de Overpass, metadatos y licencia ODbL 1.0; extractor offline reproducible en `tools/`.
 - PostGIS 3.5 / PostgreSQL 17 vía `compose.yaml` (sin uso desde el código todavía).
@@ -28,6 +30,14 @@ M1 — Primer tren, en curso. Spec activa:
   95 tests, lint y build del frontend sin descargar el DEM. Los cuatro casos de
   aceptación con el DEM real respondieron en ≤ 1,50 s en la máquina de desarrollo;
   el autor confirmó el trazado visible y los datos técnicos en la aplicación.
+- RW-006 completada: el core construye una red
+  por trocha, deduce 504 tramos sin dato por conexión, segmenta 3.953 aristas,
+  calcula diagnósticos y encuentra rutas entre estaciones con inversiones de
+  marcha contadas. La API expone resumen/rutas y agrega el perfil del terreno si
+  está disponible. El frontend incorpora herramienta Ruta y capa Diagnóstico de red.
+  Los nueve recorridos de referencia y los conteos del diagnóstico coinciden con
+  la spec; pasan 128 tests .NET, lint, formato y build del frontend. El autor
+  confirmó el funcionamiento en el visor.
 
 ## Next
 
@@ -35,13 +45,11 @@ M1 — Primer tren: diseñar un ramal, conectarlo a la red existente y ver a un 
 recorrerlo, con un tiempo de viaje que se pueda explicar ([Kickoff](../../RailWeaver_Project_Kickoff.md) §38–39).
 Pasos propuestos, con intenciones cortas en [`specs/backlog/`](../specs/backlog/):
 
-1. RW-006 — La red como grafo (V0.6). **Activa:** investigación
-   ([nota](../research/infrastructure/railway-topology-and-turnouts.md)) y spec
-   completas; siguiente paso, implementación.
-2. RW-007 — Curvas: radio mínimo y trazado en rectas y arcos (V0.7).
-3. RW-008 — Tren V1 y tiempo de recorrido (V0.8).
-4. RW-009 — Motor de simulación por eventos y primera circulación (V0.9).
-5. RW-010 — Construir: corredor unido a la red mediante un empalme (V0.10).
+1. RW-007 — Curvas: radio mínimo y trazado en rectas y arcos (V0.7). Próxima spec
+   a desarrollar desde el [backlog](../specs/backlog/RW-007-curvature.md).
+2. RW-008 — Tren V1 y tiempo de recorrido (V0.8).
+3. RW-009 — Motor de simulación por eventos y primera circulación (V0.9).
+4. RW-010 — Construir: corredor unido a la red mediante un empalme (V0.10).
 
 El prototipo de corredor de RW-005 no modela radios mínimos, suavizado, obras ni
 costos de suelo; no debe interpretarse como un trazado ferroviario construible.

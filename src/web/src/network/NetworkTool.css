@@ -1,0 +1,113 @@
+.network-tool {
+  position: absolute;
+  z-index: 2;
+  top: var(--rw-spacing-md);
+  left: var(--rw-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rw-spacing-sm);
+  width: min(33vw, 350px);
+  max-height: calc(100% - var(--rw-spacing-lg));
+  padding: var(--rw-spacing-lg);
+  overflow-y: auto;
+  border: 1px solid var(--rw-color-border-strong);
+  background: var(--rw-color-panel);
+}
+
+.network-tool h2 {
+  margin: 0;
+  font-size: var(--rw-text-title-size);
+}
+.network-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--rw-spacing-xs);
+}
+.network-field label {
+  font-weight: var(--rw-text-body-strong-weight);
+}
+.network-field input {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid var(--rw-color-border-strong);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-raised);
+  color: var(--rw-color-ink);
+}
+.network-suggestions {
+  position: absolute;
+  z-index: 3;
+  top: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--rw-color-border-strong);
+  background: var(--rw-color-raised);
+  list-style: none;
+}
+.network-suggestions button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: var(--rw-spacing-sm);
+  padding: var(--rw-spacing-sm);
+  border: 0;
+  background: transparent;
+  color: var(--rw-color-ink);
+  text-align: left;
+  cursor: pointer;
+}
+.network-suggestions button:hover,
+.network-suggestions button:focus-visible {
+  background: var(--rw-color-panel);
+}
+.network-suggestions small {
+  color: var(--rw-color-ink-subtle);
+}
+.network-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--rw-spacing-sm);
+}
+.network-checkbox input {
+  accent-color: var(--rw-color-ink);
+}
+.network-actions {
+  display: flex;
+  gap: var(--rw-spacing-xs);
+}
+.network-error {
+  color: var(--rw-color-alarm);
+}
+.network-action-chip {
+  align-self: flex-start;
+  padding: var(--rw-spacing-xs) var(--rw-spacing-sm);
+  border: 1px solid var(--rw-color-action);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-action-surface);
+  color: var(--rw-color-action);
+  cursor: pointer;
+}
+.alert-warning {
+  border-color: var(--rw-color-warning);
+  background: var(--rw-color-warning-surface);
+}
+.glyph-warning {
+  background: var(--rw-color-warning);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.network-warning-metric dd {
+  color: var(--rw-color-warning-text);
+}
+.network-profile-chart path {
+  stroke: var(--rw-color-ink);
+}
+.network-profile-chart .network-terrain-area {
+  fill: var(--rw-color-border-subtle);
+  stroke: none;
+}
+.network-profile-chart .network-reversal-line {
+  stroke: var(--rw-color-warning);
+  stroke-dasharray: none;
+}

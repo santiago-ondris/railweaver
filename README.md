@@ -57,6 +57,14 @@ ajustar los puntos o el límite. El resultado es preliminar: no incluye túneles
 puentes, curvas ni costos de suelo. Los cuatro botones de pendiente son referencias
 a validar, no valores normativos certificados.
 
+Para buscar un recorrido por las vías existentes, abrí **Ruta**, elegí dos estaciones
+en el mapa o por nombre y pulsá **Buscar ruta**. La herramienta muestra la trocha,
+la distancia, las inversiones de marcha y el perfil del terreno cuando hay DEM.
+Podés incluir vías en desuso; las abandonadas nunca se usan. La capa **Diagnóstico
+de red** señala posibles cortes de datos, extremos, uniones cerradas y vías sin
+trocha. El cálculo sigue la geometría de OpenStreetMap: no estima velocidades ni
+tiempos de viaje.
+
 La API escucha en `http://localhost:5080`; el frontend en `http://localhost:5173` y redirige `/api` a la API.
 
 Frontend: `npm --prefix src/web run lint`, `npm --prefix src/web run format:check` y `npm --prefix src/web run build`.

@@ -1,4 +1,9 @@
+using RailWeaver.Core.Infrastructure;
+
 namespace RailWeaver.Api.Railways;
+
+public sealed record RailwayDomainDataset(IReadOnlyList<TrackSegment> Tracks,
+    IReadOnlyList<RailwayStation> Stations);
 
 internal sealed record TrackFeatureCollectionDocument
 {

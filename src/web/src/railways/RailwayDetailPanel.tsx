@@ -6,12 +6,14 @@ import { gaugeLabel, stationTypeLabel, trackStatusLabel, trackUsageLabel } from 
 
 export function RailwayDetailPanel({
   railway,
+  inferredGauges,
   selection,
   coordinate,
   elevation,
   onClear,
 }: {
   railway: Railway
+  inferredGauges: { trackId: string; widthMillimetres: number }[]
   selection: RailwaySelection | null
   coordinate: Coordinate | null
   elevation: number | null | undefined
@@ -60,7 +62,16 @@ export function RailwayDetailPanel({
           <>
             <DetailRow label="Estado" value={trackStatusLabel(selection.item.status)} />
             <DetailRow label="Uso" value={trackUsageLabel(selection.item.usage)} />
-            <DetailRow label="Trocha" value={gaugeLabel(selection.item.gauge)} />
+            <DetailRow
+              label="Trocha"
+              value={(() => {
+                if (selection.kind !== 'track') return ''
+                const inferred = inferredGauges.find((item) => item.trackId === selection.item.id)
+                if (inferred)
+                  return `${inferred.widthMillimetres.toLocaleString('es-AR')} mm · deducida por conexión`
+                return `${gaugeLabel(selection.item.gauge)}${selection.item.gaugeInferred ? ' · deducida por nombre u operador' : ''}`
+              })()}
+            />
           </>
         )}
         {selection?.kind === 'station' && (

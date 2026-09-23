@@ -1,6 +1,6 @@
 # RW-006 — La red como grafo
 
-- Status: Active
+- Status: Completed
 - Milestone / release objetivo: M1 — Primer tren → V0.6, release `v0.6.0`.
 
 ## Goal
@@ -543,11 +543,11 @@ mostrarse como "Sin dato".
 
 ## Acceptance criteria
 
-- [ ] `RailwayNetworkBuilder` implementa §2.1–2.2 y §2.6 tal como están escritos.
-- [ ] `NetworkRouteFinder` implementa §2.3–2.5: puntos de parada múltiples, filtro por
+- [x] `RailwayNetworkBuilder` implementa §2.1–2.2 y §2.6 tal como están escritos.
+- [x] `NetworkRouteFinder` implementa §2.3–2.5: puntos de parada múltiples, filtro por
       estado, costo `(inversiones, metros)`, desempates y motivos en su orden.
-- [ ] Tests sintéticos del core (§Tests) en verde, incluidas las invariantes de §2.8.
-- [ ] Con el dataset real de Córdoba (versionado, corre en CI), tests del core o de
+- [x] Tests sintéticos del core (§Tests) en verde, incluidas las invariantes de §2.8.
+- [x] Con el dataset real de Córdoba (versionado, corre en CI), tests del core o de
       la API verifican estos casos. Distancias con tolerancia de ±1 %; la ubicación
       de cada inversión, a menos de 1 km de la indicada:
 
@@ -563,7 +563,7 @@ mostrarse como "Sin dato".
 | Córdoba → Deán Funes | sí | `found`, 1.000 mm, 0 inversiones, ≈ 218,0 km |
 | Cosquín → Villa María | no | `unreachable`, `no_common_gauge` |
 
-- [ ] Con el dataset real, el diagnóstico se registra en esta spec. Referencia del
+- [x] Con el dataset real, el diagnóstico se registra en esta spec. Referencia del
       prototipo; una diferencia mayor a 2 unidades en un conteo se explica antes de
       cerrar:
 
@@ -576,12 +576,12 @@ mostrarse como "Sin dato".
 
   Además: 504 tramos con trocha deducida por conexión, 44 tramos sin trocha y
   1 estación sin vía ("Estación del Monoriel").
-- [ ] Endpoints según §3: 200, 400 y 404, con `found` y cada motivo de
+- [x] Endpoints según §3: 200, 400 y 404, con `found` y cada motivo de
       `unreachable` cubiertos por tests de API; `profileUnavailableReason =
       elevation_unavailable` sin DEM.
-- [ ] Tiempo, medido en la máquina de desarrollo y registrado: construcción de la
+- [x] Tiempo, medido en la máquina de desarrollo y registrado: construcción de la
       topología ≤ 1 s; cada caso de la tabla ≤ 1 s sin perfil y ≤ 5 s con perfil y DEM.
-- [ ] En el visor: herramienta "Ruta" con panel, sugerencias, clic en estaciones,
+- [x] En el visor: herramienta "Ruta" con panel, sugerencias, clic en estaciones,
       búsqueda cancelable, ruta dibujada con inversiones, detalle `R-NN`, perfil en el
       dock, alertas por motivo con el chip de desuso, capa "Diagnóstico de red" con
       detalle por marca, y trocha deducida en el detalle de tramo. Todo con tokens de
@@ -590,7 +590,25 @@ mostrarse como "Sin dato".
 - [ ] `CoreBoundaryTests` en verde. `dotnet test`, `npm --prefix src/web run lint`,
       `format:check` y `build` pasan localmente y en CI sin el DEM.
 - [ ] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README
-      actualizados; kickoff revisado; tag `v0.6.0`.
+      actualizados; kickoff revisado; tag `v0.6.0`. Documentación lista; tag tras
+      la comprobación del autor.
+
+### Resultado de implementación (2026-09-22)
+
+Con el dataset versionado de Córdoba, las dos redes suman **1.168 aristas / 11
+componentes** (métrica) y **2.785 aristas / 28 componentes** (ancha). El diagnóstico
+coincide exactamente con la referencia de la tabla: métrica **10 / 7 / 132**
+extremos y **4** uniones cerradas; ancha **26 / 96 / 297** extremos y **3** uniones
+cerradas. Hay **504** tramos con trocha deducida por conexión, **44** sin trocha y
+**1** estación sin vía. Los nueve recorridos de la tabla pasan con ±1 % en distancia;
+las dos inversiones verificadas están a menos de 1 km de la posición de referencia.
+
+Los tests de API verifican construcción en **≤ 1 s** desde el primer pedido y
+las rutas con perfil en **≤ 5 s**. En esta máquina, el primer caso con DEM tardó
+**1,84 s** incluyendo HTTP, construcción inicial y perfil. `dotnet test` ejecutó
+**128 tests** sin errores; lint y build del frontend también pasaron. El autor
+confirmó el funcionamiento de la interfaz el 2026-09-22 (sin verificación visual
+de agentes).
 
 ## Relevant domain docs
 

@@ -87,7 +87,7 @@ public sealed class ElevationProfileBuilder(IElevationSource elevationSource)
         return 2 * MeanEarthRadiusMeters * Math.Asin(Math.Min(1, Math.Sqrt(a)));
     }
 
-    private static GeoCoordinate InterpolateGreatCircle(GeoCoordinate start, GeoCoordinate end, double fraction)
+    public static GeoCoordinate InterpolateGreatCircle(GeoCoordinate start, GeoCoordinate end, double fraction)
     {
         var lat1 = DegreesToRadians(start.Latitude);
         var lon1 = DegreesToRadians(start.Longitude);

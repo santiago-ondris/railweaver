@@ -7,6 +7,24 @@ namespace RailWeaver.Api.Railways;
 
 public sealed class RailwayFileStore(string regionsDirectory)
 {
+    public async Task<RailwayDomainDataset?> FindDomainAsync(string regionId, CancellationToken cancellationToken)
+    {
+        var response = await FindAsync(regionId, cancellationToken);
+        if (response is null) return null;
+        return new RailwayDomainDataset(
+            response.Tracks.Select(track => new TrackSegment(track.Id,
+                track.Geometry.Select(point => new GeoCoordinate(point.Latitude, point.Longitude)).ToArray(),
+                track.Gauge.WidthMillimetres == 0 ? TrackGauge.Unknown
+                    : TrackGauge.FromMillimetres(track.Gauge.WidthMillimetres),
+                track.GaugeInferred, Enum.Parse<TrackOperationalStatus>(track.Status),
+                Enum.Parse<TrackUsage>(track.Usage), track.Name, track.LineReference)).ToArray(),
+            response.Stations.Select(station => new RailwayStation(station.Id, station.Name,
+                new GeoCoordinate(station.Location.Latitude, station.Location.Longitude),
+                Enum.Parse<StationType>(station.Type),
+                station.Gauge.WidthMillimetres == 0 ? TrackGauge.Unknown
+                    : TrackGauge.FromMillimetres(station.Gauge.WidthMillimetres),
+                station.GaugeInferred)).ToArray());
+    }
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

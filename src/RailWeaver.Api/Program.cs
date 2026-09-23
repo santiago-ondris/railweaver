@@ -3,7 +3,9 @@ using RailWeaver.Api.Regions;
 using RailWeaver.Api.Railways;
 using RailWeaver.Api.Elevation;
 using RailWeaver.Api.Planning;
+using RailWeaver.Api.Network;
 using RailWeaver.Core.Geography;
+using RailWeaver.Core.Infrastructure.Network;
 using RailWeaver.Core.Planning;
 using RailWeaver.Core;
 
@@ -15,6 +17,7 @@ builder.Services.AddSingleton(
     _ => new RailwayFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
 builder.Services.AddSingleton(
     _ => new ElevationFileStore(Path.Combine(AppContext.BaseDirectory, "data", "regions")));
+builder.Services.AddSingleton<RailwayNetworkStore>();
 
 var app = builder.Build();
 
@@ -142,6 +145,57 @@ app.MapGet(
         var railway = await railways.FindAsync(id, cancellationToken);
         return railway is null ? Results.NotFound() : Results.Ok(railway);
     });
+
+app.MapGet("/api/regions/{id}/network", async (string id, RailwayNetworkStore networks) =>
+{
+    var dataset = await networks.FindAsync(id);
+    return dataset is null ? Results.NotFound() : Results.Ok(NetworkResponse.FromDomain(dataset.Topology));
+});
+
+app.MapPost("/api/regions/{id}/network/routes", async (
+    string id, NetworkRouteRequestBody request, RailwayNetworkStore networks,
+    ElevationFileStore elevations, HttpContext context) =>
+{
+    var dataset = await networks.FindAsync(id);
+    if (dataset is null) return Results.NotFound();
+    if (string.IsNullOrWhiteSpace(request.OriginStationId)
+        || string.IsNullOrWhiteSpace(request.DestinationStationId))
+        return Results.BadRequest(new { message = "Origin and destination station ids are required." });
+    if (!dataset.Stations.TryGetValue(request.OriginStationId, out var origin)
+        || !dataset.Stations.TryGetValue(request.DestinationStationId, out var destination))
+        return Results.BadRequest(new { message = "Both station ids must belong to the region." });
+    if (origin.Id == destination.Id)
+        return Results.BadRequest(new { message = "Origin and destination must be different stations." });
+    var result = new NetworkRouteFinder(dataset.Topology).Find(
+        new NetworkRouteRequest(origin, destination, request.IncludeDisused), context.RequestAborted);
+    ProfileResponse? profile = null;
+    string? unavailable = null;
+    if (result.Route is { } route)
+    {
+        var elevation = elevations.Find(id);
+        if (elevation is null || !elevation.IsAvailable) unavailable = "elevation_unavailable";
+        else
+        {
+            var estimatedSamples = route.Geometry.Count;
+            for (var i = 1; i < route.Geometry.Count; i++)
+                estimatedSamples += (int)Math.Ceiling(ElevationProfileBuilder.GreatCircleDistanceMeters(
+                    route.Geometry[i - 1], route.Geometry[i]) / ElevationProfileBuilder.SamplingStepMeters);
+            if (estimatedSamples > 20_000) unavailable = "too_many_samples";
+            else if (route.Geometry.Count >= 2)
+            {
+                var built = new ElevationProfileBuilder(elevation.Grid!).Build(route.Geometry);
+                profile = new ProfileResponse(Math.Round(built.TotalDistanceMeters, 2),
+                    built.Samples.Select(sample => new ProfileSampleResponse(
+                        Math.Round(sample.DistanceMeters, 2),
+                        new CoordinateRequest(sample.Coordinate.Latitude, sample.Coordinate.Longitude),
+                        sample.ElevationMeters is { } value ? Math.Round(value, 2) : null,
+                        sample.GradientPermille)).ToArray());
+            }
+        }
+    }
+    return Results.Ok(NetworkRouteResponse.FromDomain(result, request.IncludeDisused,
+        profile, unavailable));
+});
 
 app.Run();
 

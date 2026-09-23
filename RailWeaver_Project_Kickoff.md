@@ -1816,11 +1816,11 @@ Cada etapa `V0.x` corresponde a un release `v0.x.0` (§26.1).
 - V0.4 — Terrain ([RW-004](docs/specs/completed/RW-004-terrain-and-elevation.md)).
 - V0.5 — Candidate corridor prototype ([RW-005](docs/specs/completed/RW-005-candidate-corridor.md)).
 
-## M1 (propuestas)
+## M1 (en curso)
 
 Orden orientativo; cada etapa empieza con una sesión de investigación.
 
-- **V0.6 — Railway graph (RW-006).** Topología de la red existente a partir de los tramos OSM: nodos, conexiones y continuidad por trocha. Camino entre estaciones por la red real y su perfil. Huecos de datos visibles.
+- **V0.6 — Railway graph ([RW-006](docs/specs/completed/RW-006-railway-graph.md), completada).** Topología de la red existente a partir de los tramos OSM: nodos, conexiones y continuidad por trocha. Camino entre estaciones por la red real y su perfil. Huecos de datos visibles.
 - **V0.7 — Curvature (RW-007).** Radio mínimo y trazado del corredor en rectas y arcos (fidelidad de terreno V2).
 - **V0.8 — Train and running time (RW-008).** Material rodante V1 y cálculo determinista del tiempo de recorrido, con límites de velocidad por curva.
 - **V0.9 — Discrete-event simulation (RW-009).** Reloj, cola de eventos y una circulación con línea de tiempo reproducible ([ADR-006](docs/decisions/ADR-006-discrete-event-simulation.md)).

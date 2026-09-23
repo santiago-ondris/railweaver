@@ -6,6 +6,16 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-09-22
+
+### Added
+
+- RW-006: red ferroviaria en memoria por trocha, con trochas deducidas por conexión,
+  nodos, aristas, diagnósticos y rutas entre estaciones que respetan estados de vía
+  y movimientos posibles en los desvíos.
+- Endpoints de resumen y búsqueda de rutas de red, con perfil del terreno opcional;
+  herramienta **Ruta** y capa **Diagnóstico de red** en el visor.
+
 ### Changed
 
 - Frontend organizado por módulos alineados con el backend (`regions`, `railways`,

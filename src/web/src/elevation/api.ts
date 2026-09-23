@@ -46,3 +46,19 @@ export async function fetchElevationProfile(
     samples: result.samples.map((sample) => ({ ...sample.coordinate, ...sample })),
   }
 }
+
+export const terrainTileSize = 65
+
+/** One heightmap tile (65×65 float32 heights), or null when the region has no terrain for it. */
+export async function fetchTerrainTile(
+  regionId: string,
+  level: number,
+  x: number,
+  y: number,
+): Promise<Float32Array | null> {
+  const response = await fetch(
+    `/api/regions/${encodeURIComponent(regionId)}/terrain/${level}/${x}/${y}`,
+  )
+  if (!response.ok) return null
+  return new Float32Array(await response.arrayBuffer())
+}

@@ -1,13 +1,14 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (plan de M1)
+Last updated: 2026-09-22 (spec RW-006 activa)
 
 ## Current milestone
 
 M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 ([RW-005](../specs/completed/RW-005-candidate-corridor.md)). Release `v0.5.0`.
 
-M1 — Primer tren, planificada; todavía sin spec activa (ver Next).
+M1 — Primer tren, en curso. Spec activa:
+[RW-006 — La red como grafo](../specs/active/RW-006-railway-graph.md) (V0.6).
 
 ## Working
 
@@ -34,8 +35,9 @@ M1 — Primer tren: diseñar un ramal, conectarlo a la red existente y ver a un 
 recorrerlo, con un tiempo de viaje que se pueda explicar ([Kickoff](../../RailWeaver_Project_Kickoff.md) §38–39).
 Pasos propuestos, con intenciones cortas en [`specs/backlog/`](../specs/backlog/):
 
-1. RW-006 — La red como grafo (V0.6). **Siguiente:** sesión de investigación
-   sobre topología OSM y aparatos de vía; después, la spec completa.
+1. RW-006 — La red como grafo (V0.6). **Activa:** investigación
+   ([nota](../research/infrastructure/railway-topology-and-turnouts.md)) y spec
+   completas; siguiente paso, implementación.
 2. RW-007 — Curvas: radio mínimo y trazado en rectas y arcos (V0.7).
 3. RW-008 — Tren V1 y tiempo de recorrido (V0.8).
 4. RW-009 — Motor de simulación por eventos y primera circulación (V0.9).

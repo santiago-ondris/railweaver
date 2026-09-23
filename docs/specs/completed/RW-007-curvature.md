@@ -1,6 +1,6 @@
 # RW-007 — Curvas
 
-- Status: Active (lista para implementar)
+- Status: Completed (2026-09-23)
 - Milestone / release objetivo: M1 — Primer tren → V0.7, release `v0.7.0`.
 
 ## Goal
@@ -338,7 +338,8 @@ Orden: Pendiente máxima (sin cambios), **Trocha**, **Velocidad de diseño**, Or
 Destino, botones.
 
 - **Trocha:** dos botones `button-secondary` con `aria-pressed`: "Ancha 1.676 mm"
-  (seleccionado por defecto) y "Métrica 1.000 mm".
+  (seleccionado por defecto) y "Métrica 1.000 mm". El seleccionado lleva fondo
+  `primary`, texto `on-primary` y una marca visible.
 - **Velocidad de diseño:** tres botones de referencia "Montaña 40 km/h",
   "Regional 80 km/h" (por defecto) y "Troncal 120 km/h", y un campo numérico en km/h
   (20–120, paso 1) que se comporta como el de pendiente. Salen de la tabla de la nota
@@ -356,6 +357,10 @@ Destino, botones.
 - **Solo las curvas lentas** se sobredibujan en `warning` y llevan el triángulo junto
   a su `curveMidpoint`, con el rótulo en la cara de datos "R {radio} m · {velocidad} km/h"
   (DESIGN.md › Cartography). Las demás curvas no llevan marca.
+- Tras la revisión visual del autor: a escala regional permanecen los tramos
+  `warning` pero se ocultan los rótulos individuales. Al acercarse, se muestran
+  solo los rótulos que no se superponen en pantalla, priorizando las curvas con
+  menor velocidad admisible. El detalle indica que hay que acercarse para leerlos.
 - Clic en una marca o en la línea → detalle del corredor.
 
 #### 4.3 Panel de detalle
@@ -384,7 +389,10 @@ Destino, botones.
 
 #### 4.5 Resultado `no_feasible_path`
 
-Alerta `alarm` en el panel de tarea, que queda abierto:
+Durante la búsqueda, una tarjeta centrada sobre el mapa informa que se está
+generando el corredor, muestra los segundos transcurridos y permite cancelar sin
+perder origen ni destino. La alerta `alarm` aparece en esa misma posición cuando
+la búsqueda falla; el panel de tarea queda abierto para modificar parámetros.
 
 - **Título:** "No existe un corredor con pendiente ≤ {G} ‰ y curvas de radio ≥ {R_abs} m
   entre estos puntos".
@@ -457,32 +465,63 @@ Alerta `alarm` en el panel de tarea, que queda abierto:
 
 ## Acceptance criteria
 
-- [ ] `CurvatureRules` con los valores y fórmulas de §2.1.
-- [ ] `CorridorFinder` implementa la búsqueda por estados y la regla de giro de §2.4,
+- [x] `CurvatureRules` con los valores y fórmulas de §2.1.
+- [x] `CorridorFinder` implementa la búsqueda por estados y la regla de giro de §2.4,
       incluida la repetición sin regla para `FeasibleWithoutCurveLimit`.
-- [ ] `AlignmentBuilder` implementa §2.5–2.7 tal como están escritos.
-- [ ] Tests sintéticos del core (§Tests) en verde, incluidas las invariantes de §2.9.
-- [ ] Con el DEM real, verificación manual registrada en esta spec con resultado,
+- [x] `AlignmentBuilder` implementa §2.5–2.7 tal como están escritos.
+- [x] Tests sintéticos del core (§Tests) en verde, incluidas las invariantes de §2.9.
+- [x] Con el DEM real, verificación manual registrada en esta spec con resultado,
       longitud, curvas, curvas lentas, radio mínimo, corte y terraplén, estados
       explorados, tiempo y memoria, para los casos de la tabla de "Datos medidos". Se
       espera el mismo resultado (`Found` / `NoFeasiblePath`); longitudes dentro de
       ±2 % y conteos de curvas dentro de ±10 % del prototipo. Una diferencia mayor se
       explica antes de cerrar.
-- [ ] Tiempo: cada caso manual responde en **≤ 20 s** (incluido el reintento sin regla
+- [x] Tiempo: cada caso manual responde en **≤ 20 s** (incluido el reintento sin regla
       de giro) en la máquina de desarrollo. Se registra el pico de memoria de la API
       durante el caso más grande.
-- [ ] Endpoint según §3: 200 (tres estados, con `feasibleWithoutCurveLimit`), 400
+- [x] Endpoint según §3: 200 (tres estados, con `feasibleWithoutCurveLimit`), 400
       (incluidos trocha y velocidad), 404 y 503, con tests de API sobre la grilla de
       prueba.
-- [ ] En el visor: trocha y velocidad en el panel, radio de diseño mostrado,
+- [x] En el visor: trocha y velocidad en el panel, radio de diseño mostrado,
       corredor en rectas y arcos, curvas lentas marcadas y rotuladas, detalle con las
       métricas nuevas, rasante en el perfil, banda de curvas, alerta de §4.5. Todo con
       tokens de `DESIGN.md`. El autor confirma el funcionamiento; los agentes no hacen
       verificación visual y entregan una lista específica de puntos a revisar.
-- [ ] `CoreBoundaryTests` en verde. `dotnet test`, `npm --prefix src/web run lint`,
+- [x] `CoreBoundaryTests` en verde. `dotnet test`, `npm --prefix src/web run lint`,
       `format:check` y `build` pasan localmente y en CI sin el DEM.
-- [ ] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README
+- [x] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README
       actualizados; kickoff revisado; tag `v0.7.0`.
+
+### Verificación con el DEM real (2026-09-23)
+
+API local en Debug, peticiones HTTP completas. Las coordenadas de las estaciones
+son de `stations.geojson` y Mina Clavero usa las de "Datos medidos". Las longitudes
+y los conteos coinciden con el prototipo dentro de las tolerancias de aceptación.
+Los tiempos incluyen el reintento sin radio en los casos sin corredor.
+
+| Caso | Estado | Longitud km | Curvas (lentas) | Radio mín. m | Corte / terraplén máx. m | Estados | Tiempo s |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Villa María → Río Cuarto, 10 ‰, ancha, 80 | `Found` | 133,47 | 56 (0) | 365 | 6,75 / 5,60 | 1.180.646 | 2,62 |
+| Villa María → Río Cuarto, 10 ‰, ancha, 120 | `Found` | 133,33 | 56 (5) | 453 | 5,99 / 5,02 | 1.180.646 | 2,79 |
+| Villa María → Río Cuarto, 10 ‰, métrica, 80 | `Found` | 132,00 | 48 (2) | 103 | 4,53 / 4,20 | 1.123.497 | 2,42 |
+| Córdoba → Cruz del Eje, 25 ‰, ancha | `NoFeasiblePath` (sin radio: sí) | — | — | — | — | 1.114.900 | 4,42 |
+| Córdoba → Cruz del Eje, 25 ‰, métrica | `Found` | 154,20 | 99 (6) | 105 | 33,87 / 29,66 | 1.385.814 | 3,17 |
+| Córdoba → Cosquín, 25 ‰, ancha | `NoFeasiblePath` (sin radio: sí) | — | — | — | — | 237.754 | 0,82 |
+| Córdoba → Cosquín, 25 ‰, métrica | `NoFeasiblePath` (sin radio: sí) | — | — | — | — | 251.175 | 0,75 |
+| Córdoba → Cosquín, 35 ‰, métrica | `Found` | 50,78 | 38 (6) | 206 | 49,58 / 33,42 | 259.908 | 0,49 |
+| Córdoba → Mina Clavero, 35 ‰, métrica | `Found` | 162,03 | 184 (81) | 135 | 54,35 / 53,08 | 1.156.621 | 2,56 |
+| Córdoba → Mina Clavero, 35 ‰, ancha | `NoFeasiblePath` (sin radio: sí) | — | — | — | — | 919.950 | 3,60 |
+
+Pico de RSS observado al muestrear el proceso API cada 0,1 s: **744.576 KiB**
+(caso Córdoba → Cruz del Eje, métrica). Incluye caché del DEM y memoria retenida de
+peticiones anteriores; no es memoria incremental del caso.
+
+El autor verificó además Córdoba → Nono: la opción de montaña encuentra un trazado
+con curvas naturales y la de pasajeros lo rechaza. Confirmó la legibilidad de las
+curvas lentas en distintos niveles de zoom y los mensajes centrales de progreso y
+error. En otro recorrido excepcionalmente largo observó unos 5 millones de estados
+explorados y unos 300 s; queda registrado como límite conocido para optimización
+posterior, fuera de los diez casos de aceptación medidos arriba.
 
 ## Relevant domain docs
 

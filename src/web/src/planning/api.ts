@@ -4,13 +4,14 @@ export type CorridorSearch = {
   gridStepMeters: number
   gridColumns: number
   gridRows: number
-  exploredNodes: number
+  exploredStates: number
   bounds: { west: number; south: number; east: number; north: number }
 }
 export type TrackProfilePoint = Coordinate & {
   distanceMeters: number
   elevationMeters: number
   gradientPermille: number | null
+  gradientLimitPermille: number | null
 }
 export type CorridorMetrics = {
   lengthMeters: number
@@ -29,9 +30,28 @@ export type CorridorMetrics = {
   }>
   maxCutMeters: number
   maxFillMeters: number
+  gaugeMillimetres: number
+  designSpeedKmh: number
+  designRadiusMeters: number
+  absoluteMinimumRadiusMeters: number
+  curveCount: number
+  reducedSpeedCurveCount: number
+  minimumRadiusMeters: number | null
+  minimumSpeedKmh: number
+  curveLengthMeters: number
 }
 export type CandidateCorridor = {
   alignment: Coordinate[]
+  sections: Array<{
+    kind: 'tangent' | 'curve'
+    fromMeters: number
+    toMeters: number
+    radiusMeters: number | null
+    deflectionDegrees: number | null
+    direction: 'left' | 'right' | null
+    speedLimitKmh: number
+    curveMidpoint: Coordinate | null
+  }>
   trackProfile: TrackProfilePoint[]
   terrainProfile: {
     totalDistanceMeters: number
@@ -48,6 +68,7 @@ export type CorridorResponse = {
   status: 'found' | 'no_feasible_path' | 'endpoint_without_elevation'
   search: CorridorSearch
   corridor: CandidateCorridor | null
+  feasibleWithoutCurveLimit: boolean | null
 }
 
 export async function fetchCorridor(
@@ -55,13 +76,21 @@ export async function fetchCorridor(
   origin: Coordinate,
   destination: Coordinate,
   maxGradientPermille: number,
+  gaugeMillimetres: number,
+  designSpeedKmh: number,
   signal: AbortSignal,
 ): Promise<CorridorResponse> {
   const response = await fetch(`/api/regions/${encodeURIComponent(regionId)}/corridors`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     signal,
-    body: JSON.stringify({ origin, destination, maxGradientPermille }),
+    body: JSON.stringify({
+      origin,
+      destination,
+      maxGradientPermille,
+      gaugeMillimetres,
+      designSpeedKmh,
+    }),
   })
   if (!response.ok) {
     const body = (await response.json().catch(() => null)) as { message?: string } | null

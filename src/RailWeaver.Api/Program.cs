@@ -7,6 +7,7 @@ using RailWeaver.Api.Network;
 using RailWeaver.Core.Geography;
 using RailWeaver.Core.Infrastructure.Network;
 using RailWeaver.Core.Planning;
+using RailWeaver.Core.Infrastructure;
 using RailWeaver.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -89,8 +90,10 @@ app.MapPost("/api/regions/{id}/corridors", async (
         || request.Origin.Longitude is not { } originLongitude
         || request.Destination?.Latitude is not { } destinationLatitude
         || request.Destination.Longitude is not { } destinationLongitude
-        || request.MaxGradientPermille is not { } limit)
-        return Results.BadRequest(new { message = "Origin, destination, and maximum gradient are required." });
+        || request.MaxGradientPermille is not { } limit
+        || request.GaugeMillimetres is not { } gaugeMillimetres
+        || request.DesignSpeedKmh is not { } designSpeedKmh)
+        return Results.BadRequest(new { message = "Origin, destination, gradient, gauge, and design speed are required." });
     try
     {
         var origin = new GeoCoordinate(originLatitude, originLongitude);
@@ -102,7 +105,8 @@ app.MapPost("/api/regions/{id}/corridors", async (
         var grid = dataset.Grid!;
         var searchLimit = new GeoBoundingBox(grid.West, grid.South, grid.East, grid.North);
         var result = new CorridorFinder(grid).Find(
-            new CorridorRequest(origin, destination, limit, searchLimit), context.RequestAborted);
+            new CorridorRequest(origin, destination, limit, TrackGauge.FromMillimetres(gaugeMillimetres),
+                designSpeedKmh, searchLimit), context.RequestAborted);
         return Results.Ok(CorridorResponse.FromDomain(result));
     }
     catch (ArgumentException exception)

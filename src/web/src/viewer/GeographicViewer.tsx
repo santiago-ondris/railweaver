@@ -21,6 +21,7 @@ import type { NetworkDiagnostic } from '../network/api'
 import { CorridorDetail } from '../planning/CorridorDetail'
 import { CorridorProfile } from '../planning/CorridorProfile'
 import { CorridorTool } from '../planning/CorridorTool'
+import { CorridorFeedback } from '../planning/CorridorFeedback'
 import { useCorridorTool } from '../planning/useCorridorTool'
 import type { Railway } from '../railways/api'
 import { ExistingRailwayLayer, type RailwaySelection } from '../railways/ExistingRailwayLayer'
@@ -324,14 +325,28 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
             destination={corridorTool.destination}
             gradient={corridorTool.gradient}
             setGradient={corridorTool.setGradient}
+            gauge={corridorTool.gauge}
+            setGauge={corridorTool.setGauge}
+            designSpeed={corridorTool.designSpeed}
+            setDesignSpeed={corridorTool.setDesignSpeed}
             bounds={region.boundingBox}
             busy={corridorTool.busy}
-            result={corridorTool.searchResult}
-            error={corridorTool.error}
             onGenerate={() => {
               void corridorTool.generate()
             }}
             onCancel={corridorTool.cancel}
+          />
+        )}
+        {corridorTool.active && (
+          <CorridorFeedback
+            busy={corridorTool.busy}
+            startedAt={corridorTool.searchStartedAt}
+            result={corridorTool.searchResult}
+            error={corridorTool.error}
+            gradient={corridorTool.gradient}
+            gauge={corridorTool.gauge}
+            onCancelSearch={corridorTool.abortSearch}
+            onDismiss={corridorTool.dismissFeedback}
           />
         )}
         {networkTool.active && (

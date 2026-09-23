@@ -20,7 +20,9 @@ export function CorridorDetail({
       <p className="label">Corredor candidato</p>
       <h2>Corredor candidato</h2>
       <p className="detail-provenance">
-        Límite {formatNumber(metric.maxGradientLimitPermille)} ‰ · malla {search.gridStepMeters} m
+        Límite {formatNumber(metric.maxGradientLimitPermille)} ‰ · trocha{' '}
+        {metric.gaugeMillimetres.toLocaleString('es-AR')} mm · {Math.floor(metric.designSpeedKmh)}{' '}
+        km/h · malla {search.gridStepMeters} m
       </p>
       <dl className="detail-list">
         <DetailRow label="Longitud" value={formatDistance(metric.lengthMeters)} />
@@ -29,6 +31,34 @@ export function CorridorDetail({
           value={formatDistance(metric.straightLineDistanceMeters)}
         />
         <DetailRow label="Sinuosidad" value={formatNumber(metric.sinuosity, 3)} />
+        <DetailRow
+          label="Velocidad de diseño"
+          value={`${Math.floor(metric.designSpeedKmh)} km/h`}
+        />
+        <DetailRow label="Radio de diseño" value={`${Math.round(metric.designRadiusMeters)} m`} />
+        <DetailRow label="Curvas" value={String(metric.curveCount)} />
+        <DetailRow
+          label="Radio mínimo"
+          value={
+            metric.minimumRadiusMeters === null
+              ? '—'
+              : `${Math.round(metric.minimumRadiusMeters)} m`
+          }
+        />
+        <div className={metric.reducedSpeedCurveCount ? 'corridor-warning-metric' : ''}>
+          <dt>Curvas con velocidad reducida</dt>
+          <dd>
+            {metric.reducedSpeedCurveCount ? '△ ' : ''}
+            {metric.reducedSpeedCurveCount}
+          </dd>
+        </div>
+        <div className={metric.reducedSpeedCurveCount ? 'corridor-warning-metric' : ''}>
+          <dt>Velocidad mínima</dt>
+          <dd>
+            {metric.reducedSpeedCurveCount ? '△ ' : ''}
+            {Math.floor(metric.minimumSpeedKmh)} km/h
+          </dd>
+        </div>
         <DetailRow
           label="Pendiente máxima"
           value={`${formatNumber(metric.maxGradientPermille)} ‰ ≤ ${formatNumber(metric.maxGradientLimitPermille)} ‰`}
@@ -46,10 +76,20 @@ export function CorridorDetail({
             value={formatDistance(band.meters)}
           />
         ))}
-        <DetailRow label="Nodos explorados" value={search.exploredNodes.toLocaleString('es-AR')} />
+        <DetailRow
+          label="Estados explorados"
+          value={search.exploredStates.toLocaleString('es-AR')}
+        />
       </dl>
+      {metric.reducedSpeedCurveCount > 0 && (
+        <p className="detail-hint">
+          Los tramos lentos siguen resaltados al alejar el mapa. Acercate para leer sus radios y
+          velocidades.
+        </p>
+      )}
       <p className="detail-hint">
-        Supuestos: sin túneles, puentes, curvas ni costos de suelo. Límite de referencia, a validar.
+        Curvas circulares sin transiciones; peralte supuesto, no dibujado. Corte y terraplén sin
+        calcular la obra. Sin túneles, puentes ni costos de suelo. Valores de referencia, a validar.
       </p>
       <button className="button-secondary detail-close" type="button" onClick={onRemove}>
         Quitar corredor

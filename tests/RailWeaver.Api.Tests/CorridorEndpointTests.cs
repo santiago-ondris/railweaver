@@ -34,7 +34,12 @@ public sealed class CorridorEndpointTests : IDisposable
         Assert.Equal("found", result!.Status);
         Assert.NotNull(result.Corridor);
         Assert.True(result.Corridor.Alignment.Count > 2);
-        Assert.Equal(result.Corridor.TrackProfile.Count, result.Corridor.Alignment.Count);
+        Assert.True(result.Corridor.TrackProfile.Count > 1);
+        Assert.Equal(1676, result.Corridor.Metrics.GaugeMillimetres);
+        Assert.Equal(80, result.Corridor.Metrics.DesignSpeedKmh);
+        Assert.NotEmpty(result.Corridor.Sections);
+        Assert.Null(result.FeasibleWithoutCurveLimit);
+        Assert.All(result.Corridor.TrackProfile.Skip(1), point => Assert.NotNull(point.GradientLimitPermille));
         Assert.True(result.Corridor.TerrainProfile.Samples.Count > result.Corridor.Alignment.Count);
         Assert.Equal(Math.Round(result.Corridor.Metrics.LengthMeters, 2), result.Corridor.Metrics.LengthMeters);
         Assert.Equal(15, result.Corridor.Metrics.MaxGradientLimitPermille);
@@ -68,12 +73,14 @@ public sealed class CorridorEndpointTests : IDisposable
         Assert.Equal(HttpStatusCode.OK, wall.StatusCode);
         Assert.Equal("no_feasible_path", wallResult!.Status);
         Assert.Null(wallResult.Corridor);
+        Assert.False(wallResult.FeasibleWithoutCurveLimit);
 
         var missing = await Post("empty", -31.099, -64.099, -31.02, -64.02, 15);
         var missingResult = await missing.Content.ReadFromJsonAsync<CorridorResponse>(TestContext.Current.CancellationToken);
         Assert.Equal(HttpStatusCode.OK, missing.StatusCode);
         Assert.Equal("endpoint_without_elevation", missingResult!.Status);
         Assert.Null(missingResult.Corridor);
+        Assert.Null(missingResult.FeasibleWithoutCurveLimit);
     }
 
     [Fact]
@@ -83,6 +90,26 @@ public sealed class CorridorEndpointTests : IDisposable
         Assert.Equal(HttpStatusCode.BadRequest, invalid.StatusCode);
         Assert.Contains("message", await invalid.Content.ReadAsStringAsync(TestContext.Current.CancellationToken));
 
+        foreach (var body in new object[]
+        {
+            new { gaugeMillimetres = 1435, designSpeedKmh = 80d },
+            new { gaugeMillimetres = 1676, designSpeedKmh = 121d },
+            new { gaugeMillimetres = 1676, designSpeedKmh = 0d },
+        })
+        {
+            var json = JsonSerializer.Serialize(body);
+            using var document = JsonDocument.Parse(json);
+            var invalidGaugeOrSpeed = await client.PostAsJsonAsync($"/api/regions/{Id("flat")}/corridors", new
+            {
+                origin = new { latitude = -31.08, longitude = -64.08 },
+                destination = new { latitude = -31.02, longitude = -64.02 },
+                maxGradientPermille = 15,
+                gaugeMillimetres = document.RootElement.GetProperty("gaugeMillimetres").GetInt32(),
+                designSpeedKmh = document.RootElement.GetProperty("designSpeedKmh").GetDouble(),
+            }, TestContext.Current.CancellationToken);
+            Assert.Equal(HttpStatusCode.BadRequest, invalidGaugeOrSpeed.StatusCode);
+        }
+
         var outside = await Post("flat", -32, -64.08, -31.02, -64.02, 15);
         Assert.Equal(HttpStatusCode.BadRequest, outside.StatusCode);
 
@@ -91,6 +118,20 @@ public sealed class CorridorEndpointTests : IDisposable
             TestContext.Current.CancellationToken);
         Assert.Equal(HttpStatusCode.BadRequest, missingField.StatusCode);
         Assert.Contains("message", await missingField.Content.ReadAsStringAsync(TestContext.Current.CancellationToken));
+
+        foreach (var (gauge, speed) in new (int?, double?)[]
+        {
+            (null, 80), (1676, null),
+        })
+        {
+            var missing = await client.PostAsJsonAsync($"/api/regions/{Id("flat")}/corridors",
+                new { origin = new { latitude = -31.08, longitude = -64.08 },
+                    destination = new { latitude = -31.02, longitude = -64.02 },
+                    maxGradientPermille = 15,
+                    gaugeMillimetres = gauge, designSpeedKmh = speed },
+                TestContext.Current.CancellationToken);
+            Assert.Equal(HttpStatusCode.BadRequest, missing.StatusCode);
+        }
 
         var unknown = await Post("unknown", -31.08, -64.08, -31.02, -64.02, 15);
         Assert.Equal(HttpStatusCode.NotFound, unknown.StatusCode);
@@ -106,6 +147,8 @@ public sealed class CorridorEndpointTests : IDisposable
             origin = new { latitude = originLatitude, longitude = originLongitude },
             destination = new { latitude = destinationLatitude, longitude = destinationLongitude },
             maxGradientPermille = limit,
+            gaugeMillimetres = 1676,
+            designSpeedKmh = 80,
         }, TestContext.Current.CancellationToken);
 
     private string Id(string suffix) => $"{idPrefix}-{suffix}";

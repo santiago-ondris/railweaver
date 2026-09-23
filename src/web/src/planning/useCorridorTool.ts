@@ -25,7 +25,10 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
   const [origin, setOrigin] = useState<Coordinate | null>(null)
   const [destination, setDestination] = useState<Coordinate | null>(null)
   const [gradient, setGradient] = useState('15')
+  const [gauge, setGauge] = useState<1000 | 1676>(1676)
+  const [designSpeed, setDesignSpeed] = useState('80')
   const [busy, setBusy] = useState(false)
+  const [searchStartedAt, setSearchStartedAt] = useState<number | null>(null)
   /** Last search that found a corridor: the corridor shown on the map. */
   const [result, setResult] = useState<CorridorResponse | null>(null)
   /** Last search that did not find one, reported inside the tool. */
@@ -34,6 +37,22 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
   const [shown, setShown] = useState(false)
   const [number, setNumber] = useState(0)
   const [error, setError] = useState<string | null>(null)
+
+  const updateGradient = (value: string) => {
+    setGradient(value)
+    setSearchResult(null)
+    setError(null)
+  }
+  const updateGauge = (value: 1000 | 1676) => {
+    setGauge(value)
+    setSearchResult(null)
+    setError(null)
+  }
+  const updateDesignSpeed = (value: string) => {
+    setDesignSpeed(value)
+    setSearchResult(null)
+    setError(null)
+  }
 
   useEffect(() => {
     const viewer = viewerRef.current
@@ -76,7 +95,8 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
     layerRef.current?.destroy()
     layerRef.current = null
     const alignment = result?.corridor?.alignment
-    if (alignment) layerRef.current = new CandidateCorridorLayer(viewer, alignment)
+    if (alignment && result?.corridor)
+      layerRef.current = new CandidateCorridorLayer(viewer, result.corridor)
     viewer.scene.requestRender()
   }, [viewerRef, result])
 
@@ -95,13 +115,22 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
     setSearchResult(null)
   }
 
-  /** Leaves the tool, aborting a running search; a corridor already found stays. */
-  const cancel = () => {
+  const abortSearch = () => {
     requestRef.current?.abort()
     requestRef.current = null
+    setBusy(false)
+  }
+
+  const dismissFeedback = () => {
+    setSearchResult(null)
+    setError(null)
+  }
+
+  /** Leaves the tool, aborting a running search; a corridor already found stays. */
+  const cancel = () => {
+    abortSearch()
     activeRef.current = false
     setActive(false)
-    setBusy(false)
     clearEndpoints()
     setError(null)
     setSearchResult(null)
@@ -123,9 +152,10 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
   }
 
   const generate = async () => {
-    if (!origin || !destination) return
+    if (!origin || !destination || requestRef.current) return
     const controller = new AbortController()
     requestRef.current = controller
+    setSearchStartedAt(Date.now())
     setBusy(true)
     setError(null)
     setSearchResult(null)
@@ -135,6 +165,8 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
         origin,
         destination,
         Number(gradient),
+        gauge,
+        Number(designSpeed),
         controller.signal,
       )
       if (controller.signal.aborted) return
@@ -181,8 +213,13 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
     origin,
     destination,
     gradient,
-    setGradient,
+    setGradient: updateGradient,
+    gauge,
+    setGauge: updateGauge,
+    designSpeed,
+    setDesignSpeed: updateDesignSpeed,
     busy,
+    searchStartedAt,
     result,
     searchResult,
     shown,
@@ -191,6 +228,8 @@ export function useCorridorTool(viewerRef: RefObject<Viewer | null>, regionId: s
     isActive: () => activeRef.current,
     begin,
     cancel,
+    abortSearch,
+    dismissFeedback,
     placeEndpoint,
     generate,
     remove,

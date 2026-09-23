@@ -14,3 +14,22 @@
   stroke: var(--rw-color-primary);
   stroke-width: 2;
 }
+
+.corridor-curve-band {
+  width: 100%;
+  height: 44px;
+  overflow: visible;
+}
+.corridor-curve-baseline {
+  stroke: var(--rw-color-border-subtle);
+}
+.corridor-curve-normal {
+  fill: var(--rw-color-ink-subtle);
+}
+.corridor-curve-slow {
+  fill: var(--rw-color-warning);
+}
+.corridor-curve-band text {
+  font-family: var(--rw-font-data);
+  font-size: var(--rw-text-data-size);
+}

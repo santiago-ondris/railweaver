@@ -1,0 +1,43 @@
+/* Visible over the map while a corridor request is pending or needs attention. */
+.corridor-feedback-overlay {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.corridor-feedback-card {
+  display: flex;
+  width: min(460px, calc(100% - var(--rw-spacing-xxl)));
+  max-height: calc(100% - var(--rw-spacing-xxl));
+  flex-direction: column;
+  gap: var(--rw-spacing-sm);
+  padding: var(--rw-spacing-lg);
+  overflow-y: auto;
+  border: 1px solid var(--rw-color-border-strong);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-panel);
+  color: var(--rw-color-ink);
+  pointer-events: auto;
+}
+
+.corridor-feedback-card h2,
+.corridor-feedback-card p {
+  margin: 0;
+}
+
+.corridor-feedback-card.alert-alarm {
+  border-color: var(--rw-color-alarm);
+  background: var(--rw-color-alarm-surface);
+}
+
+.corridor-feedback-card h2 {
+  font-size: var(--rw-text-title-size);
+  line-height: var(--rw-text-title-line);
+}
+
+.corridor-feedback-card button {
+  align-self: flex-start;
+}

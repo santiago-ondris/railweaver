@@ -1,4 +1,5 @@
 using RailWeaver.Core.Geography;
+using RailWeaver.Core.Infrastructure;
 
 namespace RailWeaver.Core.Planning;
 
@@ -6,6 +7,8 @@ public sealed record CorridorRequest(
     GeoCoordinate Origin,
     GeoCoordinate Destination,
     double MaxGradientPermille,
+    TrackGauge Gauge,
+    double DesignSpeedKmh,
     GeoBoundingBox SearchLimit);
 
 public enum CorridorStatus { Found, NoFeasiblePath, EndpointWithoutElevation }
@@ -14,16 +17,24 @@ public sealed record CorridorSearchInfo(
     double GridStepMeters,
     int GridColumns,
     int GridRows,
-    int ExploredNodes,
+    int ExploredStates,
     GeoBoundingBox Bounds);
 
-public sealed record CorridorResult(CorridorStatus Status, CandidateCorridor? Corridor, CorridorSearchInfo Search);
+public sealed record CorridorResult(CorridorStatus Status, CandidateCorridor? Corridor,
+    CorridorSearchInfo Search, bool? FeasibleWithoutCurveLimit);
 
 public sealed record TrackProfilePoint(
     double DistanceMeters,
     GeoCoordinate Coordinate,
     double ElevationMeters,
-    double? GradientPermille);
+    double? GradientPermille,
+    double? GradientLimitPermille);
+
+public enum SectionKind { Tangent, Curve }
+public enum TurnDirection { Left, Right }
+public sealed record AlignmentSection(SectionKind Kind, double FromMeters, double ToMeters,
+    double? RadiusMeters, double? DeflectionDegrees, TurnDirection? Direction,
+    double SpeedLimitKmh, GeoCoordinate? CurveMidpoint);
 
 public sealed record GradientBand(double FromPercentOfLimit, double ToPercentOfLimit, double Meters);
 
@@ -39,10 +50,20 @@ public sealed record CorridorMetrics(
     double MaxElevationMeters,
     IReadOnlyList<GradientBand> DistanceByGradientBand,
     double MaxCutMeters,
-    double MaxFillMeters);
+    double MaxFillMeters,
+    TrackGauge Gauge,
+    double DesignSpeedKmh,
+    double DesignRadiusMeters,
+    double AbsoluteMinimumRadiusMeters,
+    int CurveCount,
+    int ReducedSpeedCurveCount,
+    double? MinimumRadiusMeters,
+    double MinimumSpeedKmh,
+    double CurveLengthMeters);
 
 public sealed record CandidateCorridor(
     IReadOnlyList<GeoCoordinate> Alignment,
+    IReadOnlyList<AlignmentSection> Sections,
     IReadOnlyList<TrackProfilePoint> TrackProfile,
     ElevationProfile TerrainProfile,
     CorridorMetrics Metrics);

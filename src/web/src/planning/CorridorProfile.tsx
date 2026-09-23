@@ -58,7 +58,7 @@ export function CorridorProfile({ corridor }: { corridor: CandidateCorridor }) {
         <p className="label">Perfil longitudinal</p>
         <p className="data">
           Máx. {formatNumber(corridor.metrics.maxGradientPermille)} ‰ ≤ límite{' '}
-          {formatNumber(corridor.metrics.maxGradientLimitPermille)} ‰
+          {formatNumber(corridor.metrics.maxGradientLimitPermille)} ‰ · reducido en curvas
         </p>
         {hasGaps && <p className="detail-hint">Hay tramos de terreno sin dato.</p>}
       </div>
@@ -82,6 +82,33 @@ export function CorridorProfile({ corridor }: { corridor: CandidateCorridor }) {
           </text>
         )}
       </svg>
+      <svg
+        className="corridor-curve-band"
+        viewBox={`0 0 ${width} 44`}
+        role="img"
+        aria-label="Curvas a la derecha sobre la línea; curvas a la izquierda debajo"
+      >
+        <line className="corridor-curve-baseline" x1={pad} y1={20} x2={width - pad} y2={20} />
+        {corridor.sections
+          .filter((section) => section.kind === 'curve')
+          .map((section, index) => {
+            const from = x(section.fromMeters)
+            const to = x(section.toMeters)
+            const right = section.direction === 'right'
+            const slow = section.speedLimitKmh < corridor.metrics.designSpeedKmh
+            return (
+              <g key={index} className={slow ? 'corridor-curve-slow' : 'corridor-curve-normal'}>
+                <rect x={from} y={right ? 9 : 20} width={Math.max(0, to - from)} height={11} />
+                {to - from >= 40 && (
+                  <text className="data" x={(from + to) / 2} y={right ? 7 : 42} textAnchor="middle">
+                    R {Math.round(section.radiusMeters ?? 0)}
+                  </text>
+                )}
+              </g>
+            )
+          })}
+      </svg>
+      <p className="detail-hint">Arriba: curva a la derecha · Abajo: a la izquierda</p>
     </section>
   )
 }

@@ -1,5 +1,4 @@
 import { greatCircleDistance, type Coordinate } from '../shared/geo'
-import type { CorridorResponse } from './api'
 import { formatNumber, formatPoint } from './format'
 import './CorridorTool.css'
 
@@ -15,10 +14,12 @@ export function CorridorTool({
   destination,
   gradient,
   setGradient,
+  gauge,
+  setGauge,
+  designSpeed,
+  setDesignSpeed,
   bounds,
   busy,
-  result,
-  error,
   onGenerate,
   onCancel,
 }: {
@@ -26,10 +27,12 @@ export function CorridorTool({
   destination: Coordinate | null
   gradient: string
   setGradient: (value: string) => void
+  gauge: 1000 | 1676
+  setGauge: (value: 1000 | 1676) => void
+  designSpeed: string
+  setDesignSpeed: (value: string) => void
   bounds: { west: number; south: number; east: number; north: number }
   busy: boolean
-  result: CorridorResponse | null
-  error: string | null
   onGenerate: () => void
   onCancel: () => void
 }) {
@@ -38,6 +41,15 @@ export function CorridorTool({
     !gradient || !Number.isFinite(limit) || limit < 1 || limit > 40
       ? 'Ingresá una pendiente entre 1 y 40 ‰.'
       : null
+  const speed = Number(designSpeed)
+  const speedError =
+    !designSpeed || !Number.isFinite(speed) || speed < 20 || speed > 120
+      ? 'Ingresá una velocidad entre 20 y 120 km/h.'
+      : null
+  const width = gauge === 1676 ? 1740 : 1060
+  const cant = gauge === 1676 ? 240 : 160
+  const absolute = gauge === 1676 ? 300 : 100
+  const designRadius = Math.max(absolute, (width * speed * speed) / (3.6 ** 2 * 9.80665 * cant))
   const outside = [origin, destination].some(
     (point) =>
       point &&
@@ -65,6 +77,7 @@ export function CorridorTool({
             type="button"
             className="button-secondary"
             aria-pressed={limit === preset.value}
+            disabled={busy}
             onClick={() => setGradient(String(preset.value))}
           >
             {preset.label} {preset.value} ‰
@@ -78,6 +91,7 @@ export function CorridorTool({
         min="1"
         max="40"
         step="0.1"
+        disabled={busy}
         value={gradient}
         onChange={(event) => setGradient(event.target.value)}
         aria-describedby="corridor-gradient-note"
@@ -88,6 +102,77 @@ export function CorridorTool({
       {gradientError && (
         <p className="corridor-validation" role="alert">
           {gradientError}
+        </p>
+      )}
+      <p className="corridor-label">Trocha</p>
+      <div className="corridor-presets corridor-gauge">
+        <button
+          type="button"
+          className="button-secondary"
+          aria-pressed={gauge === 1676}
+          disabled={busy}
+          onClick={() => setGauge(1676)}
+        >
+          <span className="corridor-gauge-check" aria-hidden="true">
+            ✓
+          </span>{' '}
+          Ancha 1.676 mm
+        </button>
+        <button
+          type="button"
+          className="button-secondary"
+          aria-pressed={gauge === 1000}
+          disabled={busy}
+          onClick={() => setGauge(1000)}
+        >
+          <span className="corridor-gauge-check" aria-hidden="true">
+            ✓
+          </span>{' '}
+          Métrica 1.000 mm
+        </button>
+      </div>
+      <label className="corridor-label" htmlFor="corridor-speed">
+        Velocidad de diseño
+      </label>
+      <div className="corridor-presets">
+        {(
+          [
+            { label: 'Montaña', value: 40 },
+            { label: 'Regional', value: 80 },
+            { label: 'Troncal', value: 120 },
+          ] as const
+        ).map((preset) => (
+          <button
+            key={preset.value}
+            type="button"
+            className="button-secondary"
+            aria-pressed={speed === preset.value}
+            disabled={busy}
+            onClick={() => setDesignSpeed(String(preset.value))}
+          >
+            {preset.label} {preset.value} km/h
+          </button>
+        ))}
+      </div>
+      <input
+        id="corridor-speed"
+        className="corridor-input data"
+        type="number"
+        min="20"
+        max="120"
+        step="1"
+        disabled={busy}
+        value={designSpeed}
+        onChange={(event) => setDesignSpeed(event.target.value)}
+      />
+      <p className="detail-hint data">
+        Radio de diseño {Number.isFinite(designRadius) ? formatNumber(designRadius, 0) : '—'} m ·
+        mínimo absoluto {absolute} m
+      </p>
+      <p className="detail-hint">Valores de referencia, a validar.</p>
+      {speedError && (
+        <p className="corridor-validation" role="alert">
+          {speedError}
         </p>
       )}
       <dl className="detail-list">
@@ -110,7 +195,9 @@ export function CorridorTool({
           className="button-primary"
           type="button"
           onClick={onGenerate}
-          disabled={!origin || !destination || !!gradientError || !!pointError || busy}
+          disabled={
+            !origin || !destination || !!gradientError || !!speedError || !!pointError || busy
+          }
         >
           Generar corredor
         </button>
@@ -118,58 +205,6 @@ export function CorridorTool({
           Cancelar
         </button>
       </div>
-      {busy && <p role="status">Calculando corredor…</p>}
-      {result?.status === 'no_feasible_path' && (
-        <CorridorAlert
-          title={`No existe un corredor con pendiente ≤ ${formatNumber(limit)} ‰ entre estos puntos`}
-          why="El relieve exige pendientes mayores en toda el área de búsqueda. Esta versión no usa túneles ni puentes."
-          next="Subí el límite o mové los puntos."
-          search={result.search}
-        />
-      )}
-      {result?.status === 'endpoint_without_elevation' && (
-        <CorridorAlert
-          title="Un punto no tiene dato de relieve"
-          why="No se puede evaluar la cota de uno de los extremos."
-          next="Mové el punto a una zona con relieve disponible."
-        />
-      )}
-      {error && (
-        <CorridorAlert
-          title="No se pudo calcular el corredor"
-          why={error}
-          next="Revisá el relieve y volvé a intentar."
-        />
-      )}
     </aside>
-  )
-}
-
-function CorridorAlert({
-  title,
-  why,
-  next,
-  search,
-}: {
-  title: string
-  why: string
-  next: string
-  search?: CorridorResponse['search']
-}) {
-  return (
-    <div className="alert alert-alarm" role="alert">
-      <p className="alert-title">
-        <span className="glyph glyph-alarm" />
-        {title}
-      </p>
-      <p>Por qué: {why}</p>
-      <p>Qué probar: {next}</p>
-      {search && (
-        <p className="data">
-          Malla {search.gridStepMeters} m · {search.exploredNodes.toLocaleString('es-AR')} nodos
-          explorados
-        </p>
-      )}
-    </div>
   )
 }

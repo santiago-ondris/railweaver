@@ -6,6 +6,20 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-23
+
+### Added
+
+- RW-007: búsqueda de corredores con radio mínimo por trocha, trazado en rectas y
+  arcos, velocidad admisible por curva y rasante con pendiente compensada, corte y
+  terraplén. La herramienta permite elegir trocha y velocidad de diseño, destaca
+  curvas lentas y muestra la banda de curvas en el perfil.
+
+### Changed
+
+- La búsqueda de corredores muestra el progreso y los errores en una tarjeta central
+  visible durante cálculos largos; los rótulos de curvas lentas se ajustan al zoom.
+
 ## [0.6.0] - 2026-09-22
 
 ### Added

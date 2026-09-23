@@ -283,6 +283,9 @@ public sealed record TrackAlignment(
 
 ## Confidence
 
+La implementación concreta y sus diferencias respecto de esta nota están en
+[RW-007 — Curvas](../../specs/completed/RW-007-curvature.md).
+
 **HIGH.**
 - Las leyes de la aceleración centrífuga, peralte de equilibrio e insuficiencia de peralte se derivan rigurosamente de la mecánica newtoniana clásica y están uniformemente estandarizadas en las normativas ferroviarias de todo el mundo (RITO, NTVO, EN 13803, AREMA).
 - La formulación matemática de arcos circulares tangentes y cálculo de subtangentes es exacta y libre de ambigüedades.

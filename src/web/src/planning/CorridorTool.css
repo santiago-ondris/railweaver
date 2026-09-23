@@ -40,7 +40,16 @@
 
 .corridor-presets [aria-pressed='true'] {
   border-color: var(--rw-color-primary);
-  color: var(--rw-color-primary);
+  background: var(--rw-color-primary);
+  color: var(--rw-color-on-primary);
+}
+
+.corridor-gauge-check {
+  visibility: hidden;
+}
+
+.corridor-gauge [aria-pressed='true'] .corridor-gauge-check {
+  visibility: visible;
 }
 
 .corridor-input {
@@ -59,4 +68,8 @@
 .corridor-actions {
   display: flex;
   gap: var(--rw-spacing-xs);
+}
+
+.corridor-warning-metric dd {
+  color: var(--rw-color-warning-text);
 }

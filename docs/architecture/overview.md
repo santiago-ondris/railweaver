@@ -1,6 +1,6 @@
 # Arquitectura — overview
 
-Estado: v0.6.0 (red ferroviaria como grafo). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
+Estado: v0.7.0 (corredores en rectas y arcos). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
 
 ## Forma general
 
@@ -33,8 +33,11 @@ en Docker; en runtime la API solo usa `ZLibStream` de la BCL, descomprime los bl
 necesarios y conserva como máximo 64 (~16 MB) en memoria. Cotas y pendientes se
 calculan únicamente en backend; el heightmap es una proyección visual del mismo dato.
 `Planning.CorridorFinder` consulta ese mismo DEM mediante `IElevationSource`, aplica
-el límite de pendiente entre vértices de la línea de vía y devuelve un resultado
-explícito si no hay camino. El navegador solo solicita y representa el resultado.
+el límite de pendiente entre nodos y la regla de radio mínimo por trocha en cada
+giro. `AlignmentBuilder` simplifica el camino en rectas y arcos y calcula velocidades
+por curva; `CorridorFinder` ajusta una rasante minimax con pendiente compensada. Devuelve un
+resultado explícito si no hay camino. El navegador solo solicita y representa el
+resultado.
 `Infrastructure.Network.RailwayNetworkBuilder` segmenta los GeoJSON de vía por
 coordenadas compartidas, resuelve trochas sin dato por conexión y calcula diagnósticos.
 `NetworkRouteFinder` busca sobre aristas dirigidas con costo (inversiones, metros),

@@ -6,19 +6,23 @@ import { fetchRegion } from './regions'
 import type { Region } from './regions'
 
 type AppState =
-  | { kind: 'loading' }
-  | { kind: 'ready'; region: Region; railway: Railway }
-  | { kind: 'error' }
+  { kind: 'loading' } | { kind: 'ready'; region: Region; railway: Railway } | { kind: 'error' }
 
 function App() {
   const [appState, setAppState] = useState<AppState>({ kind: 'loading' })
   const [terrainStatus, setTerrainStatus] = useState<'loading' | 'available' | 'missing'>('loading')
-  const handleTerrainStatus = useCallback((status: 'loading' | 'available' | 'missing') => setTerrainStatus(status), [])
+  const handleTerrainStatus = useCallback(
+    (status: 'loading' | 'available' | 'missing') => setTerrainStatus(status),
+    [],
+  )
 
   useEffect(() => {
     const controller = new AbortController()
 
-    Promise.all([fetchRegion('cordoba', controller.signal), fetchRailway('cordoba', controller.signal)])
+    Promise.all([
+      fetchRegion('cordoba', controller.signal),
+      fetchRailway('cordoba', controller.signal),
+    ])
       .then(([region, railway]) => setAppState({ kind: 'ready', region, railway }))
       .catch((error: unknown) => {
         if (!(error instanceof DOMException && error.name === 'AbortError')) {
@@ -35,7 +39,13 @@ function App() {
     <div className="app-shell">
       <header className="top-bar">
         <div className="brand-lockup">
-          <img className="brand-mark" src="/brand/railweaver-mark.svg" alt="" width="22" height="22" />
+          <img
+            className="brand-mark"
+            src="/brand/railweaver-mark.svg"
+            alt=""
+            width="22"
+            height="22"
+          />
           <span className="wordmark">RailWeaver</span>
         </div>
         <div className="top-bar-context">
@@ -64,14 +74,19 @@ function App() {
               </p>
               <p>
                 <b>Cómo resolverlo:</b> iniciá <code className="data">RailWeaver.Api</code> con{' '}
-                <code className="data">dotnet run --project src/RailWeaver.Api</code> y recargá la página.
+                <code className="data">dotnet run --project src/RailWeaver.Api</code> y recargá la
+                página.
               </p>
             </div>
           </div>
         )}
 
         {appState.kind === 'ready' && (
-          <GeographicViewer region={appState.region} railway={appState.railway} onTerrainStatus={handleTerrainStatus} />
+          <GeographicViewer
+            region={appState.region}
+            railway={appState.railway}
+            onTerrainStatus={handleTerrainStatus}
+          />
         )}
       </main>
 
@@ -87,8 +102,12 @@ function App() {
             Vías: {appState.railway.source.attribution} · {appState.railway.source.license}
           </span>
         )}
-        {appState.kind === 'ready' && terrainStatus === 'available' && <span>Relieve: Copernicus DEM GLO-30 · DLR/Airbus · UE/ESA</span>}
-        {appState.kind === 'ready' && terrainStatus === 'missing' && <span>○ Relieve no disponible · visor plano</span>}
+        {appState.kind === 'ready' && terrainStatus === 'available' && (
+          <span>Relieve: Copernicus DEM GLO-30 · DLR/Airbus · UE/ESA</span>
+        )}
+        {appState.kind === 'ready' && terrainStatus === 'missing' && (
+          <span>○ Relieve no disponible · visor plano</span>
+        )}
       </footer>
     </div>
   )

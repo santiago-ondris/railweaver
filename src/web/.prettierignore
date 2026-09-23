@@ -1,0 +1,4 @@
+dist
+package-lock.json
+# Generated from DESIGN.md by `npm run tokens`; CI diffs it against a fresh export.
+src/styles/tokens.generated.css

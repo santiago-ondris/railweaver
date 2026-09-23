@@ -6,6 +6,17 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-09-22
+
+### Added
+
+- Prototipo RW-005 de corredor candidato: búsqueda A* determinista sobre una malla
+  de 16 vecinos, límite estricto de pendiente, perfil de vía y terreno, métricas
+  de trazado y cortes o rellenos implícitos.
+- Endpoint `POST /api/regions/{id}/corridors` con estados explícitos cuando no hay
+  camino o falta cota en un extremo, y herramienta de corredor en el visor con
+  selección de puntos, cálculo cancelable, detalle y perfil longitudinal.
+
 ## [0.4.0] - 2026-09-22
 
 ### Added

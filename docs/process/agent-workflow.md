@@ -81,6 +81,7 @@ Cerremos la sesión:
 4. ¿Se tomó alguna decisión que merezca ADR?
 5. ¿Corresponde actualizar CHANGELOG.md o el kickoff?
 6. Resumí lo que cambió y proponé el mensaje de commit.
+7. Si hubo cambios visuales, dame una lista breve y específica de puntos para verificar al levantar la app. No hagas verificaciones visuales: esa revisión la hago yo.
 ```
 
 Luego, el autor:

@@ -2,7 +2,9 @@ using System.Buffers.Binary;
 using RailWeaver.Api.Regions;
 using RailWeaver.Api.Railways;
 using RailWeaver.Api.Elevation;
+using RailWeaver.Api.Planning;
 using RailWeaver.Core.Geography;
+using RailWeaver.Core.Planning;
 using RailWeaver.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,6 +71,41 @@ app.MapPost("/api/regions/{id}/elevation/profile", (string id, ProfileRequest re
         new ProfileSampleResponse(sample.DistanceMeters,
             new CoordinateRequest(sample.Coordinate.Latitude, sample.Coordinate.Longitude),
             sample.ElevationMeters, sample.GradientPermille)).ToArray()));
+});
+
+app.MapPost("/api/regions/{id}/corridors", async (
+    string id, CorridorRequestBody request, RegionFileStore regions,
+    ElevationFileStore elevations, HttpContext context) =>
+{
+    var region = await regions.FindAsync(id, context.RequestAborted);
+    if (region is null) return Results.NotFound();
+    var dataset = elevations.Find(id);
+    if (dataset is null || !dataset.IsAvailable)
+        return Results.Json(new { message = elevationSetupMessage }, statusCode: 503);
+    if (request.Origin?.Latitude is not { } originLatitude
+        || request.Origin.Longitude is not { } originLongitude
+        || request.Destination?.Latitude is not { } destinationLatitude
+        || request.Destination.Longitude is not { } destinationLongitude
+        || request.MaxGradientPermille is not { } limit)
+        return Results.BadRequest(new { message = "Origin, destination, and maximum gradient are required." });
+    try
+    {
+        var origin = new GeoCoordinate(originLatitude, originLongitude);
+        var destination = new GeoCoordinate(destinationLatitude, destinationLongitude);
+        var regionBounds = new GeoBoundingBox(region.BoundingBox.West, region.BoundingBox.South,
+            region.BoundingBox.East, region.BoundingBox.North);
+        if (!regionBounds.Contains(origin) || !regionBounds.Contains(destination))
+            return Results.BadRequest(new { message = "Both endpoints must be inside the region." });
+        var grid = dataset.Grid!;
+        var searchLimit = new GeoBoundingBox(grid.West, grid.South, grid.East, grid.North);
+        var result = new CorridorFinder(grid).Find(
+            new CorridorRequest(origin, destination, limit, searchLimit), context.RequestAborted);
+        return Results.Ok(CorridorResponse.FromDomain(result));
+    }
+    catch (ArgumentException exception)
+    {
+        return Results.BadRequest(new { message = exception.Message });
+    }
 });
 
 app.MapGet("/api/regions/{id}/terrain/{level:int}/{x:int}/{y:int}",

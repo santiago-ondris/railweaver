@@ -1,10 +1,11 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (v0.4.0)
+Last updated: 2026-09-22 (RW-005 completada)
 
 ## Current milestone
 
-M0 — Real World Skeleton. V0.4 — Terrain ([RW-004](../specs/completed/RW-004-terrain-and-elevation.md)) completada.
+M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
+([RW-005](../specs/completed/RW-005-candidate-corridor.md)). Release `v0.5.0`.
 
 ## Working
 
@@ -18,14 +19,18 @@ M0 — Real World Skeleton. V0.4 — Terrain ([RW-004](../specs/completed/RW-004
 - Sistema visual definido en `DESIGN.md` (ADR-009): dirección híbrida, tema claro, tokens OKLCH; aplicado a `src/web` en RW-002. Marca (logo) en `assets/brand/`.
 - Elevación determinista en el core; formato DEM por bloques zlib y caché acotada en
   la API; endpoints de cota, perfil y terreno; relieve Cesium, cota por clic y perfil
-  longitudinal en el frontend. Los 69 tests, lint y build pasan sin descargar el DEM.
+  longitudinal en el frontend.
+- Búsqueda de corredores en `RailWeaver.Core.Planning` con A*, malla de 16 vecinos,
+  pendiente estricta y métricas; endpoint HTTP y herramienta en el visor. Pasan
+  95 tests, lint y build del frontend sin descargar el DEM. Los cuatro casos de
+  aceptación con el DEM real respondieron en ≤ 1,50 s en la máquina de desarrollo;
+  el autor confirmó el trazado visible y los datos técnicos en la aplicación.
 
 ## Next
 
-- Implementar V0.5 — Candidate corridor prototype según la spec activa
-  [RW-005](../specs/active/RW-005-candidate-corridor.md), basada en
-  [railway-gradients-and-corridor-routing.md](../research/terrain-routing/railway-gradients-and-corridor-routing.md).
-  Cierra el vertical slice de M0.
+- Definir la próxima spec y milestone antes de avanzar en código. El prototipo de
+  corredor no modela radios mínimos, suavizado, obras ni costos de suelo; no debe
+  interpretarse como un trazado ferroviario construible.
 
 ## Known problems
 

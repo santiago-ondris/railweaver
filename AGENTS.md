@@ -19,6 +19,7 @@ Rules:
 - Never invent railway behavior. Research first (`docs/research/`), document assumptions and simplifications.
 - Keep the simulation core (`src/RailWeaver.Core`) independent from API, persistence and visualization.
 - Frontend work follows `DESIGN.md` (ADR-009): use its tokens, never hard-coded colors or fonts; validate changes to it with `npx @google/design.md lint DESIGN.md`.
+- Agents must not perform visual verification (including screenshots, browser-based UI inspection, or visual comparison). The author runs the app and checks its appearance. For frontend changes, provide a concise, change-specific visual verification checklist for the author. Automated tests, lint, and build checks still apply.
 - Deterministic safety rules cannot depend on AI.
 - Do not reopen decisions recorded in ADRs without a concrete reason; new architectural decisions require an ADR.
 - Avoid speculative infrastructure: add dependencies only when a concrete requirement justifies them.

@@ -1,6 +1,6 @@
 # RW-005 — Candidate corridor prototype
 
-- Status: Active
+- Status: Completed
 - Milestone / release objetivo: V0.5 — Candidate corridor prototype → release `v0.5.0`. Cierra el vertical slice de M0 (mapa → vías → origen/destino → corredor → elevación).
 
 ## Goal
@@ -252,26 +252,55 @@ Se muestran además el paso de malla y los nodos explorados.
 
 ## Acceptance criteria
 
-- [ ] `CorridorFinder` implementa §2.1–2.7 tal como están escritos: área, paso de malla por presupuesto de nodos, 16 vecinos, conexión de extremos, restricción dura, costo con β = 1, A* con desempate `(f, índice)` y métricas.
-- [ ] Invariante de pendiente: en todos los tests con resultado `Found`, cada tramo del `TrackProfile` cumple `|pendiente| ≤ límite`.
-- [ ] Plano llano sintético con extremos a ≥ 20 km → `Found` con sinuosidad ≤ 1,05. El tope teórico de la malla de 16 vecinos es ≈ 1,03; el resto es margen para las conexiones de los extremos.
-- [ ] Plano inclinado más empinado que el límite en línea recta, pero con desarrollo lateral posible → `Found`, trazado más largo que la línea recta y límite respetado.
-- [ ] Cordón continuo intransitable → `NoFeasiblePath` sin corredor. El mismo cordón con un paso → el trazado cruza por el paso.
-- [ ] Una barrera de NoData se trata como intransitable. Un extremo sin dato → `EndpointWithoutElevation`.
-- [ ] Selección del paso: un caso de test elige 250 m, otro 500 m y otro 1.000 m según el presupuesto de 1.000.000 de nodos.
-- [ ] Dos ejecuciones con la misma entrada dan resultados idénticos (test de determinismo). Hay un test de desempate con dos caminos de igual costo.
-- [ ] Validaciones del core (1–40 ‰, dentro del límite, ≥ 1 km) con tests.
-- [ ] El endpoint responde 200 (los tres estados), 400, 404 y 503 según §3, con tests de API sobre una grilla de prueba chica.
-- [ ] El redondeo de la respuesta es el de §3.
-- [ ] En el visor: herramienta "Corredor", panel de tarea con botones de referencia y campo numérico, marcado de origen y destino, cálculo cancelable, corredor dibujado, detalle con métricas y supuestos, perfil de terreno y vía en el dock, alerta de "no existe corredor" con qué/por qué/qué probar. Todo con tokens de DESIGN.md.
-- [ ] Verificación manual con el dataset real, registrada en esta spec con resultado, paso de malla, nodos explorados y tiempo medido:
+- [x] `CorridorFinder` implementa §2.1–2.7 tal como están escritos: área, paso de malla por presupuesto de nodos, 16 vecinos, conexión de extremos, restricción dura, costo con β = 1, A* con desempate `(f, índice)` y métricas.
+- [x] Invariante de pendiente: en todos los tests con resultado `Found`, cada tramo del `TrackProfile` cumple `|pendiente| ≤ límite`.
+- [x] Plano llano sintético con extremos a ≥ 20 km → `Found` con sinuosidad ≤ 1,05. El tope teórico de la malla de 16 vecinos es ≈ 1,03; el resto es margen para las conexiones de los extremos.
+- [x] Plano inclinado más empinado que el límite en línea recta, pero con desarrollo lateral posible → `Found`, trazado más largo que la línea recta y límite respetado.
+- [x] Cordón continuo intransitable → `NoFeasiblePath` sin corredor. El mismo cordón con un paso → el trazado cruza por el paso.
+- [x] Una barrera de NoData se trata como intransitable. Un extremo sin dato → `EndpointWithoutElevation`.
+- [x] Selección del paso: un caso de test elige 250 m, otro 500 m y otro 1.000 m según el presupuesto de 1.000.000 de nodos.
+- [x] Dos ejecuciones con la misma entrada dan resultados idénticos (test de determinismo). Hay un test de desempate con dos caminos de igual costo.
+- [x] Validaciones del core (1–40 ‰, dentro del límite, ≥ 1 km) con tests.
+- [x] El endpoint responde 200 (los tres estados), 400, 404 y 503 según §3, con tests de API sobre una grilla de prueba chica.
+- [x] El redondeo de la respuesta es el de §3.
+- [x] En el visor: herramienta "Corredor", panel de tarea con botones de referencia y campo numérico, marcado de origen y destino, cálculo cancelable, corredor dibujado, detalle con métricas y supuestos, perfil de terreno y vía en el dock, alerta de "no existe corredor" con qué/por qué/qué probar. Todo con tokens de DESIGN.md. El autor confirmó el funcionamiento y el trazado visible en el mapa; no se hizo verificación visual por agentes.
+- [x] Verificación manual con el dataset real, registrada en esta spec con resultado, paso de malla, nodos explorados y tiempo medido:
   1. Llanura, Villa María → Río Cuarto con 10 ‰: se espera `Found` con sinuosidad ≤ 1,15.
   2. Córdoba → Cruz del Eje (Sierras Chicas; el Ramal A1 real llega a ~25 ‰) con 10 ‰ y con 25 ‰: se registra y explica.
   3. Córdoba → Mina Clavero (Altas Cumbres) con 10 ‰: se registra y explica.
-- [ ] Tiempo: cada caso manual responde en **≤ 20 s** en la máquina de desarrollo. Si no, se optimiza sin cambiar la semántica (por ejemplo, precalculando las cotas de los nodos en el orden de los bloques del DEM) antes de cerrar la spec.
-- [ ] `CoreBoundaryTests` en verde.
-- [ ] `dotnet test`, `npm --prefix src/web run lint` y `npm --prefix src/web run build` pasan; CI en verde sin el dataset.
+- [x] Tiempo: cada caso manual responde en **≤ 20 s** en la máquina de desarrollo. Si no, se optimiza sin cambiar la semántica (por ejemplo, precalculando las cotas de los nodos en el orden de los bloques del DEM) antes de cerrar la spec.
+- [x] `CoreBoundaryTests` en verde.
+- [x] `dotnet test`, `npm --prefix src/web run lint` y `npm --prefix src/web run build` pasan localmente sin el dataset (95 tests); CI en verde sin el dataset.
 - [ ] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README actualizados; kickoff revisado; M0 marcado como completa; tag `v0.5.0`.
+
+### Registro de verificación con dataset real (2026-09-22)
+
+DEM local de Córdoba (`elevation.rwe`, ignorado por git). Medición HTTP desde la
+máquina de desarrollo, con la API en Debug y `Invoke-RestMethod`; el tiempo incluye
+el request completo. Las coordenadas de Villa María, Río Cuarto, Córdoba y Cruz del
+Eje provienen de `stations.geojson`; Mina Clavero se ubicó en
+[GeoNames](https://www.geonames.org/3844229/mina-clavero.html).
+
+| Caso | Resultado | Paso de malla | Nodos explorados | Tiempo | Observaciones |
+|---|---|---|---|---|---|
+| Villa María → Río Cuarto, 10 ‰ | `Found` | 250 m | 217.632 | 1,45 s | Sinuosidad 1,029 ≤ 1,15; 133,52 km |
+| Córdoba → Cruz del Eje, 10 ‰ | `NoFeasiblePath` | 250 m | 139.260 | 0,75 s | No hay camino en la malla dentro del área de búsqueda con ese límite; no prueba imposibilidad física |
+| Córdoba → Cruz del Eje, 25 ‰ | `Found` | 250 m | 254.548 | 1,50 s | Sinuosidad 1,473; 144,85 km; solución matemática sin criterios de curvas, obras ni uso de suelo |
+| Córdoba → Mina Clavero, 10 ‰ | `NoFeasiblePath` | 250 m | 1 | 0,01 s | El origen no tiene una conexión transitable hacia la malla con ese límite; no prueba imposibilidad física |
+
+El autor confirmó en la aplicación que ve origen, destino, trazado y datos técnicos.
+Observó curvas no aptas para un proyecto ferroviario; radio mínimo y suavizado
+están expresamente fuera de alcance de RW-005. La lista visual queda para futuras
+revisiones humanas; los agentes no hacen verificaciones visuales.
+
+Lista visual para el autor:
+
+1. Confirmar que **Corredor** se habilita con relieve y muestra el detalle de dependencia cuando falta el DEM.
+2. Revisar el panel de tarea: botones de referencia, valor libre, validaciones, estados de origen/destino y cancelación con botón o Esc.
+3. Marcar tres puntos y comprobar que el tercero reinicia la selección.
+4. Generar un corredor y revisar línea sólida con casing, rótulos, detalle `C-NN`, métricas, supuestos y perfil de terreno/vía con huecos rotulados.
+5. Probar un caso sin camino y un extremo sin cota; confirmar la alerta y que permite ajustar parámetros.
+6. Seleccionar el corredor y luego otro lugar del mapa; revisar el retorno al detalle y a la inspección normal.
 
 ## Relevant domain docs
 

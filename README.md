@@ -48,6 +48,15 @@ grilla intermedia se eliminan al terminar. Si no vas a regenerar el dataset pod�
 borrar esa imagen con `docker image rm ghcr.io/osgeo/gdal:ubuntu-small-3.11.4`.
 Sin el dataset, el resto de la aplicación funciona normalmente con terreno plano.
 
+Con el relieve instalado, abrí **Corredor** en Herramientas, marcá origen y destino
+en el mapa, elegí una pendiente máxima entre 1 y 40 ‰ y pulsá **Generar corredor**.
+El panel de detalle muestra la longitud, pendientes, cotas y cortes o rellenos
+implícitos; el dock compara el perfil del terreno con la línea de vía. Si la malla
+no encuentra un trazado que respete el límite, la herramienta lo informa y permite
+ajustar los puntos o el límite. El resultado es preliminar: no incluye túneles,
+puentes, curvas ni costos de suelo. Los cuatro botones de pendiente son referencias
+a validar, no valores normativos certificados.
+
 La API escucha en `http://localhost:5080`; el frontend en `http://localhost:5173` y redirige `/api` a la API.
 
 Frontend: `npm --prefix src/web run lint` y `npm --prefix src/web run build`.

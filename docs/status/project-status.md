@@ -1,17 +1,19 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (reorganización del frontend, ADR-010)
+Last updated: 2026-09-22 (plan de M1)
 
 ## Current milestone
 
 M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 ([RW-005](../specs/completed/RW-005-candidate-corridor.md)). Release `v0.5.0`.
 
+M1 — Primer tren, planificada; todavía sin spec activa (ver Next).
+
 ## Working
 
 - Solución .NET 10: `RailWeaver.Core`, `RailWeaver.Api` (health, regiones,
   infraestructura ferroviaria, elevación, perfiles y terreno), `RailWeaver.Core.Tests`
-  y `RailWeaver.Api.Tests` (69 tests, incluye frontera del core, formatos, datasets y endpoints).
+  y `RailWeaver.Api.Tests` (95 tests, incluye frontera del core, formatos, datasets y endpoints).
 - Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap neutralizado, cámara inicial, red ferroviaria de Córdoba y capas controlables a partir de datasets servidos por la API. Sigue `DESIGN.md`: tokens generados, fuentes autoalojadas, marca y favicon. El código se organiza por módulos alineados con el backend y lo formatea Prettier (ADR-010).
 - Dataset ferroviario OSM de Córdoba versionado: 2.374 tramos, 169 estaciones, respuesta cruda de Overpass, metadatos y licencia ODbL 1.0; extractor offline reproducible en `tools/`.
 - PostGIS 3.5 / PostgreSQL 17 vía `compose.yaml` (sin uso desde el código todavía).
@@ -28,9 +30,19 @@ M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 
 ## Next
 
-- Definir la próxima spec y milestone antes de avanzar en código. El prototipo de
-  corredor no modela radios mínimos, suavizado, obras ni costos de suelo; no debe
-  interpretarse como un trazado ferroviario construible.
+M1 — Primer tren: diseñar un ramal, conectarlo a la red existente y ver a un tren
+recorrerlo, con un tiempo de viaje que se pueda explicar ([Kickoff](../../RailWeaver_Project_Kickoff.md) §38–39).
+Pasos propuestos, con intenciones cortas en [`specs/backlog/`](../specs/backlog/):
+
+1. RW-006 — La red como grafo (V0.6). **Siguiente:** sesión de investigación
+   sobre topología OSM y aparatos de vía; después, la spec completa.
+2. RW-007 — Curvas: radio mínimo y trazado en rectas y arcos (V0.7).
+3. RW-008 — Tren V1 y tiempo de recorrido (V0.8).
+4. RW-009 — Motor de simulación por eventos y primera circulación (V0.9).
+5. RW-010 — Construir: corredor unido a la red mediante un empalme (V0.10).
+
+El prototipo de corredor de RW-005 no modela radios mínimos, suavizado, obras ni
+costos de suelo; no debe interpretarse como un trazado ferroviario construible.
 
 ## Known problems
 
@@ -45,11 +57,11 @@ M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 
 ## Open decisions (sin ADR todavía)
 
-- Acceso a PostGIS desde .NET (Npgsql directo, Dapper, EF Core + NetTopologySuite) — cuando haya primer requisito de persistencia.
-- Framework de tests de frontend (Vitest) — cuando exista lógica de frontend.
+- Acceso a PostGIS desde .NET (Npgsql directo, Dapper, EF Core + NetTopologySuite) — previsto en RW-010, solo si guardar la red propuesta en archivos o en la sesión no alcanza.
+- Framework de tests de frontend (Vitest) — previsto en RW-009, cuando aparezca la lógica de animación y línea de tiempo.
 - Licencia del proyecto.
 - Hosting del repositorio remoto.
 
 ## Recent architectural decisions
 
-- ADR-001 Modular monolith · ADR-002 .NET 10 · ADR-003 PostgreSQL/PostGIS · ADR-004 React/TS/Vite · ADR-005 CesiumJS · ADR-006 Discrete-event simulation · ADR-007 Córdoba como dataset · ADR-008 Convención de idioma · ADR-009 Sistema visual.
+- ADR-001 Modular monolith · ADR-002 .NET 10 · ADR-003 PostgreSQL/PostGIS · ADR-004 React/TS/Vite · ADR-005 CesiumJS · ADR-006 Discrete-event simulation · ADR-007 Córdoba como dataset · ADR-008 Convención de idioma · ADR-009 Sistema visual · ADR-010 Estructura y formato del frontend.

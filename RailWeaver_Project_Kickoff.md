@@ -1360,7 +1360,7 @@ v0.5.0
 Primer candidate corridor generado (V0.5).
 ```
 
-Las etapas V0.x de la sección 39 se corresponden con los releases `v0.x.0`.
+Las etapas V0.x de la sección 39 se corresponden con los releases `v0.x.0` (tras `v0.9.0` sigue `v0.10.0`).
 
 `1.0.0` NO significa que RailWeaver haya simulado todo el dominio ferroviario.
 
@@ -1756,141 +1756,111 @@ No convertirlo automáticamente en estrategia de persistencia de toda la aplicac
 
 ---
 
-# 38. Primera milestone
+# 38. Milestones
 
-## M0 — Real World Skeleton
+Cada milestone tiene un objetivo visible expresable en una frase. Se planifican como máximo los próximos ~5 pasos: solo la spec siguiente se escribe completa; las demás son intenciones cortas en `docs/specs/backlog/`, que se revisan al cerrar cada spec.
+
+## M0 — Real World Skeleton (completada, `v0.5.0`)
+
+Demostró que RailWeaver puede representar un fragmento del mundo ferroviario sobre geografía real:
+
+```text
+real Córdoba data → map → existing railway geometry
+→ select origin/destination → basic candidate corridor → elevation profile
+```
+
+## M1 — Primer tren (activa)
 
 Objetivo:
 
-**demostrar que RailWeaver puede representar un pequeño fragmento del mundo ferroviario sobre geografía real.**
+**diseñar un ramal, conectarlo a la red existente y ver a un tren recorrerlo, con un tiempo de viaje que se pueda explicar.**
+
+Cierra por primera vez el loop `PLAN → BUILD → SIMULATE`.
 
 Vertical slice deseado:
 
 ```text
-real Córdoba data
+existing railway as a graph
 ↓
-map
+realistic alignment (curves)
 ↓
-existing railway geometry
+train + explainable running time
 ↓
-select origin/destination
+discrete-event simulation of one train
 ↓
-basic candidate corridor
-↓
-elevation profile
+build: candidate corridor joined to the network
 ```
 
 Esta milestone NO necesita:
 
-- trenes;
-- signalling;
-- interlocking;
-- timetables;
-- rolling stock;
-- workshops;
-- freight simulation;
-- passenger demand;
-- failures;
-- Jev;
-- optimization avanzada.
-
-El objetivo es crear la primera experiencia tangible.
+- varios trenes ni capacidad;
+- signalling, bloques ni interlocking;
+- timetables ni dispatching;
+- demanda de pasajeros ni logística de cargas;
+- depósitos ni talleres;
+- fallas ni escenarios estocásticos;
+- túneles, puentes ni costos de suelo;
+- Jev.
 
 ---
 
-# 39. V0 propuesta
+# 39. Etapas V0
 
-## V0.1 — Workspace
+Cada etapa `V0.x` corresponde a un release `v0.x.0` (§26.1).
 
-- repository structure;
-- .NET solution;
-- frontend workspace;
-- Docker Compose PostGIS;
-- docs structure;
-- AGENTS.md;
-- CLAUDE.md;
-- initial ADRs;
-- CI básico.
+## M0 (completadas)
 
-## V0.2 — Geographic viewer
+- V0.1 — Workspace ([RW-000](docs/specs/completed/RW-000-bootstrap.md)).
+- V0.2 — Geographic viewer ([RW-001](docs/specs/completed/RW-001-geographic-viewer.md)); `v0.2.1` aplica el sistema visual ([RW-002](docs/specs/completed/RW-002-web-visual-migration.md)).
+- V0.3 — Existing railway data ([RW-003](docs/specs/completed/RW-003-existing-railway-data.md)).
+- V0.4 — Terrain ([RW-004](docs/specs/completed/RW-004-terrain-and-elevation.md)).
+- V0.5 — Candidate corridor prototype ([RW-005](docs/specs/completed/RW-005-candidate-corridor.md)).
 
-- CesiumJS;
-- Córdoba region;
-- basic layer control;
-- geographic coordinate model.
+## M1 (propuestas)
 
-## V0.3 — Existing railway data
+Orden orientativo; cada etapa empieza con una sesión de investigación.
 
-- evaluate OSM railway extraction;
-- import/display railway geometry;
-- display basic station/rail metadata;
-- document confidence and limitations.
+- **V0.6 — Railway graph (RW-006).** Topología de la red existente a partir de los tramos OSM: nodos, conexiones y continuidad por trocha. Camino entre estaciones por la red real y su perfil. Huecos de datos visibles.
+- **V0.7 — Curvature (RW-007).** Radio mínimo y trazado del corredor en rectas y arcos (fidelidad de terreno V2).
+- **V0.8 — Train and running time (RW-008).** Material rodante V1 y cálculo determinista del tiempo de recorrido, con límites de velocidad por curva.
+- **V0.9 — Discrete-event simulation (RW-009).** Reloj, cola de eventos y una circulación con línea de tiempo reproducible ([ADR-006](docs/decisions/ADR-006-discrete-event-simulation.md)).
+- **V0.10 — Build (RW-010).** Un corredor candidato pasa a infraestructura propuesta, unida a la red mediante un empalme. Cierra M1.
 
-## V0.4 — Terrain
-
-- integrate DEM;
-- query elevation for coordinates;
-- terrain visualization;
-- elevation profile for arbitrary line.
-
-## V0.5 — Candidate corridor prototype
-
-Input:
-
-```text
-origin
-destination
-maximumGradient
-```
-
-Initial simplification:
-
-- coarse grid;
-- elevation cost;
-- maximum gradient constraint.
-
-Output:
-
-```text
-CandidateRoute
-ElevationProfile
-BasicMetrics
-```
-
-This algorithm may be intentionally simple.
-
-Correctness and observability matter more than sophistication.
+Decisiones tecnológicas previstas, a tomar con ADR solo si el requisito aparece: acceso a PostGIS desde .NET (RW-010) y framework de tests de frontend (RW-009).
 
 ---
 
-# 40. Qué NO hacer en la primera semana
+# 40. Qué NO hacer todavía
 
 No:
 
-- implementar interlocking;
-- estudiar ETCS completo;
+- planificar en detalle más allá de la spec siguiente;
+- implementar interlocking ni estudiar ETCS completo;
 - hacer modelos 3D detallados de trenes;
 - crear economy/game mechanics;
-- construir una provincia completa;
 - modelar pasajeros individuales;
 - implementar freight logistics completas;
 - diseñar microservices;
 - agregar AI runtime;
 - implementar C++;
 - diseñar todo el schema final de database;
-- crear 50 bounded contexts vacíos.
+- crear bounded contexts vacíos.
 
-La primera semana debe reducir incertidumbre técnica y producir algo visible.
+Cada spec debe reducir incertidumbre y producir algo visible.
 
 ---
 
-# 41. Primer objetivo visual
+# 41. Objetivos visibles
 
-El primer momento “RailWeaver existe” será:
+El primer momento “RailWeaver existe” (M0, cumplido en `v0.5.0`) fue:
 
 > **Abrir un mapa real de Córdoba, seleccionar dos puntos y generar/visualizar un corredor ferroviario básico que conozca la elevación del terreno.**
 
-No tiene que ser todavía un trazado ferroviario profesional.
+El de M1 será:
+
+> **Diseñar un ramal, conectarlo a la red existente y ver a un tren recorrerlo, con un tiempo de viaje que se pueda explicar.**
+
+No tiene que ser todavía una operación ferroviaria profesional.
 
 Debe ser:
 

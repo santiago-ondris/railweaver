@@ -21,4 +21,4 @@ Sin un requisito concreto que lo justifique (y un ADR cuando corresponda), no in
 - AI en runtime (incluido Jev);
 - railML, GTFS.
 
-Durante M0 no se implementan trenes, signalling, interlocking, timetables, rolling stock, talleres, simulación de cargas, demanda de pasajeros, fallas ni optimización avanzada.
+Durante M1 (Primer tren) se simula un solo tren con material rodante V1. No se implementan varios trenes ni capacidad, signalling, bloques, interlocking, timetables, dispatching, talleres, simulación de cargas, demanda de pasajeros, fallas, escenarios estocásticos, túneles, puentes, costos de suelo ni optimización avanzada.

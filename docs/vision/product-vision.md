@@ -22,6 +22,8 @@ EXPLORE → PLAN → BUILD → SCHEDULE → SIMULATE → ANALYZE → IMPROVE ↺
 - **Explicabilidad.** Más que "hay demora": qué pasó, por qué, qué fue causa y qué consecuencia.
 - **Accesible primero.** Un usuario sin conocimientos ferroviarios debe poder empezar; el modo técnico expone el mismo core con más detalle.
 
-## Primer objetivo visible
+## Objetivo visible actual
 
-Abrir un mapa real de Córdoba, seleccionar dos puntos y generar/visualizar un corredor ferroviario básico que conozca la elevación del terreno (milestone M0 — Real World Skeleton).
+Diseñar un ramal, conectarlo a la red existente y ver a un tren recorrerlo, con un tiempo de viaje que se pueda explicar (milestone M1 — Primer tren).
+
+El objetivo de M0 — Real World Skeleton (abrir un mapa real de Córdoba, seleccionar dos puntos y generar un corredor ferroviario básico que conozca la elevación del terreno) se cumplió en `v0.5.0`.

@@ -271,7 +271,7 @@ Se muestran además el paso de malla y los nodos explorados.
 - [x] Tiempo: cada caso manual responde en **≤ 20 s** en la máquina de desarrollo. Si no, se optimiza sin cambiar la semántica (por ejemplo, precalculando las cotas de los nodos en el orden de los bloques del DEM) antes de cerrar la spec.
 - [x] `CoreBoundaryTests` en verde.
 - [x] `dotnet test`, `npm --prefix src/web run lint` y `npm --prefix src/web run build` pasan localmente sin el dataset (95 tests); CI en verde sin el dataset.
-- [ ] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README actualizados; kickoff revisado; M0 marcado como completa; tag `v0.5.0`.
+- [x] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README actualizados; kickoff revisado; M0 marcado como completa; tag `v0.5.0`.
 
 ### Registro de verificación con dataset real (2026-09-22)
 

@@ -125,7 +125,8 @@ Leé AGENTS.md y la spec <spec>. Revisá el diff de esta branch contra main.
 ## 8. Mantener el orden
 
 - **Una sola spec activa.** Ideas de otras milestones van como nota corta a `docs/specs/backlog/`, no al código.
-- Antes de empezar una spec: *"¿esto avanza la vertical slice de M0 (mapa → vías → origen/destino → corredor → elevación)?"* Si no, no es lo siguiente.
+- Antes de empezar una spec: *"¿esto avanza la vertical slice de la milestone actual?"* Para M1: red como grafo → curvas → tren y tiempo de recorrido → simulación por eventos → construir un ramal unido a la red ([Kickoff](../../RailWeaver_Project_Kickoff.md) §38). Si no, no es lo siguiente.
+- **Horizonte de ~5 specs.** Solo la siguiente se escribe completa; las demás son intenciones cortas en `docs/specs/backlog/`. Al cerrar cada spec se revisa el backlog: agregar el paso siguiente, reordenar o descartar.
 - **Revisión semanal (~15 min):**
   - ¿`project-status.md` refleja la realidad?
   - ¿Lo siguiente sigue siendo lo correcto?

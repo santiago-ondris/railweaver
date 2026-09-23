@@ -587,11 +587,10 @@ mostrarse como "Sin dato".
       detalle por marca, y trocha deducida en el detalle de tramo. Todo con tokens de
       `DESIGN.md`. El autor confirma el funcionamiento; los agentes no hacen
       verificación visual y entregan una lista específica de puntos a revisar.
-- [ ] `CoreBoundaryTests` en verde. `dotnet test`, `npm --prefix src/web run lint`,
+- [x] `CoreBoundaryTests` en verde. `dotnet test`, `npm --prefix src/web run lint`,
       `format:check` y `build` pasan localmente y en CI sin el DEM.
-- [ ] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README
-      actualizados; kickoff revisado; tag `v0.6.0`. Documentación lista; tag tras
-      la comprobación del autor.
+- [x] `project-status.md`, `architecture/overview.md`, `CHANGELOG.md` y README
+      actualizados; kickoff revisado; tag `v0.6.0`.
 
 ### Resultado de implementación (2026-09-22)
 
@@ -609,6 +608,8 @@ las rutas con perfil en **≤ 5 s**. En esta máquina, el primer caso con DEM ta
 **128 tests** sin errores; lint y build del frontend también pasaron. El autor
 confirmó el funcionamiento de la interfaz el 2026-09-22 (sin verificación visual
 de agentes).
+
+El CI del commit `edb9956` en `main` terminó en verde.
 
 ## Relevant domain docs
 

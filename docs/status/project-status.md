@@ -37,7 +37,7 @@ Siguiente intención: [RW-007 — Curvas](../specs/backlog/RW-007-curvature.md).
   está disponible. El frontend incorpora herramienta Ruta y capa Diagnóstico de red.
   Los nueve recorridos de referencia y los conteos del diagnóstico coinciden con
   la spec; pasan 128 tests .NET, lint, formato y build del frontend. El autor
-  confirmó el funcionamiento en el visor.
+  confirmó el funcionamiento en el visor. El CI de `main` terminó en verde.
 
 ## Next
 

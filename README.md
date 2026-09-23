@@ -59,7 +59,7 @@ a validar, no valores normativos certificados.
 
 La API escucha en `http://localhost:5080`; el frontend en `http://localhost:5173` y redirige `/api` a la API.
 
-Frontend: `npm --prefix src/web run lint` y `npm --prefix src/web run build`.
+Frontend: `npm --prefix src/web run lint`, `npm --prefix src/web run format:check` y `npm --prefix src/web run build`.
 
 ## Documentación
 

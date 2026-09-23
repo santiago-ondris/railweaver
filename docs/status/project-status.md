@@ -1,6 +1,6 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (RW-005 completada)
+Last updated: 2026-09-22 (reorganización del frontend, ADR-010)
 
 ## Current milestone
 
@@ -12,10 +12,10 @@ M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 - Solución .NET 10: `RailWeaver.Core`, `RailWeaver.Api` (health, regiones,
   infraestructura ferroviaria, elevación, perfiles y terreno), `RailWeaver.Core.Tests`
   y `RailWeaver.Api.Tests` (69 tests, incluye frontera del core, formatos, datasets y endpoints).
-- Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap neutralizado, cámara inicial, red ferroviaria de Córdoba y capas controlables a partir de datasets servidos por la API. Sigue `DESIGN.md`: tokens generados, fuentes autoalojadas, marca y favicon.
+- Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap neutralizado, cámara inicial, red ferroviaria de Córdoba y capas controlables a partir de datasets servidos por la API. Sigue `DESIGN.md`: tokens generados, fuentes autoalojadas, marca y favicon. El código se organiza por módulos alineados con el backend y lo formatea Prettier (ADR-010).
 - Dataset ferroviario OSM de Córdoba versionado: 2.374 tramos, 169 estaciones, respuesta cruda de Overpass, metadatos y licencia ODbL 1.0; extractor offline reproducible en `tools/`.
 - PostGIS 3.5 / PostgreSQL 17 vía `compose.yaml` (sin uso desde el código todavía).
-- Documentación canónica, ADR-001…009, plantillas de specs e investigación.
+- Documentación canónica, ADR-001…010, plantillas de specs e investigación.
 - Sistema visual definido en `DESIGN.md` (ADR-009): dirección híbrida, tema claro, tokens OKLCH; aplicado a `src/web` en RW-002. Marca (logo) en `assets/brand/`.
 - Elevación determinista en el core; formato DEM por bloques zlib y caché acotada en
   la API; endpoints de cota, perfil y terreno; relieve Cesium, cota por clic y perfil

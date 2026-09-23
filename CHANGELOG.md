@@ -6,6 +6,13 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+### Changed
+
+- Frontend organizado por módulos alineados con el backend (`regions`, `railways`,
+  `elevation`, `planning`), con estilos junto a cada componente y la lógica de las
+  herramientas de perfil y corredor en hooks (ADR-010). Sin cambios de comportamiento.
+- Prettier formatea el frontend; CI verifica el formato con `npm run format:check`.
+
 ## [0.5.0] - 2026-09-22
 
 ### Added

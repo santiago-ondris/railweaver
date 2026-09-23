@@ -18,6 +18,7 @@ Rules:
 
 - Never invent railway behavior. Research first (`docs/research/`), document assumptions and simplifications.
 - Keep the simulation core (`src/RailWeaver.Core`) independent from API, persistence and visualization.
+- Frontend code is organized by module, mirroring the backend (ADR-010); run `npm --prefix src/web run format` before committing.
 - Frontend work follows `DESIGN.md` (ADR-009): use its tokens, never hard-coded colors or fonts; validate changes to it with `npx @google/design.md lint DESIGN.md`.
 - Agents must not perform visual verification (including screenshots, browser-based UI inspection, or visual comparison). The author runs the app and checks its appearance. For frontend changes, provide a concise, change-specific visual verification checklist for the author. Automated tests, lint, and build checks still apply.
 - Deterministic safety rules cannot depend on AI.
@@ -33,6 +34,7 @@ Commands (from repo root):
 ```bash
 dotnet build && dotnet test          # backend
 npm --prefix src/web run lint        # frontend lint
+npm --prefix src/web run format      # frontend format (Prettier; CI runs format:check)
 npm --prefix src/web run build       # frontend typecheck + build
 docker compose up -d --wait          # PostGIS
 ```

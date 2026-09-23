@@ -13,6 +13,7 @@ Una decisión importante que no está acá no existe. No reabrir un ADR aceptado
 | [ADR-007](ADR-007-cordoba-first-dataset.md) | Córdoba como primer dataset, no dependencia del core | Accepted |
 | [ADR-008](ADR-008-language-conventions.md) | Castellano para documentación, inglés para todo lo demás | Accepted |
 | [ADR-009](ADR-009-visual-system.md) | Sistema visual: dirección híbrida, tema claro y `DESIGN.md` | Accepted |
+| [ADR-010](ADR-010-frontend-structure-and-formatting.md) | Frontend organizado por módulos y formateado con Prettier | Accepted |
 
 ## Plantilla
 

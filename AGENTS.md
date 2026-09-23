@@ -32,9 +32,17 @@ Rules:
 Commands (from repo root):
 
 ```bash
-dotnet build && dotnet test          # backend
-npm --prefix src/web run lint        # frontend lint
+# Backend (.NET 10)
+dotnet build RailWeaver.slnx
+dotnet test tests/RailWeaver.Core.Tests
+dotnet test tests/RailWeaver.Api.Tests
+
+# Frontend (src/web)
+npm --prefix src/web run lint        # frontend lint (oxlint)
 npm --prefix src/web run format      # frontend format (Prettier; CI runs format:check)
 npm --prefix src/web run build       # frontend typecheck + build
+
+# Infraestructura
 docker compose up -d --wait          # PostGIS
 ```
+

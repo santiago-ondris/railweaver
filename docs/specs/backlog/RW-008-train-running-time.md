@@ -24,3 +24,8 @@ el core, fácil de testear.
 ## Preguntas abiertas
 
 - ¿El gráfico velocidad-distancia comparte componente con el perfil longitudinal?
+- Velocidades en curvas de la red existente: RW-007 solo mide curvas del corredor
+  (decisión 1) y entrega `Sections` con `SpeedLimitKmh`. Si el tiempo de recorrido
+  se calcula también sobre rutas de la red OSM, hay que decidir cómo estimar sus
+  curvas (la geometría de OSM tiene ruido de digitalización) o recorrerlas sin
+  límite por curva.

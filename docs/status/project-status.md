@@ -1,6 +1,6 @@
 # RailWeaver Status
 
-Last updated: 2026-09-22 (RW-006 completada; release v0.6.0)
+Last updated: 2026-09-23 (spec RW-007 escrita y activa)
 
 ## Current milestone
 
@@ -9,7 +9,7 @@ M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 
 M1 — Primer tren, en curso. V0.6 completada con
 [RW-006 — La red como grafo](../specs/completed/RW-006-railway-graph.md).
-Siguiente intención: [RW-007 — Curvas](../specs/backlog/RW-007-curvature.md).
+Spec activa: [RW-007 — Curvas](../specs/active/RW-007-curvature.md), lista para implementar.
 
 ## Working
 
@@ -45,8 +45,10 @@ M1 — Primer tren: diseñar un ramal, conectarlo a la red existente y ver a un 
 recorrerlo, con un tiempo de viaje que se pueda explicar ([Kickoff](../../RailWeaver_Project_Kickoff.md) §38–39).
 Pasos propuestos, con intenciones cortas en [`specs/backlog/`](../specs/backlog/):
 
-1. RW-007 — Curvas: radio mínimo y trazado en rectas y arcos (V0.7). Próxima spec
-   a desarrollar desde el [backlog](../specs/backlog/RW-007-curvature.md).
+1. RW-007 — Curvas: radio mínimo y trazado en rectas y arcos (V0.7). Spec
+   [activa](../specs/active/RW-007-curvature.md), sin preguntas abiertas: trocha y
+   velocidad de diseño elegidas por el usuario, regla de radio dentro de la búsqueda,
+   rasante con corte y terraplén y velocidad por tramo para RW-008.
 2. RW-008 — Tren V1 y tiempo de recorrido (V0.8).
 3. RW-009 — Motor de simulación por eventos y primera circulación (V0.9).
 4. RW-010 — Construir: corredor unido a la red mediante un empalme (V0.10).

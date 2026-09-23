@@ -60,7 +60,6 @@ costos de suelo; no debe interpretarse como un trazado ferroviario construible.
 - Acceso a PostGIS desde .NET (Npgsql directo, Dapper, EF Core + NetTopologySuite) — previsto en RW-010, solo si guardar la red propuesta en archivos o en la sesión no alcanza.
 - Framework de tests de frontend (Vitest) — previsto en RW-009, cuando aparezca la lógica de animación y línea de tiempo.
 - Licencia del proyecto.
-- Hosting del repositorio remoto.
 
 ## Recent architectural decisions
 

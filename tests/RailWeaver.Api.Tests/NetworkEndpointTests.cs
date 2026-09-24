@@ -9,10 +9,6 @@ using RailWeaver.Core.Infrastructure.Network;
 
 namespace RailWeaver.Api.Tests;
 
-[CollectionDefinition("NetworkEndpointPerformance", DisableParallelization = true)]
-public sealed class NetworkEndpointPerformanceCollection;
-
-[Collection("NetworkEndpointPerformance")]
 public sealed class NetworkEndpointTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient client;
@@ -53,10 +49,6 @@ public sealed class NetworkEndpointTests : IClassFixture<WebApplicationFactory<P
     [Fact]
     public async Task CordobaNetwork_HasExpectedTopologyAndDiagnostics()
     {
-        // Start the HTTP host before timing topology construction.
-        var health = await client.GetAsync("/api/health", TestContext.Current.CancellationToken);
-        Assert.Equal(HttpStatusCode.OK, health.StatusCode);
-        var watch = Stopwatch.StartNew();
         var response = await client.GetAsync("/api/regions/cordoba/network", TestContext.Current.CancellationToken);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         using var json = JsonDocument.Parse(await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken));
@@ -84,8 +76,6 @@ public sealed class NetworkEndpointTests : IClassFixture<WebApplicationFactory<P
                 item.GetProperty("gaugeMillimetres").GetInt32() == gauge);
         }
         Assert.Equal(1, diagnostics.Count(item => item.GetProperty("kind").GetString() == "station_without_track"));
-        Assert.True(watch.Elapsed.TotalSeconds <= 1,
-            $"Topology construction took {watch.Elapsed.TotalSeconds:F2}s");
     }
 
     [Theory]

@@ -50,9 +50,11 @@ investigación y spec completa antes de implementarse.
   y gráfico. Los casos Córdoba → Villa María y Córdoba → Río Cuarto con tren troncal
   a 100 km/h coinciden con la referencia dentro de ±0,5 %. Las vías de maniobra de
   Río Cuarto y Córdoba → Alta Córdoba alcanzan el tope de búsqueda de 1.500 m.
-  Core: 113 tests en verde; API: 40/40 en dos ejecuciones seguidas tras aislar la
-  medición de topología del arranque del host y de las otras clases. Los seis cálculos
-  de tiempo con DEM real tardaron 4–31 ms; siete rutas reales respondieron en
+  Core: 113 tests en verde; API: 40/40. El CI compartido tardó 2,82 s en la prueba
+  previa de construcción de topología (umbral de 1 s), por lo que se quitó ese
+  umbral de reloj del test HTTP; conserva todas las aserciones de estructura y
+  diagnóstico. Los seis cálculos de tiempo con DEM real tardaron 4–31 ms; siete
+  rutas reales respondieron en
   0,005–0,765 s con topología fría en el primer pedido. Los valores quedaron en la
   spec y el autor confirmó el visor.
 

@@ -9,6 +9,10 @@ using RailWeaver.Core.Infrastructure.Network;
 
 namespace RailWeaver.Api.Tests;
 
+[CollectionDefinition("NetworkEndpointPerformance", DisableParallelization = true)]
+public sealed class NetworkEndpointPerformanceCollection;
+
+[Collection("NetworkEndpointPerformance")]
 public sealed class NetworkEndpointTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient client;
@@ -49,6 +53,9 @@ public sealed class NetworkEndpointTests : IClassFixture<WebApplicationFactory<P
     [Fact]
     public async Task CordobaNetwork_HasExpectedTopologyAndDiagnostics()
     {
+        // Start the HTTP host before timing topology construction.
+        var health = await client.GetAsync("/api/health", TestContext.Current.CancellationToken);
+        Assert.Equal(HttpStatusCode.OK, health.StatusCode);
         var watch = Stopwatch.StartNew();
         var response = await client.GetAsync("/api/regions/cordoba/network", TestContext.Current.CancellationToken);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);

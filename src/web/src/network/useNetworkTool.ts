@@ -19,6 +19,10 @@ export function useNetworkTool(regionId: string) {
   const [includeDisused, setIncludeDisused] = useState(false)
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<RouteResponse | null>(null)
+  const [resultStations, setResultStations] = useState<{
+    originId: string
+    destinationId: string
+  } | null>(null)
   const [unreachable, setUnreachable] = useState<RouteResponse | null>(null)
   const [shown, setShown] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -91,6 +95,7 @@ export function useNetworkTool(regionId: string) {
       if (controller.signal.aborted) return
       if (response.status === 'found') {
         setResult(response)
+        setResultStations({ originId: origin.id, destinationId: destination.id })
         serialRef.current++
         setNumber(serialRef.current)
         setShown(true)
@@ -109,6 +114,7 @@ export function useNetworkTool(regionId: string) {
   }
   const remove = () => {
     setResult(null)
+    setResultStations(null)
     setShown(false)
   }
   const detach = useCallback(() => requestRef.current?.abort(), [])
@@ -122,6 +128,7 @@ export function useNetworkTool(regionId: string) {
     setIncludeDisused,
     busy,
     result,
+    resultStations,
     unreachable,
     shown,
     error,

@@ -17,6 +17,9 @@ import { NetworkProfile } from '../network/NetworkProfile'
 import { NetworkRouteLayer } from '../network/NetworkRouteLayer'
 import { NetworkTool } from '../network/NetworkTool'
 import { useNetworkTool } from '../network/useNetworkTool'
+import { RunningTimeTool } from '../operations/RunningTimeTool'
+import { SpeedChart } from '../operations/SpeedChart'
+import { useRunningTime } from '../operations/useRunningTime'
 import type { NetworkDiagnostic } from '../network/api'
 import { CorridorDetail } from '../planning/CorridorDetail'
 import { CorridorProfile } from '../planning/CorridorProfile'
@@ -72,11 +75,12 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
   const profileTool = useProfileTool(viewerRef, region.id)
   const corridorTool = useCorridorTool(viewerRef, region.id)
   const networkTool = useNetworkTool(region.id)
+  const runningTime = useRunningTime(region.id)
 
   // Cesium handlers are registered once per viewer; they read the tools through this ref.
-  const toolsRef = useRef({ profileTool, corridorTool, networkTool })
+  const toolsRef = useRef({ profileTool, corridorTool, networkTool, runningTime })
   useEffect(() => {
-    toolsRef.current = { profileTool, corridorTool, networkTool }
+    toolsRef.current = { profileTool, corridorTool, networkTool, runningTime }
   })
   const { detach: detachCorridor } = corridorTool
   const { detach: detachNetwork } = networkTool
@@ -110,7 +114,8 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
       }
       const interaction = new ScreenSpaceEventHandler(viewer.scene.canvas)
       interaction.setInputAction((event: ScreenSpaceEventHandler.PositionedEvent) => {
-        const { profileTool, corridorTool, networkTool } = toolsRef.current
+        const { profileTool, corridorTool, networkTool, runningTime } = toolsRef.current
+        if (runningTime.target) return
         const picked = activeViewer.scene.pick(event.position) as { id?: unknown } | undefined
         if (networkTool.isActive()) {
           const id = picked?.id as { kind?: string; item?: unknown } | undefined
@@ -146,7 +151,8 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
       }, ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
 
       const keyboard = (event: KeyboardEvent) => {
-        const { profileTool, corridorTool, networkTool } = toolsRef.current
+        const { profileTool, corridorTool, networkTool, runningTime } = toolsRef.current
+        if (event.key === 'Escape' && runningTime.target) return runningTime.cancel()
         if (event.key === 'Escape' && corridorTool.isActive()) return corridorTool.cancel()
         if (event.key === 'Escape' && networkTool.isActive()) return networkTool.cancel()
         if (!profileTool.isActive()) return
@@ -221,6 +227,7 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
 
   // The profile and corridor tools are mutually exclusive.
   const beginProfile = () => {
+    runningTime.cancel()
     corridorTool.cancel()
     corridorTool.hide()
     networkTool.cancel()
@@ -228,12 +235,14 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
     profileTool.begin()
   }
   const beginCorridor = () => {
+    runningTime.cancel()
     profileTool.reset()
     networkTool.cancel()
     networkTool.hide()
     corridorTool.begin()
   }
   const beginNetwork = () => {
+    runningTime.cancel()
     profileTool.reset()
     corridorTool.cancel()
     corridorTool.hide()
@@ -242,6 +251,12 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
   }
 
   const shownCorridor = corridorTool.shown ? corridorTool.result : null
+  const shownRoute =
+    networkTool.shown && networkTool.result?.status === 'found' ? networkTool.result : null
+  const corridorKey = `corridor:${corridorTool.number}`
+  const routeKey = `route:${networkTool.number}`
+  const corridorTime = runningTime.result?.key === corridorKey ? runningTime.result.value : null
+  const routeTime = runningTime.result?.key === routeKey ? runningTime.result.value : null
 
   return (
     <>
@@ -367,19 +382,68 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
             onCancel={networkTool.cancel}
           />
         )}
+        {runningTime.target && runningTime.presets.length > 0 && (
+          <RunningTimeTool
+            key={runningTime.target.key}
+            target={runningTime.target}
+            presets={runningTime.presets}
+            busy={runningTime.busy}
+            error={runningTime.error}
+            onCalculate={(train, speed, dwell) => {
+              void runningTime.calculate(train, speed, dwell)
+            }}
+            onCancel={runningTime.cancel}
+          />
+        )}
+        {runningTime.target && runningTime.presets.length === 0 && (
+          <aside className="running-time-tool" role="status">
+            {runningTime.error ?? 'Cargando tipos de tren…'}
+            <button type="button" className="button-secondary" onClick={runningTime.cancel}>
+              Cancelar
+            </button>
+          </aside>
+        )}
       </section>
       {shownCorridor?.corridor ? (
         <CorridorDetail
           corridor={shownCorridor.corridor}
           search={shownCorridor.search}
           id={corridorTool.number}
-          onRemove={corridorTool.remove}
+          onRemove={() => {
+            corridorTool.remove()
+            runningTime.clear()
+          }}
+          onRunningTime={() =>
+            runningTime.open({
+              kind: 'corridor',
+              key: corridorKey,
+              sections: shownCorridor.corridor!.sections,
+            })
+          }
+          runningTime={corridorTime}
+          onRemoveRunningTime={runningTime.remove}
         />
-      ) : networkTool.shown && networkTool.result?.status === 'found' ? (
+      ) : shownRoute ? (
         <NetworkRouteDetail
-          response={networkTool.result}
+          response={shownRoute}
           number={networkTool.number}
-          onRemove={networkTool.remove}
+          onRemove={() => {
+            networkTool.remove()
+            runningTime.clear()
+          }}
+          onRunningTime={() => {
+            if (!networkTool.resultStations) return
+            runningTime.open({
+              kind: 'route',
+              key: routeKey,
+              originId: networkTool.resultStations.originId,
+              destinationId: networkTool.resultStations.destinationId,
+              includeDisused: shownRoute.includeDisused,
+              reversalCount: shownRoute.route.reversals.length,
+            })
+          }}
+          runningTime={routeTime}
+          onRemoveRunningTime={runningTime.remove}
         />
       ) : diagnostic ? (
         <NetworkDiagnosticDetail item={diagnostic} onClear={() => setDiagnostic(null)} />
@@ -394,9 +458,21 @@ export function GeographicViewer({ region, railway, onTerrainStatus }: Geographi
         />
       )}
       {shownCorridor?.corridor ? (
-        <CorridorProfile corridor={shownCorridor.corridor} />
-      ) : networkTool.shown && networkTool.result?.status === 'found' ? (
-        <NetworkProfile response={networkTool.result} />
+        <div className="analysis-stack">
+          <CorridorProfile corridor={shownCorridor.corridor} />
+          {corridorTime && (
+            <SpeedChart
+              value={corridorTime}
+              padding={22}
+              axisLength={shownCorridor.corridor.terrainProfile.totalDistanceMeters}
+            />
+          )}
+        </div>
+      ) : shownRoute ? (
+        <div className="analysis-stack">
+          <NetworkProfile response={shownRoute} />
+          {routeTime && <SpeedChart value={routeTime} />}
+        </div>
       ) : (
         (profileTool.profile || profileTool.error) && (
           <ProfileDock profile={profileTool.profile} error={profileTool.error} />

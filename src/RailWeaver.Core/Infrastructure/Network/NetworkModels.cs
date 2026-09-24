@@ -10,7 +10,8 @@ public enum NetworkDirection { Forward, Backward }
 
 public sealed record GaugeResolution(string TrackId, TrackGauge Gauge, GaugeSource Source);
 public sealed record NetworkLeg(string EdgeId, string TrackId, NetworkDirection Direction, double FromOffsetMeters, double ToOffsetMeters);
-public sealed record NetworkReversal(GeoCoordinate Location, double DistanceAlongMeters);
+public sealed record NetworkReversal(GeoCoordinate Location, double DistanceAlongMeters,
+    double ManeuverTrackMeters);
 public sealed record NetworkStop(string EdgeId, string TrackId, double OffsetMeters, GeoCoordinate Location);
 public sealed record NetworkSegment(string TrackId, string? Name, string? LineReference, TrackOperationalStatus Status, double LengthMeters);
 public sealed record NetworkDistanceByStatus(double Active, double Disused);

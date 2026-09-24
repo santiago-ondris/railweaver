@@ -175,7 +175,7 @@ public sealed class NetworkRouteFinder(RailwayTopology topology)
                     reversal, item.Index), outgoing.EdgeIndex * 2 + direction);
             }
         }
-        return best is null ? null : BuildRoute(network, best, request);
+        return best is null ? null : BuildRoute(network, search.Available, best, request);
     }
 
     private static bool Better(Candidate candidate, Candidate? best) => best is null
@@ -184,7 +184,7 @@ public sealed class NetworkRouteFinder(RailwayTopology topology)
         || (candidate.Reversals == best.Reversals && candidate.Meters == best.Meters
             && candidate.Index < best.Index);
 
-    private static NetworkRoute BuildRoute(RailwayNetwork network, Candidate candidate,
+    private static NetworkRoute BuildRoute(RailwayNetwork network, bool[] available, Candidate candidate,
         NetworkRouteRequest request)
     {
         var chain = new List<(State State, int Index)>();
@@ -215,7 +215,25 @@ public sealed class NetworkRouteFinder(RailwayTopology topology)
                 : partIndex % 2 == 0 ? edge.LengthMeters : 0;
             var length = Math.Abs(to - part.FromOffset);
             if (part.ReversalBefore)
-                reversals.Add(new(partIndex % 2 == 0 ? edge.Geometry[0] : edge.Geometry[^1], distance));
+            {
+                var nodeIndex = partIndex % 2 == 0 ? edge.StartNode : edge.EndNode;
+                var previousIndex = part.PreviousIndex / 2;
+                var node = network.Nodes[nodeIndex];
+                var incoming = node.Legs.Single(leg => leg.EdgeIndex == previousIndex
+                    && leg.AtStart == (part.PreviousIndex % 2 == 1));
+                var outgoing = node.Legs.Single(leg => leg.EdgeIndex == partIndex / 2
+                    && leg.AtStart == (partIndex % 2 == 0));
+                var maneuver = node.Legs.Where(third => third != incoming && third != outgoing
+                    && available[third.EdgeIndex]
+                    && NetworkGeometry.Deflection(incoming.BearingDegrees, third.BearingDegrees)
+                        <= NetworkRules.MaxDeflectionDegrees
+                    && NetworkGeometry.Deflection(third.BearingDegrees, outgoing.BearingDegrees)
+                        <= NetworkRules.MaxDeflectionDegrees)
+                    .Select(third => (third.EdgeIndex, Length: ManeuverLength(network, available,
+                        nodeIndex, third)))
+                    .OrderByDescending(option => option.Length).ThenBy(option => option.EdgeIndex).First();
+                reversals.Add(new(node.Location, distance, maneuver.Length));
+            }
             legs.Add(new(edge.Id, edge.TrackId,
                 partIndex % 2 == 0 ? NetworkDirection.Forward : NetworkDirection.Backward,
                 part.FromOffset, to));
@@ -234,6 +252,34 @@ public sealed class NetworkRouteFinder(RailwayTopology topology)
             ElevationProfileBuilder.GreatCircleDistanceMeters(request.Origin.Location,
                 request.Destination.Location), reversals, new(active, disused), inferred,
             segments, chain[0].State.Origin, candidate.Destination);
+    }
+
+    private static double ManeuverLength(RailwayNetwork network, bool[] available,
+        int startNode, NetworkLegAtNode first)
+    {
+        const double maximum = 1500;
+        var nodeIndex = startNode;
+        var outgoing = first;
+        var length = 0d;
+        while (length < maximum)
+        {
+            var edge = network.Edges[outgoing.EdgeIndex];
+            length += edge.LengthMeters;
+            if (length >= maximum) return maximum;
+            nodeIndex = outgoing.AtStart ? edge.EndNode : edge.StartNode;
+            var node = network.Nodes[nodeIndex];
+            var incoming = node.Legs.Single(leg => leg.EdgeIndex == outgoing.EdgeIndex
+                && leg.AtStart != outgoing.AtStart);
+            var next = node.Legs.Where(leg => leg != incoming && available[leg.EdgeIndex])
+                .Select(leg => (Leg: leg, Deflection: NetworkGeometry.Deflection(
+                    incoming.BearingDegrees, leg.BearingDegrees)))
+                .Where(option => option.Deflection <= NetworkRules.MaxDeflectionDegrees)
+                .OrderBy(option => option.Deflection).ThenBy(option => option.Leg.EdgeIndex)
+                .FirstOrDefault();
+            if (next.Leg is null) break;
+            outgoing = next.Leg;
+        }
+        return length;
     }
 
     private sealed record NetworkSearch(RailwayNetwork Network, bool[] Available,

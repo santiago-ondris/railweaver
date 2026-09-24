@@ -92,6 +92,7 @@ public sealed record NetworkRouteResponse
                 {
                     location = Point(reversal.Location),
                     distanceAlongMeters = Meters(reversal.DistanceAlongMeters),
+                    maneuverTrackMeters = Meters(reversal.ManeuverTrackMeters),
                 }).ToArray(),
                 distanceByStatus = new
                 {

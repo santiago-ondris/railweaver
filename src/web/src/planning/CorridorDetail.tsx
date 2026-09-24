@@ -1,4 +1,6 @@
 import { DetailRow } from '../shared/DetailRow'
+import { RunningTimeResult } from '../operations/RunningTimeResult'
+import type { RunningTime } from '../operations/api'
 import type { CandidateCorridor, CorridorResponse } from './api'
 import { formatDistance, formatMeters, formatNumber } from './format'
 
@@ -7,11 +9,17 @@ export function CorridorDetail({
   search,
   id,
   onRemove,
+  onRunningTime,
+  runningTime,
+  onRemoveRunningTime,
 }: {
   corridor: CandidateCorridor
   search: CorridorResponse['search']
   id: number
   onRemove: () => void
+  onRunningTime: () => void
+  runningTime: RunningTime | null
+  onRemoveRunningTime: () => void
 }) {
   const metric = corridor.metrics
   return (
@@ -91,6 +99,10 @@ export function CorridorDetail({
         Curvas circulares sin transiciones; peralte supuesto, no dibujado. Corte y terraplén sin
         calcular la obra. Sin túneles, puentes ni costos de suelo. Valores de referencia, a validar.
       </p>
+      {runningTime && <RunningTimeResult value={runningTime} onRemove={onRemoveRunningTime} />}
+      <button className="button-secondary" type="button" onClick={onRunningTime}>
+        Tiempo de recorrido
+      </button>
       <button className="button-secondary detail-close" type="button" onClick={onRemove}>
         Quitar corredor
       </button>

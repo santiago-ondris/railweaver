@@ -1,6 +1,6 @@
 # Arquitectura — overview
 
-Estado: v0.7.0 (corredores en rectas y arcos). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
+Estado: v0.8.0 (tren V1 y tiempo de recorrido). Contexto conceptual completo: [Kickoff](../../RailWeaver_Project_Kickoff.md) §18–23.
 
 ## Forma general
 
@@ -22,11 +22,11 @@ Modular monolith ([ADR-001](../decisions/ADR-001-modular-monolith.md)).
 
 | Proyecto | Rol | Puede depender de |
 |---|---|---|
-| `src/RailWeaver.Core` | Lógica de RailWeaver. Expone identidad/versión, value objects geográficos WGS84, elevación/perfiles, infraestructura ferroviaria, corredores candidatos en `Planning` y topología/rutas en `Infrastructure.Network`. | BCL de .NET |
-| `src/RailWeaver.Api` | Traduce HTTP ↔ core. Expone health, regiones, ferrocarriles, cotas, perfiles, heightmaps, corredores y red/rutas; lee la grilla DEM por bloques y guarda una topología por región en memoria. | Core, ASP.NET Core |
+| `src/RailWeaver.Core` | Lógica de RailWeaver. Expone identidad/versión, value objects geográficos WGS84, elevación/perfiles, infraestructura ferroviaria, corredores candidatos en `Planning`, topología/rutas en `Infrastructure.Network`, trenes V1 en `RollingStock` y tiempo de recorrido en `Operations`. | BCL de .NET |
+| `src/RailWeaver.Api` | Traduce HTTP ↔ core. Expone health, regiones, ferrocarriles, cotas, perfiles, heightmaps, corredores, red/rutas y tiempo de recorrido; lee la grilla DEM por bloques y guarda una topología por región en memoria. | Core, ASP.NET Core |
 | `tests/RailWeaver.Core.Tests` | Unit tests del core, datasets y tests de frontera. | Core, xUnit v3 |
 | `tests/RailWeaver.Api.Tests` | Tests HTTP de los endpoints y sus contratos. | API, ASP.NET Core testing, xUnit v3 |
-| `src/web` | UI React y visor CesiumJS; su lenguaje visual lo define [`DESIGN.md`](../../DESIGN.md) ([ADR-009](../decisions/ADR-009-visual-system.md)). Obtiene regiones, infraestructura, terreno y rutas vía API y solicita teselas de OpenStreetMap directamente desde el navegador. Se organiza en módulos (`regions`, `railways`, `elevation`, `planning`, `network`), más `app`, `viewer` y `shared` ([ADR-010](../decisions/ADR-010-frontend-structure-and-formatting.md)). | API por HTTP, CesiumJS, OpenStreetMap |
+| `src/web` | UI React y visor CesiumJS; su lenguaje visual lo define [`DESIGN.md`](../../DESIGN.md) ([ADR-009](../decisions/ADR-009-visual-system.md)). Obtiene regiones, infraestructura, terreno, rutas y tiempos vía API y solicita teselas de OpenStreetMap directamente desde el navegador. Se organiza en módulos (`regions`, `railways`, `elevation`, `planning`, `network`, `operations`), más `app`, `viewer` y `shared` ([ADR-010](../decisions/ADR-010-frontend-structure-and-formatting.md)). | API por HTTP, CesiumJS, OpenStreetMap |
 
 El DEM de cada región es un artefacto local fuera de git. La receta offline usa GDAL
 en Docker; en runtime la API solo usa `ZLibStream` de la BCL, descomprime los bloques
@@ -43,6 +43,11 @@ coordenadas compartidas, resuelve trochas sin dato por conexión y calcula diagn
 `NetworkRouteFinder` busca sobre aristas dirigidas con costo (inversiones, metros),
 según la regla angular de [RW-006](../specs/completed/RW-006-railway-graph.md). La API
 construye una topología por región al primer pedido, sin persistir un grafo separado.
+`RollingStock` valida los cuatro datos del tren V1. `Operations.RunningTimeCalculator`
+calcula fases exactas de aceleración, crucero y frenado por etapas, aplica los límites
+de la vía y la regla de la cola, e incluye maniobras de inversión. La API solo traduce
+los pedidos y las respuestas; vuelve a buscar rutas y recibe las secciones del
+corredor desde el navegador. El cálculo no requiere DEM.
 
 ## Reglas de dependencia
 

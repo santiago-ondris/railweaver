@@ -1,23 +1,23 @@
 # RailWeaver Status
 
-Last updated: 2026-09-23 (RW-007 completada, v0.7.0)
+Last updated: 2026-09-23 (RW-008 completada, release v0.8.0)
 
 ## Current milestone
 
 M0 — Real World Skeleton, completada con V0.5 — Candidate corridor prototype
 ([RW-005](../specs/completed/RW-005-candidate-corridor.md)). Release `v0.5.0`.
 
-M1 — Primer tren, en curso. V0.7 completada con
-[RW-007 — Curvas](../specs/completed/RW-007-curvature.md). Siguiente: RW-008.
-El autor comprobó Córdoba → Nono con parámetros de montaña y de pasajeros,
-confirmó curvas naturales, rótulos legibles en las Altas Cumbres y el progreso y
-los errores visibles durante la búsqueda.
+M1 — Primer tren, en curso. V0.8 completada con
+[RW-008 — Tren V1 y tiempo de recorrido](../specs/completed/RW-008-train-running-time.md).
+La siguiente intención es [RW-009 — Motor de simulación por eventos y primera
+circulación](../specs/backlog/RW-009-discrete-event-simulation.md); requiere su
+investigación y spec completa antes de implementarse.
 
 ## Working
 
 - Solución .NET 10: `RailWeaver.Core`, `RailWeaver.Api` (health, regiones,
   infraestructura ferroviaria, red, rutas, elevación, perfiles y terreno),
-  `RailWeaver.Core.Tests` y `RailWeaver.Api.Tests` (136 tests, incluye frontera del
+  `RailWeaver.Core.Tests` y `RailWeaver.Api.Tests` (153 tests, incluye frontera del
   core, formatos, datasets y endpoints).
 - Frontend React + TS + Vite en `src/web`, con visor CesiumJS, OpenStreetMap neutralizado, cámara inicial, red ferroviaria de Córdoba y capas controlables a partir de datasets servidos por la API. Sigue `DESIGN.md`: tokens generados, fuentes autoalojadas, marca y favicon. El código se organiza por módulos alineados con el backend y lo formatea Prettier (ADR-010).
 - Dataset ferroviario OSM de Córdoba versionado: 2.374 tramos, 169 estaciones, respuesta cruda de Overpass, metadatos y licencia ODbL 1.0; extractor offline reproducible en `tools/`.
@@ -44,6 +44,17 @@ los errores visibles durante la búsqueda.
   válidos e inválidos, curvas, controles y mensajes de progreso y error. La prueba
   de tiempo de topología de RW-006 falló intermitentemente en Debug (~1,1 s contra
   un umbral de 1 s) durante la medición y pasó al repetirla.
+- RW-008 completada: el core calcula tiempos y perfiles de velocidad para corredores
+  y rutas con tres trenes editables, regla de la cola, maniobras e inversiones. La
+  API expone presets y dos endpoints de cálculo; el visor incorpora panel, resultado
+  y gráfico. Los casos Córdoba → Villa María y Córdoba → Río Cuarto con tren troncal
+  a 100 km/h coinciden con la referencia dentro de ±0,5 %. Las vías de maniobra de
+  Río Cuarto y Córdoba → Alta Córdoba alcanzan el tope de búsqueda de 1.500 m.
+  Core: 113 tests en verde; API: 40/40 en dos ejecuciones seguidas tras aislar la
+  medición de topología del arranque del host y de las otras clases. Los seis cálculos
+  de tiempo con DEM real tardaron 4–31 ms; siete rutas reales respondieron en
+  0,005–0,765 s con topología fría en el primer pedido. Los valores quedaron en la
+  spec y el autor confirmó el visor.
 
 ## Next
 
@@ -51,9 +62,8 @@ M1 — Primer tren: diseñar un ramal, conectarlo a la red existente y ver a un 
 recorrerlo, con un tiempo de viaje que se pueda explicar ([Kickoff](../../RailWeaver_Project_Kickoff.md) §38–39).
 Pasos propuestos, con intenciones cortas en [`specs/backlog/`](../specs/backlog/):
 
-1. RW-008 — Tren V1 y tiempo de recorrido (V0.8).
-2. RW-009 — Motor de simulación por eventos y primera circulación (V0.9).
-3. RW-010 — Construir: corredor unido a la red mediante un empalme (V0.10).
+1. RW-009 — Motor de simulación por eventos y primera circulación (V0.9).
+2. RW-010 — Construir: corredor unido a la red mediante un empalme (V0.10).
 
 RW-007 es una aproximación territorial de fidelidad V2: no incluye clotoides ni
 proyecto ejecutivo de obras o costos de suelo.

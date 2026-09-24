@@ -1,4 +1,6 @@
 import { DetailRow } from '../shared/DetailRow'
+import { RunningTimeResult } from '../operations/RunningTimeResult'
+import type { RunningTime } from '../operations/api'
 import type { NetworkDiagnostic, RouteResponse } from './api'
 
 const formatDistance = (meters: number) =>
@@ -10,10 +12,16 @@ export function NetworkRouteDetail({
   response,
   number,
   onRemove,
+  onRunningTime,
+  runningTime,
+  onRemoveRunningTime,
 }: {
   response: Extract<RouteResponse, { status: 'found' }>
   number: number
   onRemove: () => void
+  onRunningTime: () => void
+  runningTime: RunningTime | null
+  onRemoveRunningTime: () => void
 }) {
   const route = response.route
   const lines = [
@@ -83,8 +91,13 @@ export function NetworkRouteDetail({
         </div>
       )}
       <p className="detail-hint">
-        Camino sobre la geometría de OpenStreetMap. Sin velocidades ni tiempos de viaje.
+        Camino sobre la geometría de OpenStreetMap. La velocidad de la vía se elige al calcular el
+        tiempo de recorrido.
       </p>
+      {runningTime && <RunningTimeResult value={runningTime} onRemove={onRemoveRunningTime} />}
+      <button type="button" className="button-secondary" onClick={onRunningTime}>
+        Tiempo de recorrido
+      </button>
       <button type="button" className="button-secondary detail-close" onClick={onRemove}>
         Quitar ruta
       </button>

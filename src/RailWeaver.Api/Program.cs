@@ -4,11 +4,14 @@ using RailWeaver.Api.Railways;
 using RailWeaver.Api.Elevation;
 using RailWeaver.Api.Planning;
 using RailWeaver.Api.Network;
+using RailWeaver.Api.Operations;
 using RailWeaver.Core.Geography;
 using RailWeaver.Core.Infrastructure.Network;
 using RailWeaver.Core.Planning;
 using RailWeaver.Core.Infrastructure;
 using RailWeaver.Core;
+using RailWeaver.Core.Operations;
+using RailWeaver.Core.RollingStock;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +31,78 @@ app.MapGet("/api/health", () => Results.Ok(new
     name = RailWeaverInfo.Name,
     version = RailWeaverInfo.Version,
 }));
+
+app.MapGet("/api/rolling-stock/presets", () => Results.Ok(RollingStockPresets.All.Select(preset => new
+{
+    id = preset.Id, name = preset.Train.Name, lengthMeters = preset.Train.LengthMeters,
+    maxSpeedKmh = preset.Train.MaxSpeedKmh,
+    accelerationMetersPerSecondSquared = preset.Train.AccelerationMetersPerSecondSquared,
+    brakingMetersPerSecondSquared = preset.Train.BrakingMetersPerSecondSquared,
+}).ToArray()));
+
+app.MapPost("/api/regions/{id}/corridors/running-time", async (
+    string id, CorridorRunningTimeRequest request, RegionFileStore regions, HttpContext context) =>
+{
+    if (await regions.FindAsync(id, context.RequestAborted) is null) return Results.NotFound();
+    try
+    {
+        if (request.Train is null || request.Sections is not { Count: > 0 })
+            throw new ArgumentException("Train and nonempty sections are required.");
+        var train = request.Train.ToDomain();
+        var sections = new List<SpeedSection>();
+        var previous = 0d;
+        foreach (var input in request.Sections)
+        {
+            if (input.FromMeters is not { } from || input.ToMeters is not { } to
+                || input.SpeedLimitKmh is not { } speed || !double.IsFinite(from)
+                || !double.IsFinite(to) || Math.Abs(from - previous) > 0.02
+                || !double.IsFinite(speed) || speed <= 0 || to <= previous)
+                throw new ArgumentException("Sections must be contiguous and have positive limits.");
+            var source = input.Kind switch
+            {
+                "tangent" => SpeedLimitSource.DesignSpeed,
+                "curve" => SpeedLimitSource.Curve,
+                _ => throw new ArgumentException("Section kind must be tangent or curve."),
+            };
+            sections.Add(new(previous, to, speed, source, input.RadiusMeters));
+            previous = to;
+        }
+        var result = RunningTimeCalculator.Calculate(new(sections, [], train, 0));
+        return Results.Ok(RunningTimeResponse.FromDomain(train, result));
+    }
+    catch (ArgumentException exception) { return Results.BadRequest(new { message = exception.Message }); }
+});
+
+app.MapPost("/api/regions/{id}/network/routes/running-time", async (
+    string id, NetworkRunningTimeRequest request, RailwayNetworkStore networks, HttpContext context) =>
+{
+    var dataset = await networks.FindAsync(id);
+    if (dataset is null) return Results.NotFound();
+    try
+    {
+        if (request.Train is null || request.LineSpeedKmh is not { } lineSpeed
+            || !double.IsFinite(lineSpeed) || lineSpeed is < 5 or > 160
+            || request.ReversalDwellMinutes is not { } dwell
+            || !double.IsFinite(dwell) || dwell is < 0 or > 120)
+            throw new ArgumentException("Train, line speed (5–160 km/h), and reversal dwell (0–120 min) are required.");
+        var train = request.Train.ToDomain();
+        if (string.IsNullOrWhiteSpace(request.OriginStationId)
+            || string.IsNullOrWhiteSpace(request.DestinationStationId)
+            || !dataset.Stations.TryGetValue(request.OriginStationId, out var origin)
+            || !dataset.Stations.TryGetValue(request.DestinationStationId, out var destination))
+            throw new ArgumentException("Both station ids must belong to the region.");
+        var found = new NetworkRouteFinder(dataset.Topology).Find(
+            new(origin, destination, request.IncludeDisused), context.RequestAborted);
+        if (found.Route is not { } route)
+            throw new ArgumentException("No hay ruta entre esas estaciones");
+        var sections = new SpeedSection[] { new(0, route.LengthMeters, lineSpeed, SpeedLimitSource.LineSpeed) };
+        var reversals = route.Reversals.Select(reversal =>
+            new ReversalPoint(reversal.DistanceAlongMeters, reversal.ManeuverTrackMeters)).ToArray();
+        var result = RunningTimeCalculator.Calculate(new(sections, reversals, train, dwell * 60));
+        return Results.Ok(RunningTimeResponse.FromDomain(train, result));
+    }
+    catch (ArgumentException exception) { return Results.BadRequest(new { message = exception.Message }); }
+});
 
 app.MapGet(
     "/api/regions/{id}",

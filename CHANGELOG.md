@@ -6,6 +6,22 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-09-23
+
+### Added
+
+- RW-008: tres trenes de referencia editables y cálculo determinista del tiempo de
+  recorrido sobre corredores y rutas, con perfil de velocidad, regla de la cola,
+  desglose por régimen y curva más costosa.
+- El visor permite calcular y quitar el tiempo desde el detalle del corredor o la
+  ruta, muestra el gráfico de velocidad y avisa si el tren no entra en la vía de
+  maniobra de una inversión.
+
+### Changed
+
+- Las rutas informan el largo disponible para cada maniobra. Los límites de
+  velocidad de curva de los corredores se redondean hacia abajo a 0,1 km/h.
+
 ## [0.7.0] - 2026-09-23
 
 ### Added

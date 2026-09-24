@@ -37,7 +37,8 @@ public sealed record CorridorResponse(string Status, CorridorSearchResponse Sear
                 Meters(section.FromMeters), Meters(section.ToMeters),
                 section.RadiusMeters is { } radius ? Meters(radius) : null,
                 section.DeflectionDegrees is { } deflection ? Decimal(deflection) : null,
-                section.Direction?.ToString().ToLowerInvariant(), Decimal(section.SpeedLimitKmh),
+                section.Direction?.ToString().ToLowerInvariant(),
+                Math.Floor(section.SpeedLimitKmh * 10) / 10,
                 section.CurveMidpoint is { } midpoint ? new CorridorCoordinateRequest(midpoint.Latitude, midpoint.Longitude) : null)).ToArray(),
             corridor.TrackProfile.Select(point => new TrackProfilePointResponse(
                 Meters(point.DistanceMeters), point.Coordinate.Latitude, point.Coordinate.Longitude,

@@ -42,16 +42,7 @@ export type CorridorMetrics = {
 }
 export type CandidateCorridor = {
   alignment: Coordinate[]
-  sections: Array<{
-    kind: 'tangent' | 'curve'
-    fromMeters: number
-    toMeters: number
-    radiusMeters: number | null
-    deflectionDegrees: number | null
-    direction: 'left' | 'right' | null
-    speedLimitKmh: number
-    curveMidpoint: Coordinate | null
-  }>
+  sections: AlignmentSection[]
   trackProfile: TrackProfilePoint[]
   terrainProfile: {
     totalDistanceMeters: number
@@ -63,6 +54,16 @@ export type CandidateCorridor = {
     }>
   }
   metrics: CorridorMetrics
+}
+export type AlignmentSection = {
+  kind: 'tangent' | 'curve'
+  fromMeters: number
+  toMeters: number
+  radiusMeters: number | null
+  deflectionDegrees: number | null
+  direction: 'left' | 'right' | null
+  speedLimitKmh: number
+  curveMidpoint: Coordinate | null
 }
 export type CorridorResponse = {
   status: 'found' | 'no_feasible_path' | 'endpoint_without_elevation'

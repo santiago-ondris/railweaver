@@ -64,8 +64,16 @@ en el mapa o por nombre y pulsá **Buscar ruta**. La herramienta muestra la troc
 la distancia, las inversiones de marcha y el perfil del terreno cuando hay DEM.
 Podés incluir vías en desuso; las abandonadas nunca se usan. La capa **Diagnóstico
 de red** señala posibles cortes de datos, extremos, uniones cerradas y vías sin
-trocha. El cálculo sigue la geometría de OpenStreetMap: no estima velocidades ni
-tiempos de viaje.
+trocha. El cálculo sigue la geometría de OpenStreetMap.
+
+En el detalle de un corredor o una ruta, pulsá **Tiempo de recorrido**. Elegí uno
+de los tres trenes de referencia o editá sus datos. Para una ruta existente,
+ingresá la velocidad de la vía (OSM no la informa de forma suficiente) y, si hay
+inversiones, los minutos detenido en cada una. **Calcular** agrega el tiempo,
+el desglose de marcha y el gráfico de velocidad debajo del perfil. La maniobra
+de inversión suma el largo del tren; si la vía disponible es más corta, el
+detalle muestra una advertencia. El cálculo es de marcha pura: no incluye
+pendiente, paradas intermedias ni márgenes de horario.
 
 La API escucha en `http://localhost:5080`; el frontend en `http://localhost:5173` y redirige `/api` a la API.
 

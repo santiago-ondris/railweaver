@@ -44,7 +44,11 @@ export type NetworkRoute = {
   geometry: RailwayCoordinate[]
   lengthMeters: number
   straightLineDistanceMeters: number
-  reversals: { location: RailwayCoordinate; distanceAlongMeters: number }[]
+  reversals: {
+    location: RailwayCoordinate
+    distanceAlongMeters: number
+    maneuverTrackMeters: number
+  }[]
   distanceByStatus: { active: number; disused: number }
   inferredGaugeDistanceMeters: number
   segments: {

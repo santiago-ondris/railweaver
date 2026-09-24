@@ -1,0 +1,102 @@
+.running-time-tool {
+  position: absolute;
+  z-index: 3;
+  top: var(--rw-spacing-md);
+  left: var(--rw-spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rw-spacing-sm);
+  width: min(33vw, 350px);
+  max-height: calc(100% - var(--rw-spacing-lg));
+  padding: var(--rw-spacing-lg);
+  overflow-y: auto;
+  border: 1px solid var(--rw-color-border-strong);
+  background: var(--rw-color-panel);
+}
+.running-time-tool h2 {
+  margin: 0;
+  font-size: var(--rw-text-title-size);
+}
+.operations-presets {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--rw-spacing-xs);
+}
+.operations-presets [aria-pressed='true'] {
+  background: var(--rw-color-primary);
+  color: var(--rw-color-on-primary);
+}
+.operations-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rw-spacing-xxs);
+}
+.operations-field input {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid var(--rw-color-border-strong);
+  border-radius: var(--rw-rounded-sm);
+  background: var(--rw-color-raised);
+  color: var(--rw-color-ink);
+}
+.operations-field-label {
+  margin: 0;
+  font-weight: var(--rw-text-body-strong-weight);
+}
+.operations-error {
+  margin: 0;
+  color: var(--rw-color-alarm);
+}
+.operations-actions {
+  display: flex;
+  gap: var(--rw-spacing-xs);
+}
+.operations-result {
+  padding-top: var(--rw-spacing-md);
+  border-top: 1px solid var(--rw-color-border-subtle);
+}
+.operations-result h3 {
+  font-size: var(--rw-text-title-size);
+}
+.analysis-stack {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  overflow-y: auto;
+  background: var(--rw-color-panel);
+}
+.analysis-stack .analysis-dock {
+  grid-column: auto;
+  grid-row: auto;
+}
+.speed-chart {
+  padding: var(--rw-spacing-md);
+  border-top: 1px solid var(--rw-color-border-subtle);
+}
+.speed-chart svg {
+  display: block;
+  width: 100%;
+  height: 130px;
+}
+.speed-chart svg text {
+  fill: var(--rw-color-ink-subtle);
+  font-family: var(--rw-font-data);
+  font-size: 11px;
+}
+.speed-axis,
+.speed-reversal {
+  stroke: var(--rw-color-border-subtle);
+}
+.speed-maximum {
+  stroke: var(--rw-color-border-subtle);
+  stroke-dasharray: 3 3;
+}
+.speed-limit {
+  fill: none;
+  stroke: var(--rw-color-ink-subtle);
+  stroke-width: 1.5;
+}
+.speed-train {
+  fill: none;
+  stroke: var(--rw-color-primary);
+  stroke-width: 2;
+}

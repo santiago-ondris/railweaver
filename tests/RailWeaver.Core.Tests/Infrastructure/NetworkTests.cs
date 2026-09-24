@@ -81,6 +81,45 @@ public sealed class NetworkTests
         Assert.Equal(NetworkRouteStatus.Found, reversed.Status);
         Assert.Single(reversed.Route!.Reversals);
         Assert.Equal(P(0, 0), reversed.Route.Reversals[0].Location);
+        Assert.InRange(reversed.Route.Reversals[0].ManeuverTrackMeters, 1000, 1200);
+    }
+
+    [Fact]
+    public void ManeuverTrack_FollowsDirectContinuationAndStopsAtMaximum()
+    {
+        var tracks = new[]
+        {
+            Track("trunk", TrackGauge.Broad, P(0, -.005), P(0, 0)),
+            Track("continuation", TrackGauge.Broad, P(0, -.02), P(0, -.005)),
+            Track("direct", TrackGauge.Broad, P(0, 0), P(0, .01)),
+            Track("diverge", TrackGauge.Broad, P(0, 0), P(.003, .01)),
+        };
+        var direct = Station("direct", P(0, .01));
+        var diverge = Station("diverge", P(.003, .01));
+        var topology = RailwayNetworkBuilder.Build(tracks, [direct, diverge], Bounds);
+        var route = new NetworkRouteFinder(topology).Find(new(direct, diverge, false),
+            TestContext.Current.CancellationToken).Route;
+        Assert.NotNull(route);
+        Assert.Equal(1500, Assert.Single(route.Reversals).ManeuverTrackMeters);
+    }
+
+    [Fact]
+    public void ManeuverTrack_ChoosesTheLongerValidThirdLeg()
+    {
+        var tracks = new[]
+        {
+            Track("short", TrackGauge.Broad, P(0, -.003), P(0, 0)),
+            Track("long", TrackGauge.Broad, P(.002, -.01), P(0, 0)),
+            Track("direct", TrackGauge.Broad, P(0, 0), P(0, .01)),
+            Track("diverge", TrackGauge.Broad, P(0, 0), P(.003, .01)),
+        };
+        var direct = Station("direct", P(0, .01));
+        var diverge = Station("diverge", P(.003, .01));
+        var topology = RailwayNetworkBuilder.Build(tracks, [direct, diverge], Bounds);
+        var route = new NetworkRouteFinder(topology).Find(new(direct, diverge, false),
+            TestContext.Current.CancellationToken).Route;
+        Assert.NotNull(route);
+        Assert.InRange(Assert.Single(route.Reversals).ManeuverTrackMeters, 1000, 1200);
     }
 
     [Fact]
